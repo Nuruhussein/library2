@@ -68,11 +68,13 @@ Route::get('/admin/categories/{category}', [CategoryController::class, 'show'])-
 
 
     Route::get('/store', [BookController::class, 'storage'])->name('store.index');
+    Route::get('/store/books/{book}', [BookController::class, 'storagedetail'])->name('store.index');
 
+     
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
 Route::post('/books', [BookController::class, 'store'])->name('books.store');
-Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
+Route::get('/admin/books/{book}', [BookController::class, 'show'])->name('books.show');
 Route::post('/books/{book}', [BookController::class, 'update'])->name('books.update');
 
 Route::get('/books/{book}/edit', [BookController::class, 'edit'])->name('books.edit');

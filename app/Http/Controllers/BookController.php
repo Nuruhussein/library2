@@ -106,7 +106,18 @@ public function storage()
         ]);
     }
 
-  
+    // Show a specific book and its reviews
+    public function storagedetail($id)
+    {
+        $book = Book::with(['author', 'category', 'reviews'])->findOrFail($id);
+        $categories = Category::withCount('books')->get(); // Fetch categories with the count of books
+
+        return inertia('store/Show', [
+            'book' => $book,
+            'categories'=>$categories,
+        ]);
+    }
+
     // Show the form for editing the specified book
      public function edit(Book $book)
     {

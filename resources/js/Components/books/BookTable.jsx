@@ -176,7 +176,7 @@ const BookTable = ({ books }) => {
 
                                 <td className="px-6 py-4 whitespace-nowrap text-right">
                                     <Link
-                                        href={`/books/${book.id}`}
+                                        href={`/admin/books/${book.id}`}
                                         className="py-2 px-3 font-medium text-blue-600 hover:text-blue-500 duration-150 hover:bg-gray-50 rounded-lg mr-2"
                                     >
                                         View

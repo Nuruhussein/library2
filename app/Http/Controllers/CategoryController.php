@@ -55,8 +55,11 @@ public function show(Category $category)
   {
       // Eager load the 'books' relationship
       $category->load('books');
+      $categories = Category::withCount('books')->get(); // Fetch categories with the count of books
+
   
-      return Inertia::render('Category/Show', ['category' => $category]);
+      return Inertia::render('Category/Show', ['category' => $category
+    ,'categories'=>$categories,]);
   }
   
     // Show the form for editing the specified category

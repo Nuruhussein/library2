@@ -1,126 +1,225 @@
 import Footer from '@/Components/Footer';
 import Navbar from '@/Components/Navbar';
-import React from 'react';
+import React, { useState } from 'react';
 import { FaBook } from 'react-icons/fa'; // Import the book icon
-export default function Index({categories}) {
+
+export default function Index({ categories, books }) {
+    const [selectedCategory, setSelectedCategory] = useState(null);
+
+    // Filter books based on selected category
+    const filteredBooks = selectedCategory
+        ? books.filter((book) => book.category_id === selectedCategory)
+        : books;
+
     return (
         <>
             <Navbar />
-            <section className='container mx-auto max-w-7xl '>
-  <div className="container flex w-full flex-col items-center pb-8 pt-4 md:flex-row md:pb-10 md:pt-8 lg:pb-16">
-    <aside
-      className="top-20 mb-8 w-full self-start pt-8 md:sticky md:mr-8 md:w-fit md:min-w-[16rem] md:flex-1 lg:mr-32 lg:max-w-[18rem] lg:shrink-0 2xl:w-full">
-      <div className="mb-8 flex w-full max-w-fit shrink-0 flex-col md:mb-10">
-        <div className="hidden w-full md:mt-1 md:block">
-          <div className="flex w-full items-center space-x-6">
-            <a href="#" className="hover:-tranzinc-y-0.5"><img src="/images/placeholders/logos/instagram-icon.svg"
-                alt="Instagram" className="size-5 text-zinc-600" /></a><a href="#" className="hover:-tranzinc-y-0.5"><img
-                src="/images/placeholders/logos/linkedin-icon.svg" alt="LinkedIn" className="size-5 text-zinc-600" /></a><a
-              href="#" className="hover:-tranzinc-y-0.5"><img src="/images/placeholders/logos/producthunt-icon.svg"
-                alt="Product Hunt" className="size-5 text-zinc-600" /></a><a href="#" className="hover:-tranzinc-y-0.5"><img
-                src="/images/placeholders/logos/twitter-icon.svg" alt="Twitter" className="size-5 text-zinc-600" /></a>
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-col rounded-xl border border-border bg-zinc-100 py-6 md:py-4">
-
-        <ul className="md:mb-4.5 mb-6 py-6 px-6 font-medium leading-5">
-            {categories.map((category) => (
-                <li key={category.id} className="flex items-center text-zinc-600 py-3 px-3">
-                    <FaBook className="mr-3 rotate-45  text-blue-500" /> {/* Icon with margin and color */}
-                    {category.name} - 
-                    <span className="text-center flex justify-center items-start ml-2">
-                        {category.books_count} books
-                    </span>
-                </li>
-            ))}
-        </ul>
-      </div>
-    </aside>
-    <article className="prose prose-sm mx-auto pt-8">
-      <h1>The Joke Tax Chronicles</h1>
-      <p>
-        Once upon a time, in a far-off land, there was a very lazy king who spent all day lounging
-        on his throne. One day, his advisors came to him with a problem: the kingdom was running out
-        of money.
-      </p>
-      <h2>The King&#x27;s Plan</h2>
-      <p>
-        The king thought long and hard, and finally came up with
-        <a href="#">a brilliant plan</a>: he would tax the jokes in the kingdom.
-      </p>
-      <blockquote>
-        “After all,” he said, “everyone enjoys a good joke, so it&#x27;s only fair that they should
-        pay for the privilege.”
-      </blockquote>
-      <h3>The Joke Tax</h3>
-      <p>
-        The king&#x27;s subjects were not amused. They grumbled and complained, but the king was
-        firm:
-      </p>
-      <ul>
-        <li>1st level of puns: 5 gold coins</li>
-        <li>2nd level of jokes: 10 gold coins</li>
-        <li>3rd level of one-liners : 20 gold coins</li>
-      </ul>
-      <p>
-        As a result, people stopped telling jokes, and the kingdom fell into a gloom. But there was
-        one person who refused to let the king&#x27;s foolishness get him down: a court jester named
-        Jokester.
-      </p>
-      <h3>Jokester&#x27;s Revolt</h3>
-      <p>
-        Jokester began sneaking into the castle in the middle of the night and leaving jokes all
-        over the place: under the king&#x27;s pillow, in his soup, even in the royal toilet. The
-        king was furious, but he couldn&#x27;t seem to stop Jokester.
-      </p>
-      <p>
-        And then, one day, the people of the kingdom discovered that the jokes left by Jokester were
-        so funny that they couldn&#x27;t help but laugh. And once they started laughing, they
-        couldn&#x27;t stop.
-      </p>
-      <h3>The People&#x27;s Rebellion</h3>
-      <p>
-        The people of the kingdom, feeling uplifted by the laughter, started to tell jokes and puns
-        again, and soon the entire kingdom was in on the joke.
-      </p>
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>King&#x27;s Treasury</th>
-              <th>People&#x27;s happiness</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Empty</td>
-              <td>Overflowing</td>
-            </tr>
-            <tr className="m-0 border-t p-0 even:bg-zinc-100">
-              <td>Modest</td>
-              <td>Satisfied</td>
-            </tr>
-            <tr className="m-0 border-t p-0 even:bg-zinc-100">
-              <td>Full</td>
-              <td>Ecstatic</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p>
-        The king, seeing how much happier his subjects were, realized the error of his ways and
-        repealed the joke tax. Jokester was declared a hero, and the kingdom lived happily ever
-        after.
-      </p>
-      <p>
-        The moral of the story is: never underestimate the power of a good laugh and always be
-        careful of bad ideas.
-      </p>
-    </article>
-  </div>
-</section>
+            {/* Breadcrumb */}
+            <nav
+                className="flex items-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
+                style={{ backgroundImage: "url('https://img.freepik.com/premium-vector/abstract-islamic-background-design-with-geometric-shape-white-background-vector_51543-1098.jpg?semt=ais_hybrid')" }}
+                aria-label="Breadcrumb"
+            >
+                <ol className="flex items-center justify-center text-center mx-auto w-full">
+                    <li className="m-4">
+                        <a href="/" className="inline-flex items-center text-xl text-gray-400 hover:text-gray-200">
+                            <svg
+                                className="w-5 h-5 mr-2"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M3 12l7-7 7 7M5 10v10a2 2 0 002 2h10a2 2 0 002-2V10"
+                                />
+                            </svg>
+                            Home
+                        </a>
+                    </li>
+                    <li className="m-4">
+                        <span className="mt-9 text-gray-500">/</span>
+                    </li>
+                    <li>
+                        <span className="text-gray-800 mt-9 text-3xl">Store</span>
+                    </li>
+                </ol>
+            </nav>
+            <section className="container mx-auto max-w-screen-2xl bg-gray-50">
+                <div className="container max-w-7xl  mx-auto flex w-full flex-col items-center pb-8 pt-4 md:flex-row md:pb-10 md:pt-8 lg:pb-16">
+                    <aside className="top-20 mb-8 w-full self-start pt-8 md:sticky md:mr-8 md:w-fit md:min-w-[16rem] md:flex-1 lg:mr-32 lg:max-w-[18rem] lg:shrink-0 2xl:w-full">
+                        <div className="flex flex-col rounded-xl border border-border bg-white py-6 md:py-4">
+                            <ul className="md:mb-4.5 mb-6 py-6 px-2 font-medium leading-5">
+                                <span className="flex items-center py-3 px-2">
+                                    <span className="h-px flex-1 bg-gray-300"></span>
+                                    <span className="shrink-0 text-gray-600 px-6">Categories</span>
+                                    <span className="h-px flex-1 bg-gray-300"></span>
+                                </span>
+                                {categories.map((category) => (
+                                    <li
+                                        key={category.id}
+                                        onClick={() => setSelectedCategory(category.id)}
+                                        className={`flex items-center text-zinc-600 py-3 px-2 cursor-pointer ${
+                                            selectedCategory === category.id ? 'text-blue-500 font-bold' : ''
+                                        }`}
+                                    >
+                                        <FaBook className="mr-3 rotate-45 text-blue-500" />
+                                        {category.name} -
+                                        <span className="text-center flex justify-center items-start ml-2">
+                                            {category.books_count} books
+                                        </span>
+                                    </li>
+                                ))}
+                                <li
+                                    onClick={() => setSelectedCategory(null)}
+                                    className={`flex items-center text-zinc-600 py-3 px-2 cursor-pointer ${
+                                        selectedCategory === null ? 'text-blue-500 font-bold' : ''
+                                    }`}
+                                >
+                                    <FaBook className="mr-3 rotate-45 text-blue-500" />
+                                    All Books
+                                </li>
+                            </ul>
+                        </div>
+                    </aside>
+                    <article className="prose prose-sm mx-auto pt-8">
+                        <section className="py-12">
+                            <div className="container max-w-6xl mx-auto">
+                                <div className="mt-20 grid gap-10 lg:grid-cols-4 xl:gap-20 h-full">
+                                    {filteredBooks.length === 0 ? (
+                                        <p>No books available.</p>
+                                    ) : (
+                                        filteredBooks.map((book) => (
+                                            <div key={book.id} className="flex flex-col lg:block h-full ">
+                                                <div className="rounded-lg border bg-zinc-50 p-3">
+                                                    {book.cover_image && (
+                                                        <img
+                                                            src={`/storage/${book.cover_image}`}
+                                                            alt={book.title}
+                                                            className="h-64 w-full rounded-lg object-cover"
+                                                        />
+                                                    )}
+                                                </div>
+                                                <div className="p-6">
+                                                    <div className="mb-1 font-semibold">{book.title}</div>
+                                                    <a
+                                                        href={`/store/books/${book.id}`}
+                                                        className="mt-4 flex items-center gap-2 font-medium"
+                                                    >
+                                                        Learn more
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="24"
+                                                            height="24"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            strokeWidth="2"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            className="lucide lucide-chevron-right w-4"
+                                                        >
+                                                            <path d="m9 18 6-6-6-6" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            </div>
+                        </section>
+                    </article>
+                </div>
+            </section>
             <Footer />
         </>
     );
 }
+
+
+
+// <section class="py-32">
+//   <div class="container flex flex-col items-start text-left">
+//     <p class="semibold">We&#x27;re hiring</p>
+//     <h2 class="my-6 text-pretty text-2xl font-bold lg:text-4xl">Meet our team</h2>
+//     <p class="mb-8 max-w-3xl text-zinc-600 lg:text-xl">
+//       Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat
+//       omnis! Porro facilis quo animi consequatur. Explicabo.
+//     </p>
+//   </div>
+//   <div class="container mt-16 grid gap-x-12 gap-y-8 lg:grid-cols-2">
+//     <div class="flex flex-col sm:flex-row">
+//       <div class="mb-4 aspect-square w-full shrink-0 overflow-clip bg-zinc-100 sm:mb-0 sm:mr-5 sm:size-48"></div>
+//       <div class="flex flex-1 flex-col items-start">
+//         <p class="w-full text-left font-medium">Name</p>
+//         <p class="w-full text-left text-zinc-600">Role</p>
+//         <p class="w-full py-2 text-sm text-zinc-600">
+//           Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.
+//         </p>
+//         <div class="my-2 flex items-start gap-4">
+//           <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+//               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+//               class="lucide lucide-github size-4 text-zinc-600">
+//               <path
+//                 d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4">
+//               </path>
+//               <path d="M9 18c-4.51 2-5-2-7-2"></path>
+//             </svg></a><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+//               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+//               class="lucide lucide-linkedin size-4 text-zinc-600">
+//               <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+//               <rect width="4" height="12" x="2" y="9"></rect>
+//               <circle cx="4" cy="4" r="2"></circle>
+//             </svg></a><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+//               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+//               class="lucide lucide-dribbble size-4 text-zinc-600">
+//               <circle cx="12" cy="12" r="10"></circle>
+//               <path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"></path>
+//               <path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"></path>
+//               <path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"></path>
+//             </svg></a>
+//         </div>
+//       </div>
+//     </div>
+//     <div class="flex flex-col sm:flex-row">
+//       <div class="mb-4 aspect-square w-full shrink-0 overflow-clip bg-zinc-100 sm:mb-0 sm:mr-5 sm:size-48"></div>
+//       <div class="flex flex-1 flex-col items-start">
+//         <p class="w-full text-left font-medium">Name</p>
+//         <p class="w-full text-left text-zinc-600">Role</p>
+//         <p class="w-full py-2 text-sm text-zinc-600">
+//           Elig doloremque mollitia fugiat omnis!
+//         </p>
+//         <div class="my-2 flex items-start gap-4">
+//           <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+//               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+//               class="lucide lucide-github size-4 text-zinc-600">
+//               <path
+//                 d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4">
+//               </path>
+//               <path d="M9 18c-4.51 2-5-2-7-2"></path>
+//             </svg></a><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+//               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+//               class="lucide lucide-linkedin size-4 text-zinc-600">
+//               <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+//               <rect width="4" height="12" x="2" y="9"></rect>
+//               <circle cx="4" cy="4" r="2"></circle>
+//             </svg></a><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+//               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+//               class="lucide lucide-dribbble size-4 text-zinc-600">
+//               <circle cx="12" cy="12" r="10"></circle>
+//               <path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"></path>
+//               <path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"></path>
+//               <path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"></path>
+//             </svg></a>
+//         </div>
+//       </div>
+//     </div>
+    
+//       </div>
+    
+//   </div>
+// </section>

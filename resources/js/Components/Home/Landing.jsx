@@ -43,7 +43,7 @@ function Landing() {
 المكتبة الشاملة
         </h2>
         <MorphingText  texts={texts} />
-        <ShinyButton>بحث في المكتبة</ShinyButton>
+        <a href="/store"> <ShinyButton>بحث في المكتبة</ShinyButton></a>
         {/* Optional static text */}
         {/* <h2 className="font-bold text-white sm:text-[48px] text-[40px] leading-[56.8px] font-poppins">
           Al Mehdi Qur'anic and <br /> Terbiya Center
