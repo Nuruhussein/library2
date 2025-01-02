@@ -93,7 +93,7 @@ export default function Show({ category,categories }) {
               {book.description || 'No description available.'}
             </p>
             <a
-              href={`/books/${book.id}`}
+              href={`/store/books/${book.id}`}
               className="text-indigo-500 hover:text-indigo-700 text-sm font-medium"
             >
               Learn More

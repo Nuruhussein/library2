@@ -3,7 +3,7 @@ import Navbar from '@/Components/Navbar';
 import React, { useState } from 'react';
 import { FaBook } from 'react-icons/fa'; // Import the book icon
 
-export default function Show({categories}) {
+export default function Show({categories,book}) {
     
     return (
         <>
@@ -82,8 +82,121 @@ export default function Show({categories}) {
                                         </ul>
                                     </div>
                                 </aside>
+                                <div className="flow-root">
+  <dl className="-my-3 divide-y divide-gray-100 text-sm">
+    {book && (
+      <>
+        <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+          <dt className="font-medium text-gray-900">Title</dt>
+          <dd className="text-gray-700 sm:col-span-2">{book.title || "N/A"}</dd>
+        </div>
+
+        <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+          <dt className="font-medium text-gray-900">Author</dt>
+          <dd className="text-gray-700 sm:col-span-2">{book.author?.name || "Unknown Author"}</dd>
+        </div>
+
+        <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+          <dt className="font-medium text-gray-900">Category</dt>
+          <dd className="text-gray-700 sm:col-span-2">{book.category?.name || "Uncategorized"}</dd>
+        </div>
+
+        <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+          <dt className="font-medium text-gray-900">ISBN</dt>
+          <dd className="text-gray-700 sm:col-span-2">{book.isbn || "N/A"}</dd>
+        </div>
+
+        <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+          <dt className="font-medium text-gray-900">Publication Date</dt>
+          <dd className="text-gray-700 sm:col-span-2">
+            {new Date(book.publication_date).toLocaleDateString() || "N/A"}
+          </dd>
+        </div>
+
+        <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+          <dt className="font-medium text-gray-900">Bio</dt>
+          <dd className="text-gray-700 sm:col-span-2 break-words">{book.description || "No description available."}</dd>
+        </div>
+      </>
+    )}
+  </dl>
+</div>
+
             </div>
             <Footer />
         </>
     );
 }
+{/* <div className="flow-root">
+<dl className="-my-3 divide-y divide-gray-100 text-sm">
+  {book && (
+    <>
+      <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+        <dt className="font-medium text-gray-900">Title</dt>
+        <dd className="text-gray-700 sm:col-span-2">{book.title || "N/A"}</dd>
+      </div>
+
+      <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+        <dt className="font-medium text-gray-900">Author</dt>
+        <dd className="text-gray-700 sm:col-span-2">{book.author?.name || "Unknown Author"}</dd>
+      </div>
+
+      <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+        <dt className="font-medium text-gray-900">Category</dt>
+        <dd className="text-gray-700 sm:col-span-2">{book.category?.name || "Uncategorized"}</dd>
+      </div>
+
+      <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+        <dt className="font-medium text-gray-900">ISBN</dt>
+        <dd className="text-gray-700 sm:col-span-2">{book.isbn || "N/A"}</dd>
+      </div>
+
+      <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+        <dt className="font-medium text-gray-900">Publication Date</dt>
+        <dd className="text-gray-700 sm:col-span-2">
+          {new Date(book.publication_date).toLocaleDateString() || "N/A"}
+        </dd>
+      </div>
+
+      <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+        <dt className="font-medium text-gray-900">Bio</dt>
+        <dd className="text-gray-700 sm:col-span-2">{book.description || "No description available."}</dd>
+      </div>
+    </>
+  )}
+</dl>
+</div> */}
+
+
+{/* <div className="flow-root">
+  <dl className="-my-3 divide-y divide-gray-100 text-sm">
+    <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+      <dt className="font-medium text-gray-900">Title</dt>
+      <dd className="text-gray-700 sm:col-span-2">Mr</dd>
+    </div>
+
+    <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+      <dt className="font-medium text-gray-900">Name</dt>
+      <dd className="text-gray-700 sm:col-span-2">John Frusciante</dd>
+    </div>
+
+    <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+      <dt className="font-medium text-gray-900">Occupation</dt>
+      <dd className="text-gray-700 sm:col-span-2">Guitarist</dd>
+    </div>
+
+    <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+      <dt className="font-medium text-gray-900">Salary</dt>
+      <dd className="text-gray-700 sm:col-span-2">$1,000,000+</dd>
+    </div>
+
+    <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+      <dt className="font-medium text-gray-900">Bio</dt>
+      <dd className="text-gray-700 sm:col-span-2">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et facilis debitis explicabo
+        doloremque impedit nesciunt dolorem facere, dolor quasi veritatis quia fugit aperiam
+        aspernatur neque molestiae labore aliquam soluta architecto?
+      </dd>
+    </div>
+  </dl>
+</div> */}
