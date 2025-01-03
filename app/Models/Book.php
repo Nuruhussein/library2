@@ -16,7 +16,12 @@ class Book extends Model
         'description',
         'isbn',
         'publication_date',
-        'cover_image'
+        'cover_image',
+        'publisher',         // Added publisher field
+        'researcher',        // Added researcher field
+        'link_to_website',   // Added link to other website
+        'page_number',       // Added page number
+        'status'             // Added post or draft status
     ];
 
     // Define relationship with author

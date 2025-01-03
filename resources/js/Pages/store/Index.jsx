@@ -14,7 +14,56 @@ export default function Index({ categories, books }) {
     return (
         <>
             <Navbar />
-            {/* Breadcrumb */}
+            {/*
+  Heads up! 👋
+
+  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
+*/}
+
+<nav   className="flex items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
+                style={{ backgroundImage: "url('https://img.freepik.com/premium-vector/abstract-islamic-background-design-with-geometric-shape-white-background-vector_51543-1098.jpg?semt=ais_hybrid')" }}
+                aria-label="Breadcrumb">
+  <ol className="flex overflow-hidden rounded-lg border border-gray-200 text-gray-600">
+    <li className="flex items-center">
+      <a
+        href="/"
+        className="flex h-10 items-center gap-1.5 bg-gray-100 px-4 transition hover:text-gray-900"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="size-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+          />
+        </svg>
+
+        <span className="ms-1.5 text-xs font-medium"> Home </span>
+      </a>
+    </li>
+
+    <li className="relative flex items-center">
+      <span
+        className="absolute inset-y-0 -start-px h-10 w-4 bg-gray-100 [clip-path:_polygon(0_0,_0%_100%,_100%_50%)] rtl:rotate-180"
+      >
+      </span>
+
+      <a
+        href="#"
+        className="flex h-10 items-center bg-white pe-4 ps-8 text-xs font-medium transition hover:text-gray-900"
+      >
+   Store
+      </a>
+    </li>
+  </ol>
+</nav>
+            {/* Breadcrumb
             <nav
                 className="flex items-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
                 style={{ backgroundImage: "url('https://img.freepik.com/premium-vector/abstract-islamic-background-design-with-geometric-shape-white-background-vector_51543-1098.jpg?semt=ais_hybrid')" }}
@@ -47,7 +96,7 @@ export default function Index({ categories, books }) {
                         <span className="text-gray-800 mt-9 text-3xl">Store</span>
                     </li>
                 </ol>
-            </nav>
+            </nav> */}
             <section className="container mx-auto max-w-screen-2xl bg-gray-50">
                 <div className="container max-w-7xl  mx-auto flex w-full flex-col items-center pb-8 pt-4 md:flex-row md:pb-10 md:pt-8 lg:pb-16">
                     <aside className="top-20 mb-8 w-full self-start pt-8 md:sticky md:mr-8 md:w-fit md:min-w-[16rem] md:flex-1 lg:mr-32 lg:max-w-[18rem] lg:shrink-0 2xl:w-full">
