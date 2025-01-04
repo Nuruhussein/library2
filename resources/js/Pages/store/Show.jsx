@@ -107,10 +107,12 @@ export default function Show({categories,book}) {
                                         </ul>
                                     </div>
                                 </aside>
-                                <div className="flow-root">
+                                <div className="flow-root sm:my-16">
   <dl className="-my-3 divide-y divide-gray-100 text-sm">
     {book && (
       <>
+        {/* Existing book details */}
+        
         <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
           <dt className="font-medium text-gray-900">Title</dt>
           <dd className="text-gray-700 sm:col-span-2">{book.title || "N/A"}</dd>
@@ -138,14 +140,77 @@ export default function Show({categories,book}) {
           </dd>
         </div>
 
+        {/* Add additional fields here */}
+        <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+          <dt className="font-medium text-gray-900">Publisher</dt>
+          <dd className="text-gray-700 sm:col-span-2">{book.publisher || "N/A"}</dd>
+        </div>
+
+        <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+          <dt className="font-medium text-gray-900">Researcher</dt>
+          <dd className="text-gray-700 sm:col-span-2">{book.researcher || "N/A"}</dd>
+        </div>
+
+        <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+          <dt className="font-medium text-gray-900">Link to Website</dt>
+          <dd className="text-gray-700 sm:col-span-2">
+            <a href={book.link_to_website || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
+              {book.link_to_website || "No link available"}
+            </a>
+          </dd>
+        </div>
+
+        <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+          <dt className="font-medium text-gray-900">Page Number</dt>
+          <dd className="text-gray-700 sm:col-span-2">{book.page_number || "N/A"}</dd>
+        </div>
+
         <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
           <dt className="font-medium text-gray-900">Bio</dt>
-          <dd className="text-gray-700 sm:col-span-2 break-words">{book.description || "No description available."}</dd>
+
+          
+          <dd className="text-gray-700 sm:col-span-2 break-words"> {book.description ? (
+                            <span
+                                dangerouslySetInnerHTML={{
+                                    __html: book.description.replace(/\n/g, "<br />"),
+                                }}
+                            />
+                        ) : (
+                            "No description available."
+                        )}</dd>
         </div>
+
+        {/* Book Reviews Section */}
+        <div className="mt-12">
+          <h3 className="text-lg font-medium text-gray-900">Reviews</h3>
+          {book.reviews && book.reviews.length > 0 ? (
+            <ul className="space-y-4">
+              {book.reviews.map((review, index) => (
+                <li key={index} className="border-t border-gray-200 pt-4">
+                  <p className="font-semibold text-gray-800">{review.reviewer || "Anonymous"}</p>
+                  <p className="text-gray-600 mt-1"> {review.comment ? (
+                            <span
+                                dangerouslySetInnerHTML={{
+                                    __html: review.comment.replace(/\n/g, "<br />"),
+                                }}
+                            />
+                        ) : (
+                            "No description available."
+                        )}</p>
+                  
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-gray-600">No reviews available for this book.</p>
+          )}
+        </div>
+
       </>
     )}
   </dl>
 </div>
+
 
             </div>
             <Footer />
