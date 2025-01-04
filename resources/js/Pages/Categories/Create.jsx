@@ -9,7 +9,7 @@ const Create = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post("/categories");
+        post("/admin/categories");
     };
 
     return (

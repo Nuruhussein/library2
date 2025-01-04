@@ -13,7 +13,7 @@ const Create = ({ authors, categories }) => {
         cover_image: null,
         publisher: "",
         researcher: "",
-        external_link: "",
+        link_to_website: "",
         page_number: "",
         status: "draft", // Default to "draft"
     });
@@ -100,24 +100,7 @@ const Create = ({ authors, categories }) => {
                             )}
                         </div>
 
-                       {/* Description */}
-<div>
-    <label className="block text-gray-600 font-medium">
-        Description
-    </label>
-    <textarea
-        value={data.description}
-        onChange={(e) => setData("description", e.target.value)}
-        className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-        rows={3}
-        style={{ whiteSpace: "pre-wrap" }} // Ensures formatting is visible
-    />
-    {errors.description && (
-        <span className="text-sm text-red-600">
-            {errors.description}
-        </span>
-    )}
-</div>
+                     
 
 
                         {/* ISBN */}
@@ -217,13 +200,13 @@ const Create = ({ authors, categories }) => {
                             </label>
                             <input
                                 type="url"
-                                value={data.external_link}
-                                onChange={(e) => setData("external_link", e.target.value)}
+                                value={data.link_to_website}
+                                onChange={(e) => setData("link_to_website", e.target.value)}
                                 className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             />
-                            {errors.external_link && (
+                            {errors.link_to_website && (
                                 <span className="text-sm text-red-600">
-                                    {errors.external_link}
+                                    {errors.link_to_website}
                                 </span>
                             )}
                         </div>
@@ -266,7 +249,24 @@ const Create = ({ authors, categories }) => {
                             )}
                         </div>
                     </div>
-
+  {/* Description */}
+  <div>
+    <label className="block text-gray-600 font-medium">
+        Description
+    </label>
+    <textarea
+        value={data.description}
+        onChange={(e) => setData("description", e.target.value)}
+        className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        rows={9}
+        style={{ whiteSpace: "pre-wrap" }} // Ensures formatting is visible
+    />
+    {errors.description && (
+        <span className="text-sm text-red-600">
+            {errors.description}
+        </span>
+    )}
+</div>
                     <button
                         type="submit"
                         className="mt-6 bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700"

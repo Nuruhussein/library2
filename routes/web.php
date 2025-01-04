@@ -32,6 +32,10 @@ Route::get('/', function () {
 
 Route::post('/books/{book}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 Route::get('/books/{book}/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+Route::delete('/books/{book}/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+Route::put('/books/{book}/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
+
+
 Route::get('/books/{book}/reviews/{review}', [ReviewController::class, 'show'])->name('reviews.show');
 Route::post('/reviews', [ReviewController::class, 'add'])->name('reviews.add');
 Route::get('/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
@@ -87,6 +91,10 @@ Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index'
 Route::get('/authors/create', [AuthorController::class, 'create'])->name('authors.create');
 Route::post('/authors', [AuthorController::class, 'store'])->name('authors.store');
 Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('authors.show');
+Route::delete('/authors/{author}', [AuthorController::class, 'destroy'])->name('authors.destroy');
+Route::put('/authors/{author}', [AuthorController::class, 'update'])->name('authors.update');
+
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

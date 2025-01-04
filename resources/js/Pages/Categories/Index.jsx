@@ -20,7 +20,7 @@ const Index = ({ categories }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post("/categories", {
+        post("/admin/categories", {
             onSuccess: () => handleModalClose(),
         });
     };
@@ -37,7 +37,7 @@ const Index = ({ categories }) => {
         const handleDelete = (id) => {
             if (confirm("Are you sure you want to delete this book?")) {
                 // Send delete request using Inertia
-                router.delete(route("categories.destroy", id));
+                router.delete(route("admin.categories.destroy", id));
                 // router.post("/users", values);
             }
         };
@@ -95,7 +95,7 @@ const Index = ({ categories }) => {
                                     </td>
                                     <td className="px-6 py-4 border-b text-center space-x-2">
                                         <Link
-                                            href={`/categories/${category.id}`}
+                                            href={`/admin/categories/${category.id}`}
                                             className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-500"
                                         >
                                             Show

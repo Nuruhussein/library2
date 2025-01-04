@@ -69,7 +69,7 @@ const Show = ({ book }) => (
                         <strong>Status:</strong> {book.status || "Draft"}
                     </p>
                     <p className="text-lg text-gray-600">
-                        <strong>Website Link:</strong>{" "}
+                        <strong>get book:</strong>{" "}
                         {book.link_to_website ? (
                             <a
                                 href={book.link_to_website}
@@ -77,7 +77,7 @@ const Show = ({ book }) => (
                                 rel="noopener noreferrer"
                                 className="text-blue-600 hover:underline"
                             >
-                                Visit Website
+                                Link
                             </a>
                         ) : (
                             "N/A"

@@ -39,6 +39,28 @@ class ReviewController extends Controller
     }
 
 
+    public function update(Request $request, Book $book, Review $review)
+    {
+        // Ensure the review belongs to the specified book
+        if ($review->book_id !== $book->id) {
+            abort(404, 'Review not found for this book');
+        }
+
+        // Validate the incoming request
+        $request->validate([
+            'reviewer' => 'required|string|max:255',
+            'comment' => 'required|string',
+        ]);
+
+        // Update the review
+        $review->update([
+            'reviewer' => $request->input('reviewer'),
+            'comment' => $request->input('comment'),
+        ]);
+
+        return redirect()->route('reviews.index', ['book' => $book->id])
+            ->with('success', 'Review updated successfully!');
+    }
 
 
     // for each book
@@ -69,6 +91,14 @@ class ReviewController extends Controller
             'reviews' => $reviews,
         ]);
     }
+
+
+    public function destroy(Book $book,Review $review)
+{
+    $review->delete();
+
+    return back()->with('success', 'Review deleted successfully!');
+}
       public function show(Book $book, Review $review)
     {
         // Ensure the review belongs to the specified book

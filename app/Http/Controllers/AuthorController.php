@@ -32,6 +32,24 @@ class AuthorController extends Controller
         Author::create($request->only('name', 'bio'));
         return redirect()->route('authors.index');
     }
+    
+    public function update(Request $request, Author $author)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'bio' => 'nullable|string',
+        ]);
+
+        $author->update($request->only('name', 'bio'));
+        return redirect()->route('authors.index')->with('success', 'Author updated successfully!');
+    }
+
+    // Delete the specified author
+    public function destroy(Author $author)
+    {
+        $author->delete();
+        return redirect()->route('authors.index')->with('success', 'Author deleted successfully!');
+    }
 
     // Display a single author's details
     public function show(Author $author)

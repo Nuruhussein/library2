@@ -3,12 +3,15 @@
 import { Link, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import Dashboard from "../Dashboard";
+import { router } from "@inertiajs/react";
 
 const ReviewsIndex = ({ book, reviews }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [currentReview, setCurrentReview] = useState(null);
 
-    // Form handling for adding a review
-    const { data, setData, post, reset, errors } = useForm({
+    // Form handling for adding/editing a review
+    const { data, setData, post, put, reset, errors } = useForm({
         reviewer: "",
         comment: "",
         book_id: book.id,
@@ -16,12 +19,38 @@ const ReviewsIndex = ({ book, reviews }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route("reviews.store", { book: book.id }), {
-            onSuccess: () => {
-                reset();
-                setIsModalOpen(false);
-            },
-        });
+        if (isEditMode) {
+            // Update review
+            put(route("reviews.update", { book: book.id, review: currentReview.id }), {
+                onSuccess: () => {
+                    reset();
+                    setIsModalOpen(false);
+                    setIsEditMode(false);
+                    setCurrentReview(null);
+                },
+            });
+        } else {
+            // Add new review
+            post(route("reviews.store", { book: book.id }), {
+                onSuccess: () => {
+                    reset();
+                    setIsModalOpen(false);
+                },
+            });
+        }
+    };
+
+    const handleDelete = (reviewId) => {
+        if (confirm("Are you sure you want to delete this review?")) {
+            router.delete(route("reviews.destroy", { review: reviewId, book: book.id }));
+        }
+    };
+
+    const handleEdit = (review) => {
+        setIsEditMode(true);
+        setCurrentReview(review);
+        setData({ reviewer: review.reviewer, comment: review.comment, book_id: book.id });
+        setIsModalOpen(true);
     };
 
     return (
@@ -32,7 +61,11 @@ const ReviewsIndex = ({ book, reviews }) => {
                         Reviews for {book.title}
                     </h1>
                     <button
-                        onClick={() => setIsModalOpen(true)}
+                        onClick={() => {
+                            setIsModalOpen(true);
+                            setIsEditMode(false);
+                            reset();
+                        }}
                         className="bg-blue-600 text-white px-4 py-2 rounded mb-6 hover:bg-blue-500"
                     >
                         Add Review
@@ -55,9 +88,34 @@ const ReviewsIndex = ({ book, reviews }) => {
                                         {review.reviewer || "Anonymous"}
                                     </p>
                                 </Link>
-                                <p className="text-gray-700 mt-1">
+                                {/* <p className="text-gray-700 mt-1">
                                     {review.comment}
-                                </p>
+                                </p> */}
+                                <p className="text-gray-700 break-words">
+                        {  review.comment ? (
+                            <span
+                                dangerouslySetInnerHTML={{
+                                    __html:   review.comment.replace(/\n/g, "<br />"),
+                                }}
+                            />
+                        ) : (
+                            "No description available."
+                        )}
+                    </p>
+                                <div className="flex space-x-2 mt-2">
+                                    <button
+                                        onClick={() => handleEdit(review)}
+                                        className="bg-yellow-600 text-white px-3 py-1 rounded hover:bg-yellow-500"
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        onClick={() => handleDelete(review.id)}
+                                        className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
                         ))
                     ) : (
@@ -67,12 +125,12 @@ const ReviewsIndex = ({ book, reviews }) => {
                     )}
                 </div>
 
-                {/* Modal for adding review */}
+                {/* Modal for adding/editing review */}
                 {isModalOpen && (
                     <div className="fixed inset-0 bg-gray-800 p-44 bg-opacity-50 flex justify-center items-center z-50">
                         <div className="bg-white rounded-lg p-6 w-full max-w-md">
                             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                                Add Review
+                                {isEditMode ? "Edit Review" : "Add Review"}
                             </h2>
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-4">
@@ -124,7 +182,7 @@ const ReviewsIndex = ({ book, reviews }) => {
                                         type="submit"
                                         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500"
                                     >
-                                        Submit Review
+                                        {isEditMode ? "Update Review" : "Submit Review"}
                                     </button>
                                 </div>
                             </form>
