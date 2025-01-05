@@ -12,7 +12,7 @@ use App\Models\Book;
 use App\Models\Author;
 use App\Models\Category;
 
-
+use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', function () {
     $categories = Category::all();  // Fetch all categories from the database
@@ -75,7 +75,11 @@ Route::get('/admin/categories/{category}', [CategoryController::class, 'show'])-
     Route::get('/store/books/{book}', [BookController::class, 'storagedetail'])->name('store.index');
 
      
-Route::get('/books', [BookController::class, 'index'])->name('books.index');
+    Route::middleware(['auth','admin'])->group(function () {
+        Route::get('/books', [BookController::class, 'index'])->name('books.index');
+        // Add other routes that require admin access here
+    });
+    
 Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
 Route::post('/books', [BookController::class, 'store'])->name('books.store');
 Route::get('/admin/books/{book}', [BookController::class, 'show'])->name('books.show');
