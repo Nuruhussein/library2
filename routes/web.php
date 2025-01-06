@@ -29,8 +29,21 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+Route::middleware(['auth','admin'])->group(function () {
+    Route::get('/books', [BookController::class, 'index'])->name('books.index');
+      
+Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
+Route::post('/books', [BookController::class, 'store'])->name('books.store');
+Route::get('/admin/books/{book}', [BookController::class, 'show'])->name('books.show');
+Route::post('/books/{book}', [BookController::class, 'update'])->name('books.update');
 
-Route::post('/books/{book}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+Route::get('/books/{book}/edit', [BookController::class, 'edit'])->name('books.edit');
+
+Route::delete('/books/{book}', [BookController::class, 'destroy'])->name('books.destroy');
+    // Add other routes that require admin access here
+
+
+    Route::post('/books/{book}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 Route::get('/books/{book}/reviews', [ReviewController::class, 'index'])->name('reviews.index');
 Route::delete('/books/{book}/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 Route::put('/books/{book}/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
@@ -42,22 +55,11 @@ Route::get('/reviews/create', [ReviewController::class, 'create'])->name('review
 
 
  Route::post('/reviews', [ReviewController::class, 'add'])->name('reviews.add');
-// Route::get('/reviews/{review}', [ReviewController::class, 'show'])->name('reviews.show');
-// Route::get('/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
-
-
-
-// Regular (Frontend) Routes
-// Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-Route::get('/category/{category}', [CategoryController::class, 'showeach'])->name('categories.show');
 
 
 
 
-// Regular (Frontend) Routes
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-
-
+ 
 Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
 Route::get('/admin/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
 
@@ -69,27 +71,7 @@ Route::get('/admin/categories/{category}', [CategoryController::class, 'show'])-
     Route::delete('/admin/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
 
 
-
-
-    Route::get('/store', [BookController::class, 'storage'])->name('store.index');
-    Route::get('/store/books/{book}', [BookController::class, 'storagedetail'])->name('store.index');
-
-     
-    Route::middleware(['auth','admin'])->group(function () {
-        Route::get('/books', [BookController::class, 'index'])->name('books.index');
-        // Add other routes that require admin access here
-    });
     
-Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
-Route::post('/books', [BookController::class, 'store'])->name('books.store');
-Route::get('/admin/books/{book}', [BookController::class, 'show'])->name('books.show');
-Route::post('/books/{book}', [BookController::class, 'update'])->name('books.update');
-
-Route::get('/books/{book}/edit', [BookController::class, 'edit'])->name('books.edit');
-
-Route::delete('/books/{book}', [BookController::class, 'destroy'])->name('books.destroy');
-
-
 
 Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index');
 Route::get('/authors/create', [AuthorController::class, 'create'])->name('authors.create');
@@ -97,6 +79,30 @@ Route::post('/authors', [AuthorController::class, 'store'])->name('authors.store
 Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('authors.show');
 Route::delete('/authors/{author}', [AuthorController::class, 'destroy'])->name('authors.destroy');
 Route::put('/authors/{author}', [AuthorController::class, 'update'])->name('authors.update');
+
+
+});
+
+
+
+
+Route::get('/category/{category}', [CategoryController::class, 'showeach'])->name('categories.show');
+
+
+
+
+// Regular (Frontend) Routes
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+
+
+
+
+
+    Route::get('/store', [BookController::class, 'storage'])->name('store.index');
+    Route::get('/store/books/{book}', [BookController::class, 'storagedetail'])->name('store.index');
+
+     
+
 
 
 
