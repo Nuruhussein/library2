@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link, router, usePage } from "@inertiajs/react";
-
-const BookTable = ({ books }) => {
+import { FaPlus, FaTrash, FaSearch } from "react-icons/fa";
+const BookTable = ({ books, search }) => {
     const [areAllChecked, setAllChecked] = useState(false);
     const [checkboxItems, setCheckboxItems] = useState({});
     const { flash } = usePage().props;
+    const [searchTerm, setSearchTerm] = useState(search || "");
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        router.get(route("books.index"), { search: searchTerm }, { preserveState: true });
+    };
+
     // Set or unset all checkbox items
     const handleCheckboxItems = () => {
         const newCheckedState = !areAllChecked;
@@ -71,14 +78,29 @@ const BookTable = ({ books }) => {
                         Manage your book collection with ease.
                     </p>
                 </div>
-                <div className="mt-3 md:mt-0">
+             {/* Search Form */}
+             <form onSubmit={handleSearch} className="flex gap-4 items-center">
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Search books,authors,categories..."
+                            className="w-full  px-4 py-2 box-border border rounded-lg"
+                        />
+                        <button
+                            type="submit"
+                            className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 flex items-center gap-2"
+                        >
+                            <FaSearch /> Search
+                        </button>
+                    </form>
                     <Link
                         href="/books/create"
-                        className="inline-block px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-500 active:bg-indigo-700 md:text-sm"
+                        className=" px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-500 active:bg-indigo-700 md:text-sm flex items-center gap-2"
                     >
-                        Add Book
+                        <FaPlus /> Add Book
                     </Link>
-                </div>
+                
             </div>
             <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
                 <table className="w-full table-auto text-sm text-left">

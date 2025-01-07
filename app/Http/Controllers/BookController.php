@@ -81,30 +81,60 @@ public function store(Request $request)
     return redirect()->route('books.index')->with('success', 'Book and review added successfully');
 }
 
-public function index()
+public function index(Request $request)
 {
-    $books = Book::with('author', 'category')->get(); // Fetch books with authors and categories
-    $authors = Author::all(); // Fetch all authors
-    $categories = Category::all(); // Fetch all categories
+    $query = Book::with('author', 'category');
+
+    // Search by title, author, or category
+    if ($request->has('search') && $request->search !== '') {
+        $searchTerm = $request->search;
+        $query->where('title', 'LIKE', "%{$searchTerm}%")
+              ->orWhereHas('author', function ($q) use ($searchTerm) {
+                  $q->where('name', 'LIKE', "%{$searchTerm}%");
+              })
+              ->orWhereHas('category', function ($q) use ($searchTerm) {
+                  $q->where('name', 'LIKE', "%{$searchTerm}%");
+              });
+    }
+
+    $books = $query->get();
+    $authors = Author::all();
+    $categories = Category::all();
 
     return Inertia::render('Books/Index', [
         'books' => $books,
         'authors' => $authors,
         'categories' => $categories,
+        'search' => $request->search ?? '',
     ]);
 }
-public function storage()
+
+public function storage(Request $request)
 {
-    $books = Book::with('author', 'category')->get(); // Fetch books with authors and categories
-    $authors = Author::all(); // Fetch all authors
-    $categories = Category::withCount('books')->get(); // Fetch categories with the count of books
+    $search = $request->input('search'); // Get the search query
+    $books = Book::with('author', 'category')
+        ->when($search, function ($query, $search) {
+            return $query->where('title', 'like', "%{$search}%")
+                         ->orWhereHas('author', function ($query) use ($search) {
+                             $query->where('name', 'like', "%{$search}%");
+                         })
+                         ->orWhereHas('category', function ($query) use ($search) {
+                             $query->where('name', 'like', "%{$search}%");
+                         });
+        })
+        ->get(); // Fetch books with filtering if search query exists
+
+    $authors = Author::all();
+    $categories = Category::withCount('books')->get();
 
     return Inertia::render('store/Index', [
         'books' => $books,
         'authors' => $authors,
         'categories' => $categories,
+        'search' => $search, // Pass the search query back to the frontend
     ]);
 }
+
 
     // Show a specific book and its reviews
     public function show($id)

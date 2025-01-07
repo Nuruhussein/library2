@@ -4,15 +4,15 @@ import ShinyButton from "../ui/shiny-button";
 
 function Landing() {
   const texts = [
-    "Mektebah",
-    "hadith",
-    "fiqh",
-    "tafsir",
-    "React",
-    "Component",
-    "Smooth",
-    "Transition",
-    "Engaging",
+    "كتب العقيدة",
+    "التفسير",
+    "كتب السنة",
+    "أصول الفقه",
+    "كتب اللغة",
+    "أصول الفقه",
+    "مسائل فقهية",
+    "السيرة النبوية",
+    "التاريخ",
   ];
 
   return (
