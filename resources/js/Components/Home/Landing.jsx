@@ -39,7 +39,7 @@ function Landing() {
 
       {/* Overlay Content */}
       <div className="relative w-full h-full flex flex-col justify-center sm:ml-10 items-center text-center z-10">
-      <h2 className="font-bold text-gray-100 pb-4 sm:text-[60px] text-[40px] leading-[56.8px] font-poppins">
+      <h2 className="font-bold  text-gray-100 pb-4 sm:text-[60px] text-[40px] leading-[56.8px] font-poppins">
 المكتبة الشاملة
         </h2>
         <MorphingText  texts={texts} />
