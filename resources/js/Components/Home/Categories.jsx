@@ -6,11 +6,11 @@ const Categories = ({ categories }) => {
             <div className="container max-w-6xl mx-auto">
                 <div className="mx-auto flex flex-col items-center gap-6 text-center">
                     <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold">
-                        Famous Categories
+                    الفئات الشهيرة
                     </div>
-                    <h2 className="text-4xl font-medium">Free Islamic Books</h2>
+                    <h2 className="text-4xl font-medium">كتب اسلامية مجانية</h2>
                     <p className="text-lg text-zinc-600">
-                        Free Islamic eBooks on Quran, Hadith, Aqeedah, Tawheed, Salah, Ramadan, Zakah, Hajj, Angels, Jinn, Akhirah, Companions of the Prophet and many more!
+                    كتب إلكترونية إسلامية مجانية عن القرآن والحديث والعقيدة والتوحيد والصلاح ورمضان والزكاة والحج والملائكة والجن والآخرة وأصحاب النبي وغيرهم الكثير!
                     </p>
                 </div>
                 <div className="mt-20 grid gap-10 lg:grid-cols-4 xl:gap-20 h-full">
