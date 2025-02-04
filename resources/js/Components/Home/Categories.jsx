@@ -18,16 +18,17 @@ const Categories = ({ categories }) => {
     return (
         <section className="py-12">
             <div className="container max-w-6xl mx-auto">
-                <div className="mx-auto flex flex-col items-center gap-6 text-center">
-                    <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold">
-                        الفئات الشهيرة
-                    </div>
-                    <h2 className="text-4xl font-medium">كتب اسلامية مجانية</h2>
-                    <p className="text-lg text-zinc-600">
-                        كتب إلكترونية إسلامية مجانية عن القرآن والحديث والعقيدة والتوحيد والصلاح ورمضان والزكاة والحج والملائكة والجن والآخرة وأصحاب النبي وغيرهم الكثير!
-                    </p>
-                </div>
-
+            <div className="mx-auto flex flex-col items-center gap-6 text-center px-4 md:px-0"> {/* Added responsive padding */}
+    <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold">
+        الفئات الشهيرة
+    </div>
+    <h2 className="text-4xl font-medium leading-tight md:leading-normal"> {/* Adjusted line height */}
+        كتب اسلامية مجانية
+    </h2>
+    <p className="text-lg text-zinc-600 leading-relaxed"> {/* Adjusted line height */}
+        كتب إلكترونية إسلامية مجانية عن القرآن والحديث والعقيدة والتوحيد والصلاح ورمضان والزكاة والحج والملائكة والجن والآخرة وأصحاب النبي وغيرهم الكثير!
+    </p>
+</div>
                 {/* Navigation Arrows and Horizontal Scrolling Container */}
                 <div className="relative mt-20">
                     <button

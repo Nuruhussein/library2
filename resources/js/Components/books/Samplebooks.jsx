@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Accordion = ({ books,categories,authors }) => {
+const Accordion = ({ books, categories, authors }) => {
   const [openSection, setOpenSection] = useState(null);
 
   const toggleSection = (section) => {
@@ -8,7 +8,7 @@ const Accordion = ({ books,categories,authors }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white p-16 rounded">
+    <div className="w-full max-w-4xl mx-auto bg-white p-5 sm:p-16 rounded">
       <div id="accordion-collapse">
         {/* Accordion Section 1 */}
         <h2 id="accordion-collapse-heading-1">
@@ -144,9 +144,9 @@ const Accordion = ({ books,categories,authors }) => {
       </div>
 
       <p className="mt-5">
-        This accordion component is part of a larger, open-source library of Tailwind CSS components. Learn more by going to the official{' '}
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
         <a className="text-blue-600 hover:underline" href="https://flowbite.com/docs/getting-started/introduction/" target="_blank">
-          Flowbite Documentation
+    list books
         </a>.
       </p>
     </div>
