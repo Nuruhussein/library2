@@ -86,7 +86,7 @@ Route::put('/authors/{author}', [AuthorController::class, 'update'])->name('auth
 
 
 
-Route::get('/category/{category}', [CategoryController::class, 'showeach'])->name('categories.show');
+// Route::get('/category/{category}', [CategoryController::class, 'showeach'])->name('categories.show');
 
 
 
@@ -101,6 +101,7 @@ Route::get('/categories', [CategoryController::class, 'index'])->name('categorie
     Route::get('/store', [BookController::class, 'storage'])->name('store.index');
     Route::get('/store/books/{book}', [BookController::class, 'storagedetail'])->name('store.index');
 
+    Route::get('/store/tag/{category}', [BookController::class, 'tag'])->name('store.tag');
      
 
 

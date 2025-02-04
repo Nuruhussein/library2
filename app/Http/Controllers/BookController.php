@@ -136,6 +136,26 @@ public function storage(Request $request)
 }
 
 
+public function tag(Category $category)
+{
+      // Eager load the 'books' relationship
+      $category->load('books');
+      $categories = Category::withCount('books')->get(); // Fetch categories with the count of books
+      $authors = Author::all();
+  
+      return Inertia::render('store/Tag', ['category' => $category
+    ,'categories'=>$categories,]);
+
+   
+
+    // return Inertia::render('store/Index', [
+    //     'books' => $books,
+    //     'authors' => $authors,
+    //     'categories' => $categories,
+    //     'search' => $search, // Pass the search query back to the frontend
+    // ]);
+}
+
     // Show a specific book and its reviews
     public function show($id)
     {

@@ -3,7 +3,7 @@ import Navbar from '@/Components/Navbar';
 import React from 'react';
 import { FaBook } from 'react-icons/fa'; // Import the book icon
 
-export default function Show({ category,categories }) {
+export default function Show({ category, categories }) {
     return (
         <>
             <Navbar />
@@ -16,7 +16,7 @@ export default function Show({ category,categories }) {
                 >
                     <ol className="flex items-center justify-center text-center mx-auto w-full">
                         <li className='m-4'>
-                            <a href="/" className="inline-flex items-center text-xl text-gray-400   hover:text-gray-200">
+                            <a href="/" className="inline-flex items-center text-xl text-gray-400   hover:text-gray-200">
                                 <svg
                                     className="w-5 h-5 mr-2"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -43,74 +43,70 @@ export default function Show({ category,categories }) {
                     </ol>
                 </nav>
                 <div className="container mx-auto py-12 px-6 flex flex-col md:flex-row gap-6">
-                <aside className="md:w-1/4 w-full sticky top-4 h-fit">
-  <div className="flex flex-col rounded-xl border border-border bg-white py-6">
-    <ul className="py-6 px-2 font-medium leading-5">
-      <span className="flex items-center py-3 px-2">
-        <span className="h-px flex-1 bg-gray-300"></span>
-        <span className="shrink-0 text-gray-600 px-6">Categories</span>
-        <span className="h-px flex-1 bg-gray-300"></span>
-      </span>
-      {categories.map((category) => (
-        <a href={`/category/${category.id}`} key={category.id}>
-          <li className="flex items-center text-zinc-600 py-3 px-2 cursor-pointer hover:text-blue-500 font-bold">
-            <FaBook className="mr-3 rotate-45 text-blue-500" />
-            {category.name} -
-            <span className="text-center flex justify-center items-start ml-2">
-              {category.books_count} books
-            </span>
-          </li>
-        </a>
-      ))}
-      <a href="/store">
-        <li className="flex items-center text-zinc-600 py-3 px-2 cursor-pointer hover:text-blue-500 font-bold">
-          <FaBook className="mr-3 rotate-45 text-blue-500" />
-          All Books
-        </li>
-      </a>
-    </ul>
-  </div>
-</aside>
+                    <aside className="md:w-1/4 w-full sticky top-4 h-fit"> {/* h-fit makes it adjust to content */}
+                        <div className="flex flex-col rounded-xl border border-border bg-white py-6">
+                            <ul className="py-6 px-2 font-medium leading-5">
+                                <span className="flex items-center py-3 px-2">
+                                    <span className="h-px flex-1 bg-gray-300"></span>
+                                    <span className="shrink-0 text-gray-600 px-6">Categories</span>
+                                    <span className="h-px flex-1 bg-gray-300"></span>
+                                </span>
+                                {categories.map((category) => (
+                                    <a href={`/category/${category.id}`} key={category.id}>
+                                        <li className="flex items-center text-zinc-600 py-3 px-2 cursor-pointer hover:text-blue-500 font-bold">
+                                            <FaBook className="mr-3 rotate-45 text-blue-500" />
+                                            {category.name} -
+                                            <span className="text-center flex justify-center items-start ml-2">
+                                                {category.books_count} books
+                                            </span>
+                                        </li>
+                                    </a>
+                                ))}
+                                <a href="/store">
+                                    <li className="flex items-center text-zinc-600 py-3 px-2 cursor-pointer hover:text-blue-500 font-bold">
+                                        <FaBook className="mr-3 rotate-45 text-blue-500" />
+                                        All Books
+                                    </li>
+                                </a>
+                            </ul>
+                        </div>
+                    </aside>
 
-
-  {/* Main Content */}
-  <section className="w-full">
-    <h2 className="text-3xl font-semibold text-gray-800 mb-8">
-      Books in the "{category.name}" Category
-    </h2>
-    {category.books && category.books.length > 0 ? (
-      <div className="grid grid-cols-1  gap-6">
-        {category.books.map((book) => (
-          <div key={book.id} className="rounded-lg shadow-md p-6 hover:shadow-lg">
-            <h3 className="text-xl font-semibold text-gray-700 mb-2">{book.title}</h3>
-            <p className="text-gray-600 mb-4">
-              <span className="font-medium">Author:</span> {book.author || 'Unknown Author'}
-            </p>
-            <p className="text-sm text-gray-500 mb-4">
-              Published: {book.published_date || 'Unknown Date'}
-            </p>
-            <p className="text-gray-600 text-sm mb-4 break-words">
-              {book.description || 'No description available.'}
-            </p>
-            <a
-              href={`/store/books/${book.id}`}
-              className="text-indigo-500 hover:text-indigo-700 text-sm font-medium"
-            >
-              Learn More
-            </a>
-          </div>
-        ))}
-      </div>
-    ) : (
-      <p className="text-gray-600">No books are available in this category.</p>
-    )}
-  </section>
-</div>
-
-
-                
+                    {/* Main Content */}
+                    <section className="w-full">
+                        <h2 className="text-3xl font-semibold text-gray-800 mb-8">
+                            Books in the "{category.name}" Category
+                        </h2>
+                        {category.books && category.books.length > 0 ? (
+                            <div className="grid grid-cols-1 gap-6"> {/* Removed unnecessary space */}
+                                {category.books.map((book) => (
+                                    <div key={book.id} className="rounded-lg shadow-md p-6 hover:shadow-lg">
+                                        <h3 className="text-xl font-semibold text-gray-700 mb-2">{book.title}</h3>
+                                        <p className="text-gray-600 mb-4">
+                                            <span className="font-medium">Author:</span> {book.author || 'Unknown Author'}
+                                        </p>
+                                        <p className="text-sm text-gray-500 mb-4">
+                                            Published: {book.published_date || 'Unknown Date'}
+                                        </p>
+                                        <p className="text-gray-600 text-sm mb-4 break-words">
+                                            {book.description || 'No description available.'}
+                                        </p>
+                                        <a
+                                            href={`/store/books/${book.id}`}
+                                            className="text-indigo-500 hover:text-indigo-700 text-sm font-medium"
+                                        >
+                                            Learn More
+                                        </a>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="text-gray-600">No books are available in this category.</p>
+                        )}
+                    </section>
+                </div>
+                <Footer />
             </div>
-            <Footer />
         </>
     );
 }
