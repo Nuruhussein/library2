@@ -1,3 +1,4 @@
+import Books from '@/Components/booklists/Books';
 import Footer from '@/Components/Footer';
 import Navbar from '@/Components/Navbar';
 import React, { useState } from 'react';
@@ -56,97 +57,7 @@ export default function Index({ categories, books }) {
                 </ol>
             </nav>
 
-            {/* Main Content Section */}
-            <section className="container mx-auto max-w-screen-2xl bg-gray-50 flex-1">
-                <div className="container max-w-7xl mx-auto flex w-full flex-col items-center pb-8 pt-4 md:flex-row md:pb-10 md:pt-8 lg:pb-16 h-full">
-                    {/* Sidebar */}
-                    <aside className="top-20 mb-8 w-full self-start pt-8 md:sticky md:mr-8 md:w-fit md:min-w-[16rem] md:flex-1 lg:mr-32 lg:max-w-[18rem] lg:shrink-0 2xl:w-full h-[calc(100vh-10rem)] overflow-y-auto">
-                        <div className="flex flex-col rounded-xl border border-border bg-white py-6 md:py-4 h-full">
-                            <ul className="md:mb-4.5 mb-6 py-6 px-2 font-medium leading-5">
-                                <span className="flex items-center py-3 px-2">
-                                    <span className="h-px flex-1 bg-gray-300"></span>
-                                    <span className="shrink-0 text-gray-600 px-6">Categories</span>
-                                    <span className="h-px flex-1 bg-gray-300"></span>
-                                </span>
-                                {categories.map((category) => (
-                                    <li
-                                        key={category.id}
-                                        onClick={() => setSelectedCategory(category.id)}
-                                        className={`flex items-center text-zinc-600 py-3 px-2 cursor-pointer ${
-                                            selectedCategory === category.id ? 'text-blue-500 font-bold' : ''
-                                        }`}
-                                    >
-                                        <FaBook className="mr-3 rotate-45 text-blue-500" />
-                                        {category.name} -
-                                        <span className="text-center flex justify-center items-start ml-2">
-                                            {category.books_count} books
-                                        </span>
-                                    </li>
-                                ))}
-                                <li
-                                    onClick={() => setSelectedCategory(null)}
-                                    className={`flex items-center text-zinc-600 py-3 px-2 cursor-pointer ${
-                                        selectedCategory === null ? 'text-blue-500 font-bold' : ''
-                                    }`}
-                                >
-                                    <FaBook className="mr-3 rotate-45 text-blue-500" />
-                                    All Books
-                                </li>
-                            </ul>
-                        </div>
-                    </aside>
-
-                    {/* Main Content */}
-                    <article className="prose prose-sm bg-white shadow-emerald-50 shadow-md  mx-auto p-8 flex-1">
-                        <section className="py-12">
-                            <div className="container max-w-6xl mx-auto">
-                                <div className="mt-20 grid gap-10 lg:grid-cols-4 xl:gap-20 h-full">
-                                    {filteredBooks.length === 0 ? (
-                                        <p>No books available.</p>
-                                    ) : (
-                                        filteredBooks.map((book) => (
-                                            <div key={book.id} className="flex flex-col lg:block h-full">
-                                                <div className="rounded-lg border bg-zinc-50 p-3">
-                                                    {book.cover_image && (
-                                                        <img
-                                                            src={`/storage/${book.cover_image}`}
-                                                            alt={book.title}
-                                                            className="h-64 w-full rounded-lg object-cover"
-                                                        />
-                                                    )}
-                                                </div>
-                                                <div className="p-6">
-                                                    <div className="mb-1 font-semibold">{book.title}</div>
-                                                    <a
-                                                        href={`/store/books/${book.id}`}
-                                                        className="mt-4 flex items-center gap-2 font-medium"
-                                                    >
-                                                        Learn more
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            width="24"
-                                                            height="24"
-                                                            viewBox="0 0 24 24"
-                                                            fill="none"
-                                                            stroke="currentColor"
-                                                            strokeWidth="2"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                            className="lucide lucide-chevron-right w-4"
-                                                        >
-                                                            <path d="m9 18 6-6-6-6" />
-                                                        </svg>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        ))
-                                    )}
-                                </div>
-                            </div>
-                        </section>
-                    </article>
-                </div>
-            </section>
+            <Books  categories={categories} books={books}/>
             <Footer />
         </>
     );

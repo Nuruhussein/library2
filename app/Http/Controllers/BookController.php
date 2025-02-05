@@ -122,7 +122,8 @@ public function storage(Request $request)
                              $query->where('name', 'like', "%{$search}%");
                          });
         })
-        ->get(); // Fetch books with filtering if search query exists
+        ->limit(20) // Limit to 20 books
+        ->get(); 
 
     $authors = Author::all();
     $categories = Category::withCount('books')->get();
@@ -134,6 +135,7 @@ public function storage(Request $request)
         'search' => $search, // Pass the search query back to the frontend
     ]);
 }
+
 
 
 public function tag(Category $category)

@@ -228,7 +228,7 @@ export default function Sidebar({ children }) {
                                         </li>
                                         <li>
                                             <Link
-                                                href="/authors" // Replace with your actual authors route
+                                                href="/admin/authors" // Replace with your actual authors route
                                                 className="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group"
                                             >
                                                 <FaUser className="w-6 h-6 text-gray-500 group-hover:text-gray-900 transition duration-75" />

@@ -1,3 +1,4 @@
+import Aside from '@/Components/Aside';
 import Footer from '@/Components/Footer';
 import Navbar from '@/Components/Navbar';
 import React from 'react';
@@ -56,39 +57,11 @@ export default function Show({ categories, book }) {
                 </ol>
             </nav>
 
-            <div className="container max-w-7xl mx-auto flex w-full flex-col items-center pb-8 pt-4 md:flex-row-reverse md:pb-10 md:pt-8 lg:pb-16" dir="rtl">
+            <div className="container  max-w-7xl mx-auto flex w-full flex-col-reverse  md:items-center pb-8 pt-4 md:flex-row-reverse md:pb-10 md:pt-8 lg:pb-16" dir="rtl">
          
 
-                <aside className="top-20 mb-8 w-full self-start pr-8 pt-8 md:sticky md:ml-8 md:w-fit md:min-w-[16rem] md:flex-1 lg:ml-32 lg:max-w-[18rem] lg:shrink-0 2xl:w-full">
-                    <div className="flex flex-col h-screen rounded-xl border border-border bg-gray-50 py-6 md:py-4">
-                        <ul className="md:mb-4.5 mb-6 py-6 px-2 font-medium leading-5">
-                            <span className="flex items-center py-3 px-2">
-                                <span className="h-px flex-1 bg-gray-300"></span>
-                                <span className="shrink-0 text-gray-600 px-6">التصنيفات</span>
-                                <span className="h-px flex-1 bg-gray-300"></span>
-                            </span>
-                            {categories.map((category) => (
-                                <a href={`/store/tag/${category.id}`} key={category.id}>
-                                    <li className="flex items-center text-zinc-600 py-3 px-2 cursor-pointer">
-                                        <FaBook className="ml-3 rotate-45 text-blue-500" />
-                                        {category.name} -
-                                        <span className="text-center flex justify-center items-start mr-2">
-                                            {category.books_count} كتب
-                                        </span>
-                                    </li>
-                                </a>
-                            ))}
-                            <a href="/store">
-                                <li className="flex items-center text-zinc-600 py-3 px-2 cursor-pointer">
-                                    <FaBook className="ml-3 rotate-45 text-blue-500" />
-                                    جميع الكتب
-                                </li>
-                            </a>
-                        </ul>
-                    </div>
-                </aside>
-
-                <div className="flow-root shadow-sm  sm:my-16">
+                  <div className='hidden md:block'> <Aside categories={categories}/> </div>
+                <div className="flow-root m-6 shadow-sm  sm:my-16">
                     <dl className="-my-3 divide-y divide-gray-100 text-sm">
                         {book && (
                             <>
@@ -200,7 +173,7 @@ export default function Show({ categories, book }) {
                         )}
                     </dl>
                 </div>
-                <div className="text-gray-700  flex items-start justify-start h-80 mb-64 p-6">
+                <div className="text-gray-700  flex items-start justify-start h-80 mb-2 md:mb-64 p-6">
   {book.cover_image ? (
     <img
       src={`/storage/${book.cover_image}`}

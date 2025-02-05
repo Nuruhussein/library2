@@ -73,10 +73,10 @@ Route::get('/admin/categories/{category}', [CategoryController::class, 'show'])-
 
     
 
-Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index');
+Route::get('/admin/authors', [AuthorController::class, 'index'])->name('authors.index');
 Route::get('/authors/create', [AuthorController::class, 'create'])->name('authors.create');
 Route::post('/authors', [AuthorController::class, 'store'])->name('authors.store');
-Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('authors.show');
+Route::get('/admin/authors/{author}', [AuthorController::class, 'show'])->name('authors.show');
 Route::delete('/authors/{author}', [AuthorController::class, 'destroy'])->name('authors.destroy');
 Route::put('/authors/{author}', [AuthorController::class, 'update'])->name('authors.update');
 
@@ -102,7 +102,12 @@ Route::get('/categories', [CategoryController::class, 'index'])->name('categorie
     Route::get('/store/books/{book}', [BookController::class, 'storagedetail'])->name('store.index');
 
     Route::get('/store/tag/{category}', [BookController::class, 'tag'])->name('store.tag');
-    Route::get('/clientauthors', [AuthorController::class, 'indexclient'])->name('authors.indexclient');
+
+
+    // clientside autors
+    Route::get('/authors', [AuthorController::class, 'indexclient'])->name('authors.indexclient');
+    Route::get('/authors/{author}', [AuthorController::class, 'showclient'])->name('authors.showclient');
+
      
 
 

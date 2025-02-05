@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-
+use App\Models\Category;
 class AuthorController extends Controller
 {
 
@@ -73,4 +73,16 @@ class AuthorController extends Controller
             'filters' => $request->only(['search']), // Pass search query back to frontend
         ]);
     }
+
+    public function showclient(Author $author)
+    {
+        $author->load('books');
+      
+        $categories = Category::withCount('books')->get();
+
+        return Inertia::render('Authors/Showclient', [
+            'author' => $author,
+            'categories' => $categories,]);
+    }
+   
 }
