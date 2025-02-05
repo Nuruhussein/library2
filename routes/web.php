@@ -102,6 +102,7 @@ Route::get('/categories', [CategoryController::class, 'index'])->name('categorie
     Route::get('/store/books/{book}', [BookController::class, 'storagedetail'])->name('store.index');
 
     Route::get('/store/tag/{category}', [BookController::class, 'tag'])->name('store.tag');
+    Route::get('/clientauthors', [AuthorController::class, 'indexclient'])->name('authors.indexclient');
      
 
 
