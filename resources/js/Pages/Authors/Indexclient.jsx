@@ -92,9 +92,11 @@ const Indexclient = ({ authors }) => {
               key={author.id}
               className="flex flex-row-reverse justify-start px-8 mr-20 items-end gap-4 border-b-2 border-gray-50 w-full"
             >
+                <a href={`/authors/${author.id}`} className="">
               <h2 className="text-lg text-blue-500 font-semibold">
                 {author.name}
               </h2>
+              </a>
               <p>
                 <span className="text-gray-600">
                   [ {author.books_count} :عدد الكتب]

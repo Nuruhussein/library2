@@ -17,6 +17,7 @@ const Navbar = () => {
   };
 
   return (
+    // bg-[#f9f9f9] shadow-md sticky
     <nav className="bg-white px-6 shadow dark:bg-gray-800">
       <div className="container px-6 py-4 mx-auto">
         <div className="lg:flex lg:items-center">
@@ -153,7 +154,7 @@ const Navbar = () => {
           >
             <div className="flex items-end flex-col text-gray-600 capitalize dark:text-gray-300 lg:flex lg:-mx-4 lg:flex-row lg:items-center">
               <a
-                href="#"
+                href="/"
                 className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
               >
            الرئيسية
@@ -178,7 +179,7 @@ const Navbar = () => {
 
               </a>
               <a
-                href="#"
+                href="/authors"
                 className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
               >
            فهرس المؤلفين
