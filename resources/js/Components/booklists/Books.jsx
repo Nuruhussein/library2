@@ -35,7 +35,7 @@ export default function Books({ categories, books }) {
                                                         <img
                                                             src={`/storage/${book.cover_image}`}
                                                             alt={book.title}
-                                                            className="h-64 w-full rounded-lg object-cover"
+                                                            className="h-48 w-full rounded-lg object-cover"
                                                         />
                                                     )}
                                                 </div>

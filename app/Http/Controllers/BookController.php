@@ -113,6 +113,7 @@ public function storage(Request $request)
 {
     $search = $request->input('search'); // Get the search query
     $books = Book::with('author', 'category')
+        ->where('status', 'post') // Only fetch books with status = "post"
         ->when($search, function ($query, $search) {
             return $query->where('title', 'like', "%{$search}%")
                          ->orWhereHas('author', function ($query) use ($search) {

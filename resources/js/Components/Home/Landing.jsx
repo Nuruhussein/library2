@@ -21,7 +21,7 @@ function Landing() {
       <div
         className="absolute top-0 left-0 w-full h-full"
         style={{
-          backgroundImage: `url('/storage/images/quran.png')`, // Your static image path
+          backgroundImage: `url('/storage/images/quran2.png')`, // Your static image path
           backgroundSize: "cover",
           backgroundPosition: "center",
           transition: "opacity 1.2s ease-in-out",
@@ -40,7 +40,7 @@ function Landing() {
       {/* Overlay Content */}
       <div className="relative w-full h-full flex flex-col justify-center sm:ml-10 items-center text-center z-10">
       <h2 className="font-bold  text-gray-100 pb-4 sm:text-[60px] text-[40px] leading-[56.8px] font-poppins">
-المكتبة الشاملة
+المكتبة لطالبين  
         </h2>
         <MorphingText  texts={texts} />
         <a href="/store"> <ShinyButton>بحث في المكتبة</ShinyButton></a>

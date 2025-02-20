@@ -18,15 +18,15 @@ const Navbar = () => {
 
   return (
     // bg-[#f9f9f9] shadow-md sticky
-    <nav className="bg-white px-6 shadow dark:bg-gray-800">
-      <div className="container px-6 py-4 mx-auto">
+    <nav className="bg-white max-w-screen-2xl mx-auto px-6 shadow dark:bg-gray-800">
+      <div className="container px-6 py-1 mx-auto">
         <div className="lg:flex lg:items-center">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <a href="#">
               <img
-                className="w-auto h-6 sm:h-7"
-                src="https://merakiui.com/images/full-logo.svg"
+                className="sm:h-16 text-2xl  w-28 h-7"
+                src="/storage/images/logo.png"
                 alt="Logo"
               />
             </a>
@@ -160,7 +160,7 @@ const Navbar = () => {
            الرئيسية
               </a>
               <a
-                href="#"
+                href="/categories"
                 className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
               >
            الأقسام

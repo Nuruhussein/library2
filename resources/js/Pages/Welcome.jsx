@@ -1,9 +1,11 @@
+import AccordiantwoDemo from "@/Components/AccordiantwoDemo";
 import Samplebooks from "@/Components/books/Samplebooks";
 import Footer from "@/Components/Footer";
 import Categories from "@/Components/Home/Categories";
 import Landing from "@/Components/Home/Landing";
 import Review from "@/Components/Home/Review";
 import Navbar from "@/Components/Navbar";
+import { TestimonalSliderDemo } from "@/Components/TestimonalSliderDemo";
 import Marquee from "@/Components/ui/marquee";
 import { Head, Link } from "@inertiajs/react";
 
@@ -27,9 +29,14 @@ export default function Welcome({ auth, laravelVersion, phpVersion , categories}
 <Navbar/>
 <Landing/>
 <Categories categories={categories}/>
-<Samplebooks/>
+{/* <Samplebooks/> */}
+<div className="my-16 md:ml-12">
+<AccordiantwoDemo />
+</div>
+<TestimonalSliderDemo/>
+
 <Review/>
-<Marquee/>
+{/* <Marquee/> */}
 <Footer/>
             {/* <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
                 <img

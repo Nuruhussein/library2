@@ -16,6 +16,8 @@ class CategoryController extends Controller
         return Inertia::render('Categories/Index', ['categories' => $categories]);
     }
   
+      
+    
 
     // Show the form for creating a new category
     public function create()
@@ -106,4 +108,31 @@ public function show(Category $category)
 
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
     }
+    
+    // // Display a list of all categories
+    // public function clientcategory()
+    // {
+    //     $categories = Category::all();
+    //     return Inertia::render('Categories/Indexclient', ['categories' => $categories]);
+    // }
+ 
+public function clientcategory(Request $request)
+{
+    // Start the query with books count
+    $query = Category::withCount('books');
+
+    // Apply search filter if provided
+    if ($request->has('search')) {
+        $query->where('name', 'like', '%' . $request->search . '%');
+    }
+
+    // Fetch the filtered categories
+    $categories = $query->get();
+
+    // Render the Inertia view with categories and filters
+    return Inertia::render('Categories/Indexclient', [
+        'categories' => $categories,
+        'filters' => $request->only(['search']), // Pass search query back to frontend
+    ]);
+}
 }

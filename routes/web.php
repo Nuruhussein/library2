@@ -91,8 +91,12 @@ Route::put('/authors/{author}', [AuthorController::class, 'update'])->name('auth
 
 
 
-// Regular (Frontend) Routes
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+
+// Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+
+// client (Frontend) Route
+Route::get('/categories', [CategoryController::class, 'clientcategory'])->name('categories.indexclient');
+
 
 
 
