@@ -41,7 +41,7 @@ class CategoryController extends Controller
 
         Category::create($validatedData);
 
-        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
+        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
 
   // Display a single category's details
@@ -93,7 +93,7 @@ public function show(Category $category)
 
         $category->update($validatedData);
 
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
+        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
     }
 
     // Remove the specified category from storage
@@ -106,7 +106,7 @@ public function show(Category $category)
 
         $category->delete();
 
-        return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
+        return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
     }
     
     // // Display a list of all categories

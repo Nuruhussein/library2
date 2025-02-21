@@ -31,13 +31,17 @@ export default function Books({ categories, books }) {
                                         filteredBooks.map((book) => (
                                             <div key={book.id} className="flex flex-col lg:block h-full">
                                                 <div className="rounded-lg border bg-zinc-50 p-3">
-                                                    {book.cover_image && (
+                                                    {book.cover_image ? (
                                                         <img
                                                             src={`/storage/${book.cover_image}`}
                                                             alt={book.title}
                                                             className="h-48 w-full rounded-lg object-cover"
                                                         />
-                                                    )}
+                                                    ) : (<img
+                                                    src="/storage/images/no_book_cover.png"
+                                                    alt={book.title}
+                                                    className="h-48 w-full rounded-lg object-cover"
+                                                />)}
                                                 </div>
                                                 <div className="p-6">
                                                     <div className="mb-1 font-semibold">{book.title}</div>

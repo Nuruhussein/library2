@@ -71,7 +71,7 @@ const Categories = ({ categories }) => {
                                                     : category.description}
                                             </p>
                                             <a
-                                                href={`/category/${category.id}`}
+                                                href={`/store/tag/${category.id}`}
                                                 className="mt-4 flex items-center gap-2 font-medium"
                                             >
                                                 Learn more
