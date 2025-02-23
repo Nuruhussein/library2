@@ -51,36 +51,23 @@ const Index = ({ categories }) => {
         post(`/admin/categories/${selectedCategory.id}`, {
             data: { ...data, _method: "put" },
             onSuccess: () => handleEditModalClose(),
-            // onSuccess: () => alert("Book updated successfully."),
-            onError: () => alert("An error occurred while updating the book."),
+            onError: () => alert("حدث خطأ أثناء تحديث التصنيف."),
             forceFormData: true,
-        
         });
     };
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
 
-    //     post(`/books/${book.id}`, {
-    //         data: { ...data, _method: "put" },
-    //         onSuccess: () => alert("Book updated successfully."),
-    //         onError: () => alert("An error occurred while updating the book."),
-    //         forceFormData: true,
-    //     });
-    // };
-
-    
     // Handle category deletion
     const handleDelete = (id) => {
-        if (confirm("Are you sure you want to delete this category?")) {
+        if (confirm("هل أنت متأكد أنك تريد حذف هذا التصنيف؟")) {
             destroy(`/admin/categories/${id}`);
         }
     };
 
     return (
         <Dashboard>
-            <div className="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-lg mr-32 mt-20">
+            <div className="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-lg mr-32 mt-20" dir="rtl">
                 <h1 className="text-3xl font-semibold text-gray-800 mb-6">
-                    Categories
+                    التصنيفات
                 </h1>
 
                 {/* Add New Category Button */}
@@ -89,7 +76,7 @@ const Index = ({ categories }) => {
                         onClick={handleModalOpen}
                         className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500"
                     >
-                        <FaPlus className="mr-2" /> Add New Category
+                        <FaPlus className="ml-2" /> إضافة تصنيف جديد
                     </button>
                 </div>
 
@@ -98,17 +85,17 @@ const Index = ({ categories }) => {
                     <table className="min-w-full bg-white border border-gray-200">
                         <thead className="bg-gray-50">
                             <tr>
-                                <th className="px-6 py-3 border-b text-left text-sm font-medium text-gray-700">
-                                    Image
+                                <th className="px-6 py-3 border-b text-right text-sm font-medium text-gray-700">
+                                    الصورة
                                 </th>
-                                <th className="px-6 py-3 border-b text-left text-sm font-medium text-gray-700">
-                                    Name
+                                <th className="px-6 py-3 border-b text-right text-sm font-medium text-gray-700">
+                                    الاسم
                                 </th>
-                                <th className="px-6 py-3 border-b text-left text-sm font-medium text-gray-700">
-                                    Description
+                                <th className="px-6 py-3 border-b text-right text-sm font-medium text-gray-700">
+                                    الوصف
                                 </th>
-                                <th className="px-6 py-3 border-b text-left text-sm font-medium text-gray-700">
-                                    Actions
+                                <th className="px-6 py-3 border-b text-right text-sm font-medium text-gray-700">
+                                    الإجراءات
                                 </th>
                             </tr>
                         </thead>
@@ -123,33 +110,32 @@ const Index = ({ categories }) => {
                                                 className="w-16 h-16 object-cover rounded"
                                             />
                                         ) : (
-                                            <span className="text-gray-500">No Image</span>
+                                            <span className="text-gray-500">لا توجد صورة</span>
                                         )}
                                     </td>
                                     <td className="px-6 py-4 border-b text-sm text-gray-700">
                                         {category.name}
                                     </td>
                                     <td className="px-6 py-4 border-b text-sm text-gray-700">
-                                        {category.description || "No description available."}
-                                    </td>
-                                    <td className="px-6 py-4 flex text-red-500 border-b text-sm text-gray-700 space-x-2">
+  {category.description && category.description.length > 30
+    ? category.description.substring(0, 30) + "..."
+    : category.description || "لا يوجد وصف متاح."}
+</td>
+                                    <td className="px-6 py-4 flex text-red-500 border-b text-sm gap-4 space-x-2">
                                         <Link
                                             href={`/admin/categories/${category.id}`}
-                                            // className="inline-flex items-center px-3 py-1.5 bg-blue-600 text-white rounded hover:bg-blue-500"
                                         >
-                                            <FaEye className="mr-1 text-blue-600" /> 
+                                            <FaEye className="text-blue-600" />
                                         </Link>
                                         <button
                                             onClick={() => handleEditModalOpen(category)}
-                                            // className="inline-flex items-center px-3 py-1.5 bg-green-600 text-white rounded hover:bg-green-500"
                                         >
-                                            <FaEdit className="mr-1" /> 
+                                            <FaEdit />
                                         </button>
                                         <button
                                             onClick={() => handleDelete(category.id)}
-                                            // className="inline-flex items-center px-3 py-1.5 bg-red-600 text-white rounded hover:bg-red-500"
                                         >
-                                            <FaTrash className="mr-1" /> 
+                                            <FaTrash />
                                         </button>
                                     </td>
                                 </tr>
@@ -168,13 +154,14 @@ const Index = ({ categories }) => {
                     <div
                         className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full"
                         onClick={(e) => e.stopPropagation()}
+                        dir="rtl"
                     >
                         <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                            Add Category
+                            إضافة تصنيف جديد
                         </h2>
                         <form onSubmit={handleSubmit}>
                             <div className="mb-4">
-                                <label className="block text-gray-700">Name</label>
+                                <label className="block text-gray-700">الاسم</label>
                                 <input
                                     type="text"
                                     value={data.name}
@@ -187,7 +174,7 @@ const Index = ({ categories }) => {
                                 )}
                             </div>
                             <div className="mb-4">
-                                <label className="block text-gray-700">Description</label>
+                                <label className="block text-gray-700">الوصف</label>
                                 <textarea
                                     value={data.description}
                                     onChange={(e) => setData("description", e.target.value)}
@@ -198,7 +185,7 @@ const Index = ({ categories }) => {
                                 )}
                             </div>
                             <div className="mb-4">
-                                <label className="block text-gray-700">Image</label>
+                                <label className="block text-gray-700">الصورة</label>
                                 <input
                                     type="file"
                                     onChange={(e) => setData("image", e.target.files[0])}
@@ -212,15 +199,15 @@ const Index = ({ categories }) => {
                                 <button
                                     type="button"
                                     onClick={handleModalClose}
-                                    className="px-4 py-2 bg-gray-300 rounded mr-2"
+                                    className="px-4 py-2 bg-gray-300 rounded ml-2"
                                 >
-                                    Cancel
+                                    إلغاء
                                 </button>
                                 <button
                                     type="submit"
                                     className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500"
                                 >
-                                    Add Category
+                                    إضافة التصنيف
                                 </button>
                             </div>
                         </form>
@@ -237,13 +224,14 @@ const Index = ({ categories }) => {
                     <div
                         className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full"
                         onClick={(e) => e.stopPropagation()}
+                        dir="rtl"
                     >
                         <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                            Edit Category
+                            تعديل التصنيف
                         </h2>
                         <form onSubmit={handleEditSubmit}>
                             <div className="mb-4">
-                                <label className="block text-gray-700">Name</label>
+                                <label className="block text-gray-700">الاسم</label>
                                 <input
                                     type="text"
                                     value={data.name}
@@ -256,7 +244,7 @@ const Index = ({ categories }) => {
                                 )}
                             </div>
                             <div className="mb-4">
-                                <label className="block text-gray-700">Description</label>
+                                <label className="block text-gray-700">الوصف</label>
                                 <textarea
                                     value={data.description}
                                     onChange={(e) => setData("description", e.target.value)}
@@ -267,7 +255,7 @@ const Index = ({ categories }) => {
                                 )}
                             </div>
                             <div className="mb-4">
-                                <label className="block text-gray-700">Image</label>
+                                <label className="block text-gray-700">الصورة</label>
                                 <input
                                     type="file"
                                     onChange={(e) => setData("image", e.target.files[0])}
@@ -277,19 +265,19 @@ const Index = ({ categories }) => {
                                     <p className="text-red-500 text-sm">{errors.image}</p>
                                 )}
                             </div>
-                            <div className="flex justify-end">
+                            <div className="flex  justify-end">
                                 <button
                                     type="button"
                                     onClick={handleEditModalClose}
-                                    className="px-4 py-2 bg-gray-300 rounded mr-2"
+                                    className="px-4 py-2 bg-gray-300 rounded ml-2"
                                 >
-                                    Cancel
+                                    إلغاء
                                 </button>
                                 <button
                                     type="submit"
                                     className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-500"
                                 >
-                                    Update Category
+                                    تحديث التصنيف
                                 </button>
                             </div>
                         </form>

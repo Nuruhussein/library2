@@ -9,7 +9,7 @@ export default function Show({ categories, book }) {
         <>
             <Navbar />
             <nav
-                className="flex items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
+                className="flex max-w-screen-2xl text-center mx-auto items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
                 style={{ backgroundImage: "url('https://img.freepik.com/premium-vector/abstract-islamic-background-design-with-geometric-shape-white-background-vector_51543-1098.jpg?semt=ais_hybrid')" }}
                 aria-label="Breadcrumb"
             >
@@ -61,7 +61,7 @@ export default function Show({ categories, book }) {
          
 
                   <div className='hidden md:block'> <Aside categories={categories}/> </div>
-                <div className="flow-root m-6 shadow-sm  sm:my-16">
+                <div className="flow-root p-2 m-6 shadow-sm  sm:my-16">
                     <dl className="-my-3 divide-y divide-gray-100 text-sm">
                         {book && (
                             <>
@@ -131,7 +131,7 @@ export default function Show({ categories, book }) {
 
                                 <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
                                     <dt className="font-medium text-gray-900">الوصف</dt>
-                                    <dd className="text-gray-700 sm:col-span-2 break-words">
+                                    <dd className="text-gray-700 break-words max sm:col-span-2 max-w-[84ch]">
                                         {book.description ? (
                                             <span
                                                 dangerouslySetInnerHTML={{
@@ -144,14 +144,14 @@ export default function Show({ categories, book }) {
                                     </dd>
                                 </div>
 
-                                <div className="mt-12">
+                                <div className="mt-12 pb-8">
                                     <h3 className="text-lg font-medium text-gray-900">التقييمات</h3>
                                     {book.reviews && book.reviews.length > 0 ? (
                                         <ul className="space-y-4">
                                             {book.reviews.map((review, index) => (
                                                 <li key={index} className="border-t border-gray-200 pt-4">
                                                     <p className="font-semibold text-gray-800">{review.reviewer || "مجهول"}</p>
-                                                    <p className="text-gray-600 mt-1">
+                                                    <p className="text-gray-600 mt-1  break-words  max-w-[84ch]">
                                                         {review.comment ? (
                                                             <span
                                                                 dangerouslySetInnerHTML={{
@@ -173,16 +173,18 @@ export default function Show({ categories, book }) {
                         )}
                     </dl>
                 </div>
-                <div className="text-gray-700  flex items-start justify-start h-80 mb-2 md:mb-64 p-6">
+                {/* <div className='relative border h-full'> */}
+                <div className="text-gray-700    flex items-start justify-start h-80 mb-2 md:mb-64 md:-mt-20 p-6">
   {book.cover_image ? (
     <img
       src={`/storage/${book.cover_image}`}
       alt={`${book.title} cover`}
-      className="max-w-[150px] h-[200px] object-cover rounded-lg shadow-lg border-4 border-gray-300 transform transition-transform hover:scale-105 hover:shadow-2xl"
+      className="max-w-[150px] h-[200px] object-cover rounded-lg shadow-lg  border-4 border-gray-300 transform transition-transform hover:scale-105 hover:shadow-2xl"
     />
   ) : (
     "لا يوجد صورة غلاف."
   )}
+{/* </div> */}
 </div>
 
             </div>

@@ -1,9 +1,7 @@
-// resources/js/Pages/Reviews/Create.jsx
-
 import React, { useState } from "react";
 import { useForm } from "@inertiajs/react";
 import Dashboard from "../Dashboard";
-
+import { toast } from "react-hot-toast";
 const ReviewCreate = ({ books }) => {
     const { data, setData, post, reset, errors } = useForm({
         reviewer: "",
@@ -15,6 +13,7 @@ const ReviewCreate = ({ books }) => {
         e.preventDefault();
         post(route("reviews.add"), {
             onSuccess: () => {
+                toast.success("تمت إضافة المراجعة بنجاح!");
                 reset();
             },
         });
@@ -22,15 +21,16 @@ const ReviewCreate = ({ books }) => {
 
     return (
         <Dashboard>
-            <div className="container mx-auto w-[1022px] mt-16 px-6">
+            <div className="container mx-auto w-[1022px] mt-16 px-6" dir="rtl">
                 <div className="bg-white shadow-lg rounded-lg p-8">
                     <h1 className="text-3xl font-semibold text-gray-800 mb-6">
-                        Add a New Review
+                        إضافة مراجعة جديدة
                     </h1>
 
                     <form onSubmit={handleSubmit}>
+                        {/* Book Selection */}
                         <div className="mb-4">
-                            <label className="block text-gray-700">Book</label>
+                            <label className="block text-gray-700">الكتاب</label>
                             <select
                                 value={data.book_id}
                                 onChange={(e) =>
@@ -38,7 +38,7 @@ const ReviewCreate = ({ books }) => {
                                 }
                                 className="w-full p-2 border border-gray-300 rounded mt-1"
                             >
-                                <option value="">Select a book</option>
+                                <option value="">اختر كتابًا</option>
                                 {books.map((book) => (
                                     <option key={book.id} value={book.id}>
                                         {book.title}
@@ -52,9 +52,10 @@ const ReviewCreate = ({ books }) => {
                             )}
                         </div>
 
+                        {/* Reviewer Name */}
                         <div className="mb-4">
                             <label className="block text-gray-700">
-                                Reviewer Name
+                                اسم المراجع
                             </label>
                             <input
                                 type="text"
@@ -63,7 +64,7 @@ const ReviewCreate = ({ books }) => {
                                     setData("reviewer", e.target.value)
                                 }
                                 className="w-full p-2 border border-gray-300 rounded mt-1"
-                                placeholder="Your name"
+                                placeholder="اسمك"
                             />
                             {errors.reviewer && (
                                 <p className="text-red-600 text-sm mt-1">
@@ -72,17 +73,18 @@ const ReviewCreate = ({ books }) => {
                             )}
                         </div>
 
+                        {/* Comment */}
                         <div className="mb-4">
                             <label className="block text-gray-700">
-                                Comment
+                                التعليق
                             </label>
                             <textarea
                                 value={data.comment}
                                 onChange={(e) =>
                                     setData("comment", e.target.value)
                                 }
-                                className="w-full h-44 p-2 border border-gray-300 rounded mt-1"
-                                placeholder="Write your review here"
+                                className="w-full h-44 p-2 border border-gray-300 rounded mt-1 whitespace-pre-line"
+                                placeholder="اكتب مراجعتك هنا"
                             ></textarea>
                             {errors.comment && (
                                 <p className="text-red-600 text-sm mt-1">
@@ -91,11 +93,12 @@ const ReviewCreate = ({ books }) => {
                             )}
                         </div>
 
+                        {/* Submit Button */}
                         <button
                             type="submit"
                             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500"
                         >
-                            Submit Review
+                            إرسال المراجعة
                         </button>
                     </form>
                 </div>

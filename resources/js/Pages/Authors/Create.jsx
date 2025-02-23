@@ -15,9 +15,9 @@ const Create = () => {
 
     return (
         <Dashboard>
-            <div className="max-w-4xl mt-20 mx-auto px-4 py-6 bg-white shadow-md rounded-lg">
+            <div className="max-w-4xl mt-20 mx-auto px-4 py-6 bg-white shadow-md rounded-lg" dir="rtl">
                 <h1 className="text-2xl font-semibold text-gray-800 mb-4">
-                    Add New Author
+                    إضافة مؤلف جديد
                 </h1>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -27,7 +27,7 @@ const Create = () => {
                             htmlFor="name"
                             className="block text-sm font-medium text-gray-700"
                         >
-                            Name
+                            الاسم
                         </label>
                         <input
                             type="text"
@@ -49,7 +49,7 @@ const Create = () => {
                             htmlFor="bio"
                             className="block text-sm font-medium text-gray-700"
                         >
-                            Biography
+                            السيرة الذاتية
                         </label>
                         <textarea
                             id="bio"
@@ -71,7 +71,7 @@ const Create = () => {
                         type="submit"
                         className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white font-medium rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50 transition duration-150"
                     >
-                        Add Author
+                        إضافة المؤلف
                     </button>
                 </form>
             </div>

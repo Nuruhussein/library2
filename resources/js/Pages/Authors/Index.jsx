@@ -14,10 +14,11 @@ const Index = ({ authors }) => {
     const { delete: destroy } = useForm();
 
     const handleDelete = (id) => {
-        if (confirm("Are you sure you want to delete this author?")) {
+        if (confirm("هل أنت متأكد أنك تريد حذف هذا المؤلف؟")) {
             destroy(`/authors/${id}`);
         }
     };
+
     const openModal = (author = null) => {
         setIsModalOpen(true);
         setIsEditMode(!!author);
@@ -50,30 +51,30 @@ const Index = ({ authors }) => {
 
     return (
         <Dashboard>
-            <div className="max-w-4xl mt-20 mx-auto px-4 py-6 bg-white shadow-md rounded-lg">
+            <div className="max-w-4xl mt-20 mx-auto px-4 py-6 bg-white shadow-md rounded-lg" dir="rtl">
                 <h1 className="text-2xl font-semibold text-gray-800 mb-4">
-                    Authors
+                    المؤلفون
                 </h1>
 
                 <button
                     onClick={() => openModal()}
                     className="mb-6 inline-flex items-center px-4 py-2 bg-indigo-600 text-white font-medium rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50 transition duration-150"
                 >
-                    Add New Author
+                    إضافة مؤلف جديد
                 </button>
 
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-white border border-gray-200 rounded-md">
                         <thead>
                             <tr>
-                                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700 border-b border-gray-200">
-                                    Name
+                                <th className="px-6 py-3 text-right text-sm font-semibold text-gray-700 border-b border-gray-200">
+                                    الاسم
                                 </th>
-                                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700 border-b border-gray-200">
-                                    Book Count
+                                <th className="px-6 py-3 text-right text-sm font-semibold text-gray-700 border-b border-gray-200">
+                                    عدد الكتب
                                 </th>
-                                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700 border-b border-gray-200">
-                                    Actions
+                                <th className="px-6 py-3 text-right text-sm font-semibold text-gray-700 border-b border-gray-200">
+                                    الإجراءات
                                 </th>
                             </tr>
                         </thead>
@@ -92,9 +93,9 @@ const Index = ({ authors }) => {
                                     <td className="px-6 py-4 text-sm text-gray-800 border-b border-gray-200">
                                         <button
                                             onClick={() => openModal(author)}
-                                            className="text-yellow-600 hover:text-yellow-900 mr-4"
+                                            className="text-yellow-600 hover:text-yellow-900 ml-4"
                                         >
-                                            Edit
+                                            تعديل
                                         </button>
                                         <button
                                             onClick={() =>
@@ -102,8 +103,13 @@ const Index = ({ authors }) => {
                                             }
                                             className="text-red-600 hover:text-red-900"
                                         >
-                                            Delete
+                                            حذف
                                         </button>
+                                            <a href={`/admin/authors/${author.id}`}
+                                            className="text-blue-500 mx-4 hover:text-red-900"
+                                        >
+                                            التفاصيل
+                                        </a>
                                     </td>
                                 </tr>
                             ))}
@@ -113,9 +119,9 @@ const Index = ({ authors }) => {
 
                 {isModalOpen && (
                     <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center">
-                        <div className="bg-white rounded-lg p-6 shadow-lg max-w-lg w-full">
+                        <div className="bg-white rounded-lg p-6 shadow-lg max-w-lg w-full" dir="rtl">
                             <h2 className="text-xl font-semibold mb-4">
-                                {isEditMode ? "Edit Author" : "Add New Author"}
+                                {isEditMode ? "تعديل المؤلف" : "إضافة مؤلف جديد"}
                             </h2>
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div>
@@ -123,7 +129,7 @@ const Index = ({ authors }) => {
                                         htmlFor="name"
                                         className="block text-sm font-medium text-gray-700"
                                     >
-                                        Name
+                                        الاسم
                                     </label>
                                     <input
                                         type="text"
@@ -145,7 +151,7 @@ const Index = ({ authors }) => {
                                         htmlFor="bio"
                                         className="block text-sm font-medium text-gray-700"
                                     >
-                                        Biography
+                                        السيرة الذاتية
                                     </label>
                                     <textarea
                                         id="bio"
@@ -168,15 +174,14 @@ const Index = ({ authors }) => {
                                         onClick={closeModal}
                                         className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400"
                                     >
-                                        Cancel
+                                        إلغاء
                                     </button>
                                     <button
                                         type="submit"
                                         className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-md shadow-sm hover:bg-indigo-500"
                                     >
-                                        {isEditMode ? "Update" : "Add"}
+                                        {isEditMode ? "تحديث" : "إضافة"}
                                     </button>
-
                                 </div>
                             </form>
                         </div>

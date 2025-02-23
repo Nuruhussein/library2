@@ -1,6 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Sidebar from "@/Layouts/sidebar";
 import { Head } from "@inertiajs/react";
+import { Toaster } from "react-hot-toast";
 
 export default function Dashboard({ children }) {
     return (
@@ -18,6 +19,7 @@ export default function Dashboard({ children }) {
                     {" "}
                     <Sidebar />
                 </div>
+                <Toaster />
                 <div className="flex-1 p-6 bg-gray-100">{children}</div>
             </div>
         </AuthenticatedLayout>
