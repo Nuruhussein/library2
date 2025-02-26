@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm, usePage } from "@inertiajs/react";
 import Dashboard from "../Dashboard";
 import { Link } from "@inertiajs/react";
-import toast from "react-hot-toast"; // Import toast from react-hot-toast
+import toast from "react-hot-toast";
+import Select from "react-select"; // Import react-select
+
 const Create = ({ authors, categories }) => {
-
     const { props } = usePage();
-   
-    const {  breadcrumb } = props; // Get the category_id and breadcrumb from props
-    const { category_id} = props.query; // Get the category_id and breadcrumb from props
+    const { breadcrumb } = props; // Get the breadcrumb from props
+    const { category_id } = props.query; // Get the category_id from props
 
-    console.log(category_id);
-    console.log("Breadcrumb:", breadcrumb); // For debugging
     const { data, setData, post, errors } = useForm({
         title: "",
         author_id: "",
@@ -27,6 +25,27 @@ const Create = ({ authors, categories }) => {
         status: "draft", // Default to "draft"
     });
 
+    // Format authors and categories for react-select
+    const authorOptions = authors.map((author) => ({
+        value: author.id,
+        label: author.name,
+    }));
+
+    const categoryOptions = categories.map((category) => ({
+        value: category.id,
+        label: category.name,
+    }));
+
+    // Handle author selection
+    const handleAuthorChange = (selectedOption) => {
+        setData("author_id", selectedOption ? selectedOption.value : "");
+    };
+
+    // Handle category selection
+    const handleCategoryChange = (selectedOption) => {
+        setData("category_id", selectedOption ? selectedOption.value : "");
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         post("/books", {
@@ -39,12 +58,11 @@ const Create = ({ authors, categories }) => {
         });
     };
 
-
     return (
         <Dashboard>
-            <div className="max-w-4xl mx-auto  mt-20  px-6" dir="rtl">
-            {/* Breadcrumb */}
-            {breadcrumb && breadcrumb.length > 0 && (
+            <div className="max-w-4xl mx-auto mt-20 px-6" dir="rtl">
+                {/* Breadcrumb */}
+                {breadcrumb && breadcrumb.length > 0 && (
                     <div className="flex items-center text-sm text-gray-600 mb-6">
                         <Link href="/books" className="hover:text-blue-500">
                             الكتب
@@ -53,11 +71,11 @@ const Create = ({ authors, categories }) => {
                             <React.Fragment key={cat.id}>
                                 <span className="mx-2">/</span>
                                 {index === breadcrumb.length - 1 ? (
-                                    <span className="text-gray-800  font-semibold">{cat.name}</span>
+                                    <span className="text-gray-800 font-semibold">{cat.name}</span>
                                 ) : (
                                     <Link
                                         href={`/books?category_id=${cat.id}`}
-                                        className=" hover:text-blue-500"
+                                        className="hover:text-blue-500"
                                     >
                                         {cat.name}
                                     </Link>
@@ -66,9 +84,8 @@ const Create = ({ authors, categories }) => {
                         ))}
                     </div>
                 )}
-                </div>
+            </div>
             <div className="max-w-4xl mx-auto mt-20 bg-white shadow-md rounded-md p-4" dir="rtl">
-                  
                 <h1 className="text-2xl font-bold text-gray-700 mb-4 text-right">
                     إضافة كتاب جديد
                 </h1>
@@ -98,19 +115,14 @@ const Create = ({ authors, categories }) => {
                             <label className="block text-gray-600 font-medium text-right">
                                 المؤلف
                             </label>
-                            <select
-                                value={data.author_id}
-                                onChange={(e) => setData("author_id", e.target.value)}
-                                className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-right"
-                                required
-                            >
-                                <option value="">اختر المؤلف</option>
-                                {authors.map((author) => (
-                                    <option key={author.id} value={author.id}>
-                                        {author.name}
-                                    </option>
-                                ))}
-                            </select>
+                            <Select
+                                options={authorOptions}
+                                onChange={handleAuthorChange}
+                                placeholder="اختر المؤلف"
+                                isSearchable // Enable search
+                                noOptionsMessage={() => "لا توجد نتائج"} // Custom message when no options are found
+                                className="text-right"
+                            />
                             {errors.author_id && (
                                 <span className="text-sm text-red-600 text-right">
                                     {errors.author_id}
@@ -123,21 +135,15 @@ const Create = ({ authors, categories }) => {
                             <label className="block text-gray-600 font-medium text-right">
                                 التصنيف
                             </label>
-                            <select
-    value={props.query?.category_id || data.category_id} 
-    onChange={(e) => setData("category_id", e.target.value)}
-    className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-right"
-    required
-    disabled={!!props.query?.category_id} // Disable if a query exists
->
-    <option value="">اختر التصنيف</option>
-    {!props.query?.category_id && categories.map((category) => (
-        <option key={category.id} value={category.id}>
-            {category.name}
-        </option>
-    ))}
-</select>
-
+                            <Select
+                                options={categoryOptions}
+                                onChange={handleCategoryChange}
+                                placeholder="اختر التصنيف"
+                                isSearchable // Enable search
+                                noOptionsMessage={() => "لا توجد نتائج"} // Custom message when no options are found
+                                isDisabled={!!category_id} // Disable if a category_id is provided
+                                className="text-right"
+                            />
                             {errors.category_id && (
                                 <span className="text-sm text-red-600 text-right">
                                     {errors.category_id}

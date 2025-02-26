@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "@inertiajs/react";
 import Dashboard from "../Dashboard";
+import Select from "react-select"; // Import react-select
 
 const Edit = ({ book, categories, authors }) => {
     const { data, setData, post, errors } = useForm({
@@ -17,6 +18,32 @@ const Edit = ({ book, categories, authors }) => {
         page_number: book.page_number || "",
         status: book.status || "draft",
     });
+
+    // Format authors and categories for react-select
+    const authorOptions = authors.map((author) => ({
+        value: author.id,
+        label: author.name,
+    }));
+
+    const categoryOptions = categories.map((category) => ({
+        value: category.id,
+        label: category.name,
+    }));
+
+    // Handle author selection
+    const handleAuthorChange = (selectedOption) => {
+        setData("author_id", selectedOption ? selectedOption.value : "");
+    };
+
+    // Handle category selection
+    const handleCategoryChange = (selectedOption) => {
+        setData("category_id", selectedOption ? selectedOption.value : "");
+    };
+
+    // Handle status selection
+    const handleStatusChange = (e) => {
+        setData("status", e.target.value);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -56,22 +83,38 @@ const Edit = ({ book, categories, authors }) => {
                         />
 
                         {/* Author */}
-                        <SelectField
-                            label="المؤلف"
-                            value={data.author_id}
-                            setData={(value) => setData("author_id", value)}
-                            options={authors}
-                            error={errors.author_id}
-                        />
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700 text-right">المؤلف</label>
+                            <Select
+                                options={authorOptions}
+                                value={authorOptions.find((option) => option.value === data.author_id)}
+                                onChange={handleAuthorChange}
+                                placeholder="اختر المؤلف"
+                                isSearchable // Enable search
+                                noOptionsMessage={() => "لا توجد نتائج"} // Custom message when no options are found
+                                className="text-right"
+                            />
+                            {errors.author_id && (
+                                <span className="text-sm text-red-500 text-right">{errors.author_id}</span>
+                            )}
+                        </div>
 
                         {/* Category */}
-                        <SelectField
-                            label="التصنيف"
-                            value={data.category_id}
-                            setData={(value) => setData("category_id", value)}
-                            options={categories}
-                            error={errors.category_id}
-                        />
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700 text-right">التصنيف</label>
+                            <Select
+                                options={categoryOptions}
+                                value={categoryOptions.find((option) => option.value === data.category_id)}
+                                onChange={handleCategoryChange}
+                                placeholder="اختر التصنيف"
+                                isSearchable // Enable search
+                                noOptionsMessage={() => "لا توجد نتائج"} // Custom message when no options are found
+                                className="text-right"
+                            />
+                            {errors.category_id && (
+                                <span className="text-sm text-red-500 text-right">{errors.category_id}</span>
+                            )}
+                        </div>
 
                         {/* ISBN */}
                         <InputField
@@ -128,16 +171,20 @@ const Edit = ({ book, categories, authors }) => {
                         />
 
                         {/* Status */}
-                        <SelectField
-                            label="الحالة"
-                            value={data.status}
-                            setData={(value) => setData("status", value)}
-                            options={[
-                                { id: "draft", name: "مسودة" },
-                                { id: "post", name: "منشور" },
-                            ]}
-                            error={errors.status}
-                        />
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700 text-right">الحالة</label>
+                            <select
+                                value={data.status}
+                                onChange={handleStatusChange}
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-right"
+                            >
+                                <option value="draft">مسودة</option>
+                                <option value="post">منشور</option>
+                            </select>
+                            {errors.status && (
+                                <span className="text-sm text-red-500 text-right">{errors.status}</span>
+                            )}
+                        </div>
 
                         {/* Cover Image */}
                         <FileField
@@ -145,15 +192,15 @@ const Edit = ({ book, categories, authors }) => {
                             setData={(file) => setData("cover_image", file)}
                             error={errors.cover_image}
                         />
-
-                        {/* Description */}
-                        <TextareaField
-                            label="الوصف"
-                            value={data.description}
-                            setData={(value) => setData("description", value)}
-                            error={errors.description}
-                        />
                     </div>
+
+                    {/* Description */}
+                    <TextareaField
+                        label="الوصف"
+                        value={data.description}
+                        setData={(value) => setData("description", value)}
+                        error={errors.description}
+                    />
 
                     <button
                         type="submit"
@@ -177,25 +224,6 @@ const InputField = ({ label, type, value, setData, error }) => (
             onChange={(e) => setData(e.target.value)}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-right"
         />
-        {error && <span className="text-red-500 text-right">{error}</span>}
-    </div>
-);
-
-const SelectField = ({ label, value, setData, options, error }) => (
-    <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 text-right">{label}</label>
-        <select
-            value={value}
-            onChange={(e) => setData(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-right"
-        >
-            <option value="">اختر</option>
-            {options.map((option) => (
-                <option key={option.id} value={option.id}>
-                    {option.name}
-                </option>
-            ))}
-        </select>
         {error && <span className="text-red-500 text-right">{error}</span>}
     </div>
 );
