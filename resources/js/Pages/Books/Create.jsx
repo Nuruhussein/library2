@@ -1,12 +1,21 @@
-import React from "react";
-import { useForm } from "@inertiajs/react";
+import React, { useState, useEffect } from "react";
+import { useForm, usePage } from "@inertiajs/react";
 import Dashboard from "../Dashboard";
-
+import { Link } from "@inertiajs/react";
+import toast from "react-hot-toast"; // Import toast from react-hot-toast
 const Create = ({ authors, categories }) => {
+
+    const { props } = usePage();
+   
+    const {  breadcrumb } = props; // Get the category_id and breadcrumb from props
+    const { category_id} = props.query; // Get the category_id and breadcrumb from props
+
+    console.log(category_id);
+    console.log("Breadcrumb:", breadcrumb); // For debugging
     const { data, setData, post, errors } = useForm({
         title: "",
         author_id: "",
-        category_id: "",
+        category_id: category_id || "", // Pre-select the category if category_id is provided
         description: "",
         isbn: "",
         publication_date: "",
@@ -20,12 +29,46 @@ const Create = ({ authors, categories }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post("/books");
+        post("/books", {
+            onSuccess: () => {
+                toast.success("تم إضافة الكتاب بنجاح");
+            },
+            onError: () => {
+                toast.error("حدث خطأ أثناء إضافة الكتاب");
+            },
+        });
     };
+
 
     return (
         <Dashboard>
-            <div className="max-w-4xl mx-auto mt-20 bg-white shadow-md rounded-md p-6" dir="rtl">
+            <div className="max-w-4xl mx-auto  mt-20  px-6" dir="rtl">
+            {/* Breadcrumb */}
+            {breadcrumb && breadcrumb.length > 0 && (
+                    <div className="flex items-center text-sm text-gray-600 mb-6">
+                        <Link href="/books" className="hover:text-blue-500">
+                            الكتب
+                        </Link>
+                        {breadcrumb.map((cat, index) => (
+                            <React.Fragment key={cat.id}>
+                                <span className="mx-2">/</span>
+                                {index === breadcrumb.length - 1 ? (
+                                    <span className="text-gray-800  font-semibold">{cat.name}</span>
+                                ) : (
+                                    <Link
+                                        href={`/books?category_id=${cat.id}`}
+                                        className=" hover:text-blue-500"
+                                    >
+                                        {cat.name}
+                                    </Link>
+                                )}
+                            </React.Fragment>
+                        ))}
+                    </div>
+                )}
+                </div>
+            <div className="max-w-4xl mx-auto mt-20 bg-white shadow-md rounded-md p-4" dir="rtl">
+                  
                 <h1 className="text-2xl font-bold text-gray-700 mb-4 text-right">
                     إضافة كتاب جديد
                 </h1>
@@ -81,18 +124,20 @@ const Create = ({ authors, categories }) => {
                                 التصنيف
                             </label>
                             <select
-                                value={data.category_id}
-                                onChange={(e) => setData("category_id", e.target.value)}
-                                className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-right"
-                                required
-                            >
-                                <option value="">اختر التصنيف</option>
-                                {categories.map((category) => (
-                                    <option key={category.id} value={category.id}>
-                                        {category.name}
-                                    </option>
-                                ))}
-                            </select>
+    value={props.query?.category_id || data.category_id} 
+    onChange={(e) => setData("category_id", e.target.value)}
+    className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-right"
+    required
+    disabled={!!props.query?.category_id} // Disable if a query exists
+>
+    <option value="">اختر التصنيف</option>
+    {!props.query?.category_id && categories.map((category) => (
+        <option key={category.id} value={category.id}>
+            {category.name}
+        </option>
+    ))}
+</select>
+
                             {errors.category_id && (
                                 <span className="text-sm text-red-600 text-right">
                                     {errors.category_id}

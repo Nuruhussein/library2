@@ -1,8 +1,8 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-// use Database\Seeders\AuthorsSeeder; 
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             CategoriesSeeder::class,
             BooksSeeder::class,
             ReviewsSeeder::class,
+            // UsersSeeder::class,
         ]);
     }
 }

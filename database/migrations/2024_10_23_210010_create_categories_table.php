@@ -10,9 +10,13 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-             $table->text('description')->nullable();
-             $table->string('image')->nullable();
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable(); // Add this line
             $table->timestamps();
+        
+            // Foreign key constraint
+            $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

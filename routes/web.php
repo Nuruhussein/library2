@@ -15,7 +15,7 @@ use App\Models\Category;
 use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', function () {
-    $categories = Category::all();  // Fetch all categories from the database
+    $categories = Category::whereNull('parent_id')->get();
     $books = Book::with('author', 'category')->get(); // Fetch books with authors and categories
     $authors = Author::all(); // Fetch all authors
     
@@ -61,13 +61,15 @@ Route::get('/reviews/create', [ReviewController::class, 'create'])->name('review
 
  
 Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
+Route::get('/admin/categories/create', [CategoryController::class, 'create'])->name('admin.categories.create');
+
 Route::get('/admin/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
 
-
-    Route::get('/admin/categories/create', [CategoryController::class, 'create'])->name('admin.categories.create');
+    // Route::get('/admin/categories/create', [CategoryController::class, 'create'])->name('admin.categories.create');
     Route::post('/admin/categories', [CategoryController::class, 'store'])->name('admin.categories.store');
     Route::get('/admin/categories/{category}/edit', [CategoryController::class, 'edit'])->name('admin.categories.edit');
     Route::post('/admin/categories/{category}', [CategoryController::class, 'update'])->name('admin.categories.update');
+    Route::put('/admin/categories/{category}', [CategoryController::class, 'update'])->name('admin.categories.update'); // Changed to PUT
     Route::delete('/admin/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
 
 
@@ -119,7 +121,7 @@ Route::get('/categories', [CategoryController::class, 'clientcategory'])->name('
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth','admin','verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

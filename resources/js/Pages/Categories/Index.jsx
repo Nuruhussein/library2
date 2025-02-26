@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, router, useForm } from "@inertiajs/react";
 import Dashboard from "../Dashboard";
 import { FaPlus, FaEdit, FaTrash, FaEye } from "react-icons/fa";
+import toast from "react-hot-toast"; // Import toast from react-hot-toast
 
 const Index = ({ categories }) => {
     const [isModalOpen, setModalOpen] = useState(false);
@@ -41,7 +42,13 @@ const Index = ({ categories }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         post("/admin/categories", {
-            onSuccess: () => handleModalClose(),
+            onSuccess: () => {
+                toast.success("تم إنشاء التصنيف بنجاح");
+                handleModalClose();
+            },
+            onError: () => {
+                toast.error("حدث خطأ أثناء إنشاء التصنيف");
+            },
         });
     };
 
@@ -50,8 +57,13 @@ const Index = ({ categories }) => {
         e.preventDefault();
         post(`/admin/categories/${selectedCategory.id}`, {
             data: { ...data, _method: "put" },
-            onSuccess: () => handleEditModalClose(),
-            onError: () => alert("حدث خطأ أثناء تحديث التصنيف."),
+            onSuccess: () => {
+                toast.success("تم تحديث التصنيف بنجاح");
+                handleEditModalClose();
+            },
+            onError: () => {
+                toast.error("حدث خطأ أثناء تحديث التصنيف");
+            },
             forceFormData: true,
         });
     };
@@ -59,7 +71,14 @@ const Index = ({ categories }) => {
     // Handle category deletion
     const handleDelete = (id) => {
         if (confirm("هل أنت متأكد أنك تريد حذف هذا التصنيف؟")) {
-            destroy(`/admin/categories/${id}`);
+            destroy(`/admin/categories/${id}`, {
+                onSuccess: () => {
+                    toast.success("تم حذف التصنيف بنجاح");
+                },
+                onError: () => {
+                    toast.error("حدث خطأ أثناء حذف التصنيف");
+                },
+            });
         }
     };
 
@@ -117,10 +136,10 @@ const Index = ({ categories }) => {
                                         {category.name}
                                     </td>
                                     <td className="px-6 py-4 border-b text-sm text-gray-700">
-  {category.description && category.description.length > 30
-    ? category.description.substring(0, 30) + "..."
-    : category.description || "لا يوجد وصف متاح."}
-</td>
+                                        {category.description && category.description.length > 30
+                                            ? category.description.substring(0, 30) + "..."
+                                            : category.description || "لا يوجد وصف متاح."}
+                                    </td>
                                     <td className="px-6 py-4 flex text-red-500 border-b text-sm gap-4 space-x-2">
                                         <Link
                                             href={`/admin/categories/${category.id}`}
@@ -265,7 +284,7 @@ const Index = ({ categories }) => {
                                     <p className="text-red-500 text-sm">{errors.image}</p>
                                 )}
                             </div>
-                            <div className="flex  justify-end">
+                            <div className="flex justify-end">
                                 <button
                                     type="button"
                                     onClick={handleEditModalClose}

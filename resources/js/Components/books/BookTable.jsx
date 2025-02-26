@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, router, usePage } from "@inertiajs/react";
 import { FaPlus, FaTrash, FaSearch } from "react-icons/fa";
+import toast from "react-hot-toast"; // Import toast from react-hot-toast
+
 const BookTable = ({ books, search }) => {
     const [areAllChecked, setAllChecked] = useState(false);
     const [checkboxItems, setCheckboxItems] = useState({});
@@ -57,13 +59,19 @@ const BookTable = ({ books, search }) => {
     const handleDelete = (id) => {
         if (confirm("Are you sure you want to delete this book?")) {
             // Send delete request using Inertia
-            router.delete(route("books.destroy", id));
-            // router.post("/users", values);
+            router.delete(route("books.destroy", id), {
+                onSuccess: () => {
+                    toast.success("Book deleted successfully");
+                },
+                onError: () => {
+                    toast.error("Failed to delete the book");
+                },
+            });
         }
     };
 
     return (
-        <div className="max-w-screen-xl mx-auto px-4 md:px-8">
+        <div className="max-w-screen-xl  mx-auto px-4 md:px-8">
             <div>
                 {/* {flash.message && (
                     <div className="alert-success">{flash.message}</div>
@@ -78,32 +86,31 @@ const BookTable = ({ books, search }) => {
                         Manage your book collection with ease.
                     </p>
                 </div>
-             {/* Search Form */}
-             <form onSubmit={handleSearch} className="flex gap-4 items-center">
-                        <input
-                            type="text"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            placeholder="Search books,authors,categories..."
-                            className="w-full  px-4 py-2 box-border border rounded-lg"
-                        />
-                        <button
-                            type="submit"
-                            className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 flex items-center gap-2"
-                        >
-                            <FaSearch /> Search
-                        </button>
-                    </form>
-                    <Link
-                        href="/books/create"
-                        className=" px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-500 active:bg-indigo-700 md:text-sm flex items-center gap-2"
+                {/* Search Form */}
+                <form onSubmit={handleSearch} className="flex gap-4 items-center">
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        placeholder="Search books, authors, categories..."
+                        className="w-full px-4 py-2 box-border border rounded-lg"
+                    />
+                    <button
+                        type="submit"
+                        className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 flex items-center gap-2"
                     >
-                        <FaPlus /> Add Book
-                    </Link>
-                
+                        <FaSearch /> Search
+                    </button>
+                </form>
+                <Link
+                    href="/books/create"
+                    className="px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-500 active:bg-indigo-700 md:text-sm flex items-center gap-2"
+                >
+                    <FaPlus /> Add Book
+                </Link>
             </div>
-            <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
-                <table className="w-full table-auto text-sm text-left">
+            <div className="mt-12 overflow-scroll shadow-sm border rounded-lg overflow-x-auto">
+                <table className="w-full  table-auto text-sm text-left">
                     <thead className="text-gray-600 font-medium border-b">
                         <tr>
                             <th className="py-3 px-6 flex items-center gap-x-4">
@@ -124,12 +131,10 @@ const BookTable = ({ books, search }) => {
                             </th>
                             <th className="py-3 px-6">Author</th>
                             <th className="py-3 px-6">Category</th>
-                            {/* <th className="py-3 px-6">Description</th> */}
                             <th className="py-3 px-6">ISBN</th>
                             <th className="py-3 px-6">Publication Date</th>
                             <th className="py-3 px-6">Cover Image</th>
-                            <th className="py-3 px-6">reviews</th>
-
+                            <th className="py-3 px-6">Reviews</th>
                             <th className="py-3 px-6">Actions</th>
                         </tr>
                     </thead>
@@ -166,9 +171,6 @@ const BookTable = ({ books, search }) => {
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     {book.category.name}
                                 </td>
-                                {/* <td className="px-6 py-4 whitespace-nowrap">
-                                    {book.description}
-                                </td> */}
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     {book.isbn}
                                 </td>
@@ -195,7 +197,6 @@ const BookTable = ({ books, search }) => {
                                         View Reviews
                                     </Link>
                                 </td>
-
                                 <td className="px-6 py-4 whitespace-nowrap text-right">
                                     <Link
                                         href={`/admin/books/${book.id}`}

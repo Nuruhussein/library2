@@ -13,17 +13,56 @@ use Inertia\Inertia;
 
 class BookController extends Controller
 {
-    // Show the form to create a new book
-    public function create()
+    public function create(Request $request)
     {
         $authors = Author::all();
-        $categories = Category::all();
-
+        $categories = Category::with('children')->whereNull('parent_id')->get();
+    
+        // Fetch the breadcrumb if category_id is provided
+        $breadcrumb = [];
+        if ($request->has('category_id')) {
+            $category = Category::find($request->query('category_id'));
+            if ($category) {
+                $breadcrumb = $this->getBreadcrumb($category);
+            }
+        }
+    
         return inertia('Books/Create', [
             'authors' => $authors,
             'categories' => $categories,
+            'query' => $request->query(), // Pass query parameters to the frontend
+            'breadcrumb' => $breadcrumb, // Pass the breadcrumb to the frontend
         ]);
     }
+    
+    // Helper function to get the breadcrumb for a category
+    private function getBreadcrumb(Category $category)
+    {
+        $breadcrumb = [];
+        $current = $category;
+    
+        // Traverse up the category hierarchy
+        while ($current) {
+            array_unshift($breadcrumb, [
+                'id' => $current->id,
+                'name' => $current->name,
+            ]);
+            $current = $current->parent;
+        }
+    
+        return $breadcrumb;
+    }
+    // public function edit(Book $book)
+    // {
+    //     $categories = Category::with('children')->whereNull('parent_id')->get(); // Fetch only top-level categories
+    //     $authors = Author::all();
+    
+    //     return Inertia::render('Books/Edit', [
+    //         'book' => $book,
+    //         'categories' => $categories,
+    //         'authors' => $authors,
+    //     ]);
+    // }
 
 
 
@@ -108,7 +147,6 @@ public function index(Request $request)
         'search' => $request->search ?? '',
     ]);
 }
-
 public function storage(Request $request)
 {
     $search = $request->input('search'); // Get the search query
@@ -127,36 +165,31 @@ public function storage(Request $request)
         ->get(); 
 
     $authors = Author::all();
-    $categories = Category::withCount('books')->get();
+    // Fetch only parent categories with books count
+    $categories = Category::withCount('books')->whereNull('parent_id')->get();
 
     return Inertia::render('store/Index', [
         'books' => $books,
         'authors' => $authors,
         'categories' => $categories,
-        'search' => $search, // Pass the search query back to the frontend
+        'search' => $search,
     ]);
 }
 
 
-
 public function tag(Category $category)
 {
-      // Eager load the 'books' relationship
-      $category->load('books');
-      $categories = Category::withCount('books')->get(); // Fetch categories with the count of books
-      $authors = Author::all();
-  
-      return Inertia::render('store/Tag', ['category' => $category
-    ,'categories'=>$categories,]);
-
    
+    $category->load('books');
 
-    // return Inertia::render('store/Index', [
-    //     'books' => $books,
-    //     'authors' => $authors,
-    //     'categories' => $categories,
-    //     'search' => $search, // Pass the search query back to the frontend
-    // ]);
+    $categories = Category::withCount('books')->whereNull('parent_id')->get();
+
+    $authors = Author::all();
+
+    return Inertia::render('store/Tag', [
+        'category' => $category,
+        'categories' => $categories,
+    ]);
 }
 
     // Show a specific book and its reviews

@@ -10,11 +10,15 @@ class ReviewsSeeder extends Seeder
     public function run()
     {
         Review::create([
-            'book_id' => 1,
-            // 'user_id' => 1, // Corresponding user ID
-            'comment' => 'Great book on history!',
-            'reviewer'=>'moh'
+            'reviewer' => 'أحمد علي',
+            'comment' => 'كتاب رائع ومفيد جدًا في فهم السيرة النبوية.',
+            'book_id' => 1
         ]);
-        // Add more reviews as needed
+
+        Review::create([
+            'reviewer' => 'محمد حسن',
+            'comment' => 'تفسير ابن كثير من أفضل كتب التفسير المعروفة.',
+            'book_id' => 2
+        ]);
     }
 }
