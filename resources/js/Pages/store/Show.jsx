@@ -2,6 +2,8 @@ import Aside from '@/Components/Aside';
 import Footer from '@/Components/Footer';
 import Navbar from '@/Components/Navbar';
 import React from 'react';
+import { Link } from '@inertiajs/react';
+
 import { FaBook } from 'react-icons/fa'; // Import the book icon
 
 export default function Show({ categories, book }) {
@@ -16,7 +18,7 @@ export default function Show({ categories, book }) {
                 <ol className="flex flex-row-reverse overflow-hidden rounded-lg border border-gray-200 text-gray-600" dir="rtl">
                     <li className="flex items-center">
                         
-                        <a
+                       <Link
                             href="/"
                             className="flex h-10 items-center gap-1.5 bg-gray-100 px-4 transition hover:text-gray-900"
                         >
@@ -36,19 +38,19 @@ export default function Show({ categories, book }) {
                                     d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                                 />
                             </svg>
-                        </a>
+                        </Link>
                     </li>
 
                     <li className="relative flex items-center">
                         <span
                             className="absolute inset-y-0 -start-px h-10 w-4 bg-gray-100 [clip-path:_polygon(0_0,_0%_100%,_100%_50%)] rtr:rotate-180"
                         ></span>
-                        <a
+                       <Link
                             href="/store"
                             className="flex h-10 items-center bg-white pe-4 ps-8 text-xs font-medium transition hover:text-gray-900"
                         >
                             المتجر
-                        </a>
+                        </Link>
                     </li>
                     <li className="rtl:rotate-180 flex justify-center items-center">
                       
@@ -60,7 +62,7 @@ export default function Show({ categories, book }) {
             <div className="container  max-w-7xl mx-auto flex w-full flex-col-reverse  md:items-center pb-8 pt-4 md:flex-row-reverse md:pb-10 md:pt-8 lg:pb-16" dir="rtl">
          
 
-                  <div className='hidden md:block'> <Aside categories={categories}/> </div>
+                  <div className='hidden md:block'><Aside categories={categories}/> </div>
                 <div className="flow-root p-2 m-6 shadow-sm  sm:my-16">
                     <dl className="-my-3 divide-y divide-gray-100 text-sm">
                         {book && (
@@ -118,7 +120,7 @@ export default function Show({ categories, book }) {
                                 <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
                                     <dt className="font-medium text-gray-900">رابط الموقع</dt>
                                     <dd className="text-gray-700 sm:col-span-2">
-                                        <a href={book.link_to_website || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
+                                       <a href={book.link_to_website || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
                                             {book.link_to_website || "لا يوجد رابط متاح"}
                                         </a>
                                     </dd>

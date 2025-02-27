@@ -11,7 +11,7 @@ use App\Http\Controllers\ReviewController;
 use App\Models\Book;
 use App\Models\Author;
 use App\Models\Category;
-
+use App\Http\Controllers\BookArticleController;
 use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', function () {
@@ -83,22 +83,26 @@ Route::delete('/authors/{author}', [AuthorController::class, 'destroy'])->name('
 Route::put('/authors/{author}', [AuthorController::class, 'update'])->name('authors.update');
 
 
+
+Route::get('/admin/book-articles/create', [BookArticleController::class, 'create'])->name('book-articles.create');
+Route::post('/admin/book-articles', [BookArticleController::class, 'store'])->name('book-articles.store');
+Route::get('/admin/book-articles', [BookArticleController::class, 'index'])->name('book-articles.index');
+Route::get('/admin/book-articles/{id}', [BookArticleController::class, 'show'])->name('book-articles.show');
+Route::get('/admin/book-articles/{id}/edit', [BookArticleController::class, 'edit'])->name('book-articles.edit');
+Route::delete('/admin/book-articles/{id}', [BookArticleController::class, 'destroy'])->name('book-articles.destroy');
+Route::put('/admin/book-articles/{id}', [BookArticleController::class, 'update'])->name('book-articles.update');
 });
 
 
+Route::get('/book-articles', [BookArticleController::class, 'indexclient'])->name('book-articles.indexclient');
 
 
-// Route::get('/category/{category}', [CategoryController::class, 'showeach'])->name('categories.show');
+Route::get('/book-articles/{id}', [BookArticleController::class, 'showclient'])->name('book-articles.showclient');
 
 
-
-
-
-// Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 
 // client (Frontend) Route
 Route::get('/categories', [CategoryController::class, 'clientcategory'])->name('categories.indexclient');
-
 
 
 

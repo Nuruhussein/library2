@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import React, { useRef } from 'react';
 
 const Categories = ({ categories }) => {
@@ -70,9 +71,9 @@ const Categories = ({ categories }) => {
                                                     ? `${category.description.substring(0, 50)}...`
                                                     : category.description}
                                             </p>
-                                            <a
+                                            <Link
                                                 href={`/store/tag/${category.id}`}
-                                                className="mt-4 flex items-center gap-2 font-medium"
+                                                className="mt-4 text-blue-400 flex items-center gap-2 font-medium"
                                             >
                                                 Learn more
                                                 <svg
@@ -89,7 +90,7 @@ const Categories = ({ categories }) => {
                                                 >
                                                     <path d="m9 18 6-6-6-6" />
                                                 </svg>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 ))

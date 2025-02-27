@@ -2,6 +2,7 @@ import Footer from '@/Components/Footer';
 import Navbar from '@/Components/Navbar';
 import React from 'react';
 import { FaBook } from 'react-icons/fa'; // Import the book icon
+import { Link} from '@inertiajs/react';
 
 export default function Show({ category, categories }) {
     return (
@@ -16,7 +17,7 @@ export default function Show({ category, categories }) {
                 >
                     <ol className="flex items-center justify-center text-center mx-auto w-full">
                         <li className='m-4'>
-                            <a href="/" className="inline-flex items-center text-xl text-gray-400   hover:text-gray-200">
+                            <Link href="/" className="inline-flex items-center text-xl text-gray-400   hover:text-gray-200">
                                 <svg
                                     className="w-5 h-5 mr-2"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +33,7 @@ export default function Show({ category, categories }) {
                                     />
                                 </svg>
                                 Home
-                            </a>
+                            </Link>
                         </li>
                         <li className='m-4'>
                             <span className="mt-9 text-gray-500">/</span>
@@ -52,7 +53,7 @@ export default function Show({ category, categories }) {
                                     <span className="h-px flex-1 bg-gray-300"></span>
                                 </span>
                                 {categories.map((category) => (
-                                    <a href={`/category/${category.id}`} key={category.id}>
+                                    <Link href={`/category/${category.id}`} key={category.id}>
                                         <li className="flex items-center text-zinc-600 py-3 px-2 cursor-pointer hover:text-blue-500 font-bold">
                                             <FaBook className="mr-3 rotate-45 text-blue-500" />
                                             {category.name} -
@@ -60,14 +61,14 @@ export default function Show({ category, categories }) {
                                                 {category.books_count} books
                                             </span>
                                         </li>
-                                    </a>
+                                    </Link>
                                 ))}
-                                <a href="/store">
+                                <Link href="/store">
                                     <li className="flex items-center text-zinc-600 py-3 px-2 cursor-pointer hover:text-blue-500 font-bold">
                                         <FaBook className="mr-3 rotate-45 text-blue-500" />
                                         All Books
                                     </li>
-                                </a>
+                                </Link>
                             </ul>
                         </div>
                     </aside>
@@ -91,12 +92,12 @@ export default function Show({ category, categories }) {
                                         <p className="text-gray-600 text-sm mb-4 break-words">
                                             {book.description || 'No description available.'}
                                         </p>
-                                        <a
+                                        <Link
                                             href={`/store/books/${book.id}`}
                                             className="text-indigo-500 hover:text-indigo-700 text-sm font-medium"
                                         >
                                             Learn More
-                                        </a>
+                                        </Link>
                                     </div>
                                 ))}
                             </div>

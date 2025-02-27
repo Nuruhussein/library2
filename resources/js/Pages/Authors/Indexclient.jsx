@@ -1,5 +1,6 @@
 import Footer from "@/Components/Footer";
 import Navbar from "@/Components/Navbar";
+import { Link } from "@inertiajs/react";
 import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi"; // Import search icon
 
@@ -27,7 +28,7 @@ const Indexclient = ({ authors }) => {
             >
                 <ol className="flex overflow-hidden rounded-lg border border-gray-200 text-gray-600">
                     <li className="flex items-center">
-                        <a
+                      <Link
                             href="/"
                             className="flex h-10 items-center gap-1.5 bg-gray-100 px-4 transition hover:text-gray-900"
                         >
@@ -46,18 +47,18 @@ const Indexclient = ({ authors }) => {
                                 />
                             </svg>
                             <span className="ms-1.5 text-xs font-medium"> Home </span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="relative flex items-center">
                         <span
                             className="absolute inset-y-0 -start-px h-10 w-4 bg-gray-100 [clip-path:_polygon(0_0,_0%_100%,_100%_50%)] rtl:rotate-180"
                         ></span>
-                        <a
+                      <Link
                             href="#"
                             className="flex h-10 items-center bg-white pe-4 ps-8 text-xs font-medium transition hover:text-gray-900"
                         >
                                فهرس المؤلفين
-                        </a>
+                        </Link>
                     </li>
                 </ol>
             </nav>
@@ -92,11 +93,11 @@ const Indexclient = ({ authors }) => {
               key={author.id}
               className="flex flex-row-reverse justify-start px-8 mr-20 items-end gap-4 border-b-2 border-gray-50 w-full"
             >
-                <a href={`/authors/${author.id}`} className="">
+              <Link href={`/authors/${author.id}`} className="">
               <h2 className="text-lg text-blue-500 font-semibold">
                 {author.name}
               </h2>
-              </a>
+              </Link>
               <p>
                 <span className="text-gray-600">
                   [ {author.books_count} :عدد الكتب]

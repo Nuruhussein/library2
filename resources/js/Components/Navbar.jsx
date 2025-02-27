@@ -1,28 +1,54 @@
-import React, { useState } from "react";
+import { Link } from "@inertiajs/react";
+import React, { useState, useEffect } from "react";
+import { router } from '@inertiajs/react';
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Handle scroll event
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
 
   const handleSearchClick = () => {
-    if (search.trim()) {
-      window.location.href = `/store?search=${encodeURIComponent(search)}`;
-    }
+      if (search.trim()) {
+          router.get('/store', { search });
+      }
   };
+  
 
   return (
-    <nav className="bg-white max-w-screen-2xl mx-auto px-6 shadow dark:bg-gray-800">
+    <nav
+      className={`bg-white max-w-screen-2xl mx-auto px-6 shadow dark:bg-gray-800 sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled ? "-py-1" : "py-0"
+      }`}
+    >
       <div className="container px-6 py-1 mx-auto">
         <div className="lg:flex lg:items-center">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a href="#">
+            <Link href="#">
               <img
-                className="sm:h-16 text-2xl w-28 h-7"
+                className={`sm:h-16 text-2xl w-28 ${
+                  isScrolled ? "h-7" : "h-10"
+                } transition-all duration-300`}
                 src="/storage/images/logo.png"
                 alt="Logo"
               />
-            </a>
+            </Link>
 
             {/* Mobile menu button */}
             <div className="flex lg:hidden">
@@ -151,36 +177,42 @@ const Navbar = () => {
             }`}
           >
             <div className="flex items-end flex-col text-gray-600 capitalize dark:text-gray-300 lg:flex lg:-mx-4 lg:flex-row lg:items-center">
-              <a
+              <Link
                 href="/"
                 className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
               >
                 الرئيسية
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/categories"
                 className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
               >
                 الأقسام
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
               >
                 من نحن
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
               >
                 اتصل بنا
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/authors"
                 className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
               >
                 فهرس المؤلفين
-              </a>
+              </Link>
+              <Link
+                href="/book-articles"
+                className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
+              >
+             مَقال
+              </Link>
             </div>
           </div>
         </div>

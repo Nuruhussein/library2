@@ -47,7 +47,7 @@ export default function Sidebar({ children }) {
                                         ></path>
                                     </svg>
                                 </button>
-                                <a
+                                <Link
                                     href="/"
                                     className="text-xl font-bold flex items-center lg:ml-2.5"
                                 >
@@ -59,7 +59,7 @@ export default function Sidebar({ children }) {
                                     <span className="self-center whitespace-nowrap">
                                        Mekteba
                                     </span>
-                                </a>
+                                </Link>
                                 <form
                                     action="#"
                                     method="GET"
@@ -261,8 +261,8 @@ export default function Sidebar({ children }) {
                                         </li>
                                     </ul>
                                     <div className="space-y-2 pt-2">
-                                        <a
-                                            href="#"
+                                    <Link
+                                            href="/admin/book-articles"
                                             target="_blank"
                                             className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2"
                                         >
@@ -275,14 +275,15 @@ export default function Sidebar({ children }) {
                                                 <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>
                                             </svg>
                                             <span className="ml-3">
-                                                Components
+                                               Articles
                                             </span>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </aside>
+                  
                     <div
                         className="bg-gray-900 opacity-50 hidden fixed inset-0 z-10"
                         id="sidebarBackdrop"

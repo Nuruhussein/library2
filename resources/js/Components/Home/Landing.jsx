@@ -1,6 +1,7 @@
 import React from "react";
 import MorphingText from "../ui/morphing-text"; // Import your MorphingText component
 import ShinyButton from "../ui/shiny-button";
+import { Link } from "@inertiajs/react";
 
 function Landing() {
   const texts = [
@@ -43,7 +44,7 @@ function Landing() {
 المكتبة لطالبين  
         </h2>
         <MorphingText  texts={texts} />
-        <a href="/store"> <ShinyButton>بحث في المكتبة</ShinyButton></a>
+        <Link href="/store"> <ShinyButton>بحث في المكتبة</ShinyButton></Link>
         {/* Optional static text */}
         {/* <h2 className="font-bold text-white sm:text-[48px] text-[40px] leading-[56.8px] font-poppins">
           Al Mehdi Qur'anic and <br /> Terbiya Center

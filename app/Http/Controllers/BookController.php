@@ -150,6 +150,8 @@ public function index(Request $request)
 public function storage(Request $request)
 {
     $search = $request->input('search'); // Get the search query
+
+    // Fetch books sorted by latest (created_at in descending order)
     $books = Book::with('author', 'category')
         ->where('status', 'post') // Only fetch books with status = "post"
         ->when($search, function ($query, $search) {
@@ -161,6 +163,7 @@ public function storage(Request $request)
                              $query->where('name', 'like', "%{$search}%");
                          });
         })
+        ->orderBy('created_at', 'desc') // Sort by latest
         ->limit(20) // Limit to 20 books
         ->get(); 
 
@@ -168,27 +171,34 @@ public function storage(Request $request)
     // Fetch only parent categories with books count
     $categories = Category::withCount('books')->whereNull('parent_id')->get();
 
+    // Total number of books
+    $totalBooks = Book::where('status', 'post')->count();
+
     return Inertia::render('store/Index', [
         'books' => $books,
         'authors' => $authors,
         'categories' => $categories,
         'search' => $search,
+        'totalBooks' => $totalBooks, // Pass total books count to the frontend
     ]);
 }
 
 
 public function tag(Category $category)
 {
-   
-    $category->load('books');
+    // Load the category with its books and subcategories
+    $category->load('books', 'children');
 
+    // Fetch only parent categories with books count
     $categories = Category::withCount('books')->whereNull('parent_id')->get();
 
-    $authors = Author::all();
+    // Fetch subcategories of the current category
+    $subcategories = $category->children;
 
     return Inertia::render('store/Tag', [
         'category' => $category,
         'categories' => $categories,
+        'subcategories' => $subcategories, // Pass subcategories to the frontend
     ]);
 }
 
@@ -206,7 +216,7 @@ public function tag(Category $category)
     public function storagedetail($id)
     {
         $book = Book::with(['author', 'category', 'reviews'])->findOrFail($id);
-        $categories = Category::withCount('books')->get(); // Fetch categories with the count of books
+        $categories = Category::withCount('books')->whereNull('parent_id')->get(); // Fetch categories with the count of books
 
         return inertia('store/Show', [
             'book' => $book,
