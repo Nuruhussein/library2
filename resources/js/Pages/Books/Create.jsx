@@ -3,7 +3,9 @@ import { useForm, usePage } from "@inertiajs/react";
 import Dashboard from "../Dashboard";
 import { Link } from "@inertiajs/react";
 import toast from "react-hot-toast";
-import Select from "react-select"; // Import react-select
+import Select from "react-select";
+import ReactQuill from "react-quill"; // Import ReactQuill
+import "react-quill/dist/quill.snow.css"; // Import Quill styles
 
 const Create = ({ authors, categories }) => {
     const { props } = usePage();
@@ -297,18 +299,51 @@ const Create = ({ authors, categories }) => {
                         </div>
                     </div>
 
-                    {/* Description */}
-                    <div>
+                  {/* Description */}
+                  <div className="mt-6"       dir="rtl">
                         <label className="block text-gray-600 font-medium text-right">
                             الوصف
                         </label>
-                        <textarea
-                            value={data.description}
-                            onChange={(e) => setData("description", e.target.value)}
-                            className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-right"
-                            rows={9}
-                            style={{ whiteSpace: "pre-wrap" }} // Ensures formatting is visible
-                        />
+                      {/* Description */}
+<div className="mt-6" dir="rtl">
+    <label className="block text-gray-600 font-medium text-right">
+        الوصف
+    </label>
+    <ReactQuill
+        theme="snow"
+        value={data.description}
+        onChange={(value) => setData("description", value)}
+        placeholder="أدخل الوصف هنا..."
+        className="text-right"
+        style={{ height: "300px" }} // Set the height here
+        modules={{
+            toolbar: [
+                [{ header: [1, 2, 3, false] }],
+                ["bold", "italic", "underline", "strike"],
+                [{ list: "ordered" }, { list: "bullet" }],
+                ["link", "image"],
+                ["clean"],
+            ],
+        }}
+        formats={[
+            "header",
+            "bold",
+            "italic",
+            "underline",
+            "strike",
+            "list",
+            "bullet",
+            "link",
+            "image",
+        ]}
+        dir="ltr" // Set the direction to RTL
+    />
+    {errors.description && (
+        <span className="text-sm text-red-600 text-right">
+            {errors.description}
+        </span>
+    )}
+</div>
                         {errors.description && (
                             <span className="text-sm text-red-600 text-right">
                                 {errors.description}
@@ -318,7 +353,7 @@ const Create = ({ authors, categories }) => {
 
                     <button
                         type="submit"
-                        className="mt-6 bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700"
+                        className="mt-16 bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700"
                     >
                         إضافة الكتاب
                     </button>

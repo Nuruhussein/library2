@@ -62,14 +62,17 @@ const Show = ({ bookArticle,bookArticles }) => {
             </nav>
         <section className="text-gray-600 body-font mb-16 mx-14" dir="rtl">
             <div className="container px-5 py-24 mx-auto flex flex-col">
-                <div className="lg:w-4/6 mx-auto">
+                <div className="lg:w-4/6 flex flex-col justify-start items-center mx-auto">
                     {bookArticle.image && (
-                        <div className="rounded-lg h-64 overflow-hidden">
+                        <div>
+                        <div className="rounded-lg rotate-45 h-96    overflow-hidden">
                             <img 
                                 alt={bookArticle.title} 
-                                className="object-cover object-center h-full w-full" 
+                                className="object-cover object-center mx-auto shadow-lg h-72  w-56" 
                                 src={`/storage/${bookArticle.image}`}
                             />
+                        </div>
+                        <div className='bg-orange-100 rounded-b-2xl h-3 w-80 shadow-2xl shadow-red-800'></div>
                         </div>
                     )}
                     <div className="flex flex-col sm:flex-row mt-10">

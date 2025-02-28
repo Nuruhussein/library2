@@ -43,17 +43,10 @@ const Show = ({ book }) => (
             <div className="mt-8 space-y-6">
                 <div>
                     <h2 className="text-xl font-semibold text-gray-800">الوصف</h2>
-                    <p className="text-gray-700 break-words">
-                        {book.description ? (
-                            <span
-                                dangerouslySetInnerHTML={{
-                                    __html: book.description.replace(/\n/g, "<br />"),
-                                }}
-                            />
-                        ) : (
-                            "لا يوجد وصف متاح."
-                        )}
-                    </p>
+                    <div
+                        className="text-gray-700 break-words"
+                        dangerouslySetInnerHTML={{ __html: book.description || "لا يوجد وصف متاح." }}
+                    />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-right">
                     <p className="text-lg text-gray-600">

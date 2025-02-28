@@ -61,7 +61,7 @@ const Index = ({ bookArticles }) => {
                 {latestArticle && (
                     <div className="text-gray-600 mb-12">
                         <div className="lg:w-4/6 mx-auto">
-                            {latestArticle.image && (
+                            {/* {latestArticle.image && (
                                 <div className="rounded-lg h-64 overflow-hidden">
                                     <img 
                                         alt={latestArticle.title} 
@@ -69,7 +69,19 @@ const Index = ({ bookArticles }) => {
                                         src={`/storage/${latestArticle.image}`}
                                     />
                                 </div>
-                            )}
+                            )} */}
+                             {latestArticle.image && (
+                        <div className='flex flex-col justify-center items-center'>
+                        <div className="rounded-lg rotate-45 h-96    overflow-hidden">
+                            <img 
+                                alt={latestArticle.title} 
+                                className="object-cover object-center mx-auto shadow-lg h-72  w-56" 
+                                src={`/storage/${latestArticle.image}`}
+                            />
+                        </div>
+                        <div className='bg-orange-100 rounded-b-2xl h-3 w-80 shadow-2xl shadow-red-800'></div>
+                        </div>
+                    )}
                             <div className="flex flex-col sm:flex-row mt-10">
                                 <div className="sm:w-1/3 text-center sm:pl-8 sm:py-8">
                                     <div className="w-20 h-20 rounded-full inline-flex items-center justify-center bg-gray-200 text-gray-400">
@@ -107,9 +119,16 @@ const Index = ({ bookArticles }) => {
                                             {latestArticle.subtitle}
                                         </h2>
                                     )}
-                                    <p className="leading-relaxed text-lg mb-4">
-                                        {latestArticle.content}
-                                    </p>
+                                 <p
+  className="leading-relaxed text-lg mb-4"
+  dangerouslySetInnerHTML={{
+    __html:
+      latestArticle.content.length > 100
+        ? latestArticle.content.slice(0, 100) + "..."
+        : latestArticle.content,
+  }}
+></p>
+
                                     <Link 
                                         href={`/book-articles/${latestArticle.id}`} 
                                         className="text-indigo-500 inline-flex items-center"

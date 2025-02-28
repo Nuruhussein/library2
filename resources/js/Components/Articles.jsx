@@ -10,7 +10,7 @@ export default function Articles({remainingArticles}) {
     return (
         <>
             
-  <div className="grid grid-cols-1 gap-8 mt-8 lg:mt-16 m-4 md:grid-cols-2 xl:grid-cols-3">
+  <div className="grid grid-cols-2 gap-8 mt-8 lg:mt-16 m-4 md:grid-cols-2 xl:grid-cols-3">
   {remainingArticles.map(bookArticle => (
       <div key={bookArticle.id}>
           <div className="inline-block p-3 text-white bg-orange-200 rounded-lg">
