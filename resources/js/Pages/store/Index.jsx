@@ -60,7 +60,7 @@ export default function Index({ categories, books, totalBooks }) {
             </nav>
 
             {/* Total Books Description */}
-            <div className="container mx-auto max-w-screen-xl px-4 py-6" dir="rtl">
+            <div className="container mx-auto  max-w-screen-xl px-4 py-6" dir="rtl">
                 <div className="   p-6">
                     <h2 className="text-2xl text-orange-300 font-semibold mb-4 text-right">
                         مرحبًا بك في متجر الكتب

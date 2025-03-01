@@ -314,7 +314,7 @@ const Create = ({ authors, categories }) => {
         value={data.description}
         onChange={(value) => setData("description", value)}
         placeholder="أدخل الوصف هنا..."
-        className="text-right"
+        className="text-left"
         style={{ height: "300px" }} // Set the height here
         modules={{
             toolbar: [

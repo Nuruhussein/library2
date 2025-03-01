@@ -1,14 +1,16 @@
 import React from "react";
 import { useForm } from "@inertiajs/react";
 import Dashboard from "../Dashboard";
-import Select from "react-select"; // Import react-select
+import Select from "react-select";
+import ReactQuill from "react-quill"; // Import ReactQuill
+import "react-quill/dist/quill.snow.css"; // Import Quill styles
 
 const Edit = ({ book, categories, authors }) => {
     const { data, setData, post, errors } = useForm({
         title: book.title || "",
         author_id: book.author_id || "",
         category_id: book.category_id || "",
-        description: book.description || "",
+        description: book.description || "", // This will store the HTML content
         isbn: book.isbn || "",
         publication_date: book.publication_date || "",
         cover_image: null,
@@ -90,8 +92,8 @@ const Edit = ({ book, categories, authors }) => {
                                 value={authorOptions.find((option) => option.value === data.author_id)}
                                 onChange={handleAuthorChange}
                                 placeholder="اختر المؤلف"
-                                isSearchable // Enable search
-                                noOptionsMessage={() => "لا توجد نتائج"} // Custom message when no options are found
+                                isSearchable
+                                noOptionsMessage={() => "لا توجد نتائج"}
                                 className="text-right"
                             />
                             {errors.author_id && (
@@ -107,8 +109,8 @@ const Edit = ({ book, categories, authors }) => {
                                 value={categoryOptions.find((option) => option.value === data.category_id)}
                                 onChange={handleCategoryChange}
                                 placeholder="اختر التصنيف"
-                                isSearchable // Enable search
-                                noOptionsMessage={() => "لا توجد نتائج"} // Custom message when no options are found
+                                isSearchable
+                                noOptionsMessage={() => "لا توجد نتائج"}
                                 className="text-right"
                             />
                             {errors.category_id && (
@@ -195,16 +197,45 @@ const Edit = ({ book, categories, authors }) => {
                     </div>
 
                     {/* Description */}
-                    <TextareaField
-                        label="الوصف"
-                        value={data.description}
-                        setData={(value) => setData("description", value)}
-                        error={errors.description}
-                    />
+                    <div className="mb-4 md:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 text-right">الوصف</label>
+                        <ReactQuill
+                            theme="snow"
+                            value={data.description}
+                            onChange={(value) => setData("description", value)}
+                            placeholder="أدخل الوصف هنا..."
+                            className="text-right"
+                            style={{ height: "300px" }} // Set the height here
+                            dir="rtl" // Set the direction to RTL
+                            modules={{
+                                toolbar: [
+                                    [{ header: [1, 2, 3, false] }],
+                                    ["bold", "italic", "underline", "strike"],
+                                    [{ list: "ordered" }, { list: "bullet" }],
+                                    ["link", "image"],
+                                    ["clean"],
+                                ],
+                            }}
+                            formats={[
+                                "header",
+                                "bold",
+                                "italic",
+                                "underline",
+                                "strike",
+                                "list",
+                                "bullet",
+                                "link",
+                                "image",
+                            ]}
+                        />
+                        {errors.description && (
+                            <span className="text-sm text-red-500 text-right">{errors.description}</span>
+                        )}
+                    </div>
 
                     <button
                         type="submit"
-                        className="mt-6 inline-flex items-center px-4 py-2 bg-indigo-600 text-white font-medium rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50 transition duration-150"
+                        className="inline-flex items-center px-4 py-2 mt-8 bg-indigo-600 text-white font-medium rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50 transition duration-150"
                     >
                         تحديث الكتاب
                     </button>
@@ -222,19 +253,6 @@ const InputField = ({ label, type, value, setData, error }) => (
             type={type}
             value={value}
             onChange={(e) => setData(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-right"
-        />
-        {error && <span className="text-red-500 text-right">{error}</span>}
-    </div>
-);
-
-const TextareaField = ({ label, value, setData, error }) => (
-    <div className="mb-4 md:col-span-2">
-        <label className="block text-sm font-medium text-gray-700 text-right">{label}</label>
-        <textarea
-            value={value}
-            onChange={(e) => setData(e.target.value)}
-            rows="4"
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-right"
         />
         {error && <span className="text-red-500 text-right">{error}</span>}

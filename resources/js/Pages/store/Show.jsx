@@ -80,44 +80,44 @@ export default function Show({ categories, book }) {
                                     )}
                                 </dd> */}
 
-                                <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+                                <div className="grid grid-cols-1 gap-y-1 gap-x-2 py-3 sm:grid-cols-3 sm:gap-y-4">
                                     <dt className="font-medium text-gray-900">العنوان</dt>
                                     <dd className="text-gray-700 sm:col-span-2">{book.title || "غير متوفر"}</dd>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+                                <div className="grid grid-cols-1 gap-y-1 gap-x-2 py-3 sm:grid-cols-3 sm:gap-y-4">
                                     <dt className="font-medium text-gray-900">المؤلف</dt>
                                     <dd className="text-gray-700 sm:col-span-2">{book.author?.name || "مؤلف غير معروف"}</dd>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+                                <div className="grid grid-cols-1 gap-y-1 gap-x-2 py-3 sm:grid-cols-3 sm:gap-y-4">
                                     <dt className="font-medium text-gray-900">التصنيف</dt>
                                     <dd className="text-gray-700 sm:col-span-2">{book.category?.name || "غير مصنف"}</dd>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+                                <div className="grid grid-cols-1 gap-y-1 gap-x-2 py-3 sm:grid-cols-3 sm:gap-y-4">
                                     <dt className="font-medium text-gray-900">الرقم الدولي (ISBN)</dt>
                                     <dd className="text-gray-700 sm:col-span-2">{book.isbn || "غير متوفر"}</dd>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+                                <div className="grid grid-cols-1 gap-y-1 gap-x-2 py-3 sm:grid-cols-3 sm:gap-y-4">
                                     <dt className="font-medium text-gray-900">تاريخ النشر</dt>
                                     <dd className="text-gray-700 sm:col-span-2">
                                         {new Date(book.publication_date).toLocaleDateString() || "غير متوفر"}
                                     </dd>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+                                <div className="grid grid-cols-1 gap-y-1 gap-x-2 py-3 sm:grid-cols-3 sm:gap-y-4">
                                     <dt className="font-medium text-gray-900">الناشر</dt>
                                     <dd className="text-gray-700 sm:col-span-2">{book.publisher || "غير متوفر"}</dd>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+                                <div className="grid grid-cols-1 gap-y-1 gap-x-2 py-3 sm:grid-cols-3 sm:gap-y-4">
                                     <dt className="font-medium text-gray-900">الباحث</dt>
                                     <dd className="text-gray-700 sm:col-span-2">{book.researcher || "غير متوفر"}</dd>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+                                <div className="grid grid-cols-1 gap-y-1 gap-x-2 py-3 sm:grid-cols-3 sm:gap-y-4">
                                     <dt className="font-medium text-gray-900">رابط الموقع</dt>
                                     <dd className="text-gray-700 sm:col-span-2">
                                        <a href={book.link_to_website || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
@@ -126,19 +126,18 @@ export default function Show({ categories, book }) {
                                     </dd>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+                                <div className="grid grid-cols-1 gap-y-1 gap-x-2 py-3 sm:grid-cols-3 sm:gap-y-4">
                                     <dt className="font-medium text-gray-900">عدد الصفحات</dt>
                                     <dd className="text-gray-700 sm:col-span-2">{book.page_number || "غير متوفر"}</dd>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+                                <div className="grid grid-cols-1 gap-y-1 gap-x-2 py-3 sm:grid-cols-3 sm:gap-y-4">
                                     <dt className="font-medium text-gray-900">الوصف</dt>
                                     <dd className="text-gray-700 break-words max sm:col-span-2 max-w-[84ch]">
                                         {book.description ? (
+                                          
                                             <span
-                                                dangerouslySetInnerHTML={{
-                                                    __html: book.description.replace(/\n/g, "<br />"),
-                                                }}
+                                            dangerouslySetInnerHTML={{ __html: book.description || "لا يوجد وصف متاح." }}
                                             />
                                         ) : (
                                             "لا يوجد وصف متاح."
