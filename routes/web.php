@@ -54,7 +54,7 @@ Route::post('/reviews', [ReviewController::class, 'add'])->name('reviews.add');
 Route::get('/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
 
 
- Route::post('/reviews', [ReviewController::class, 'add'])->name('reviews.add');
+//  Route::post('/reviews', [ReviewController::class, 'add'])->name('reviews.add');
 
 
 

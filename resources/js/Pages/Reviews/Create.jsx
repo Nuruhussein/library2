@@ -2,12 +2,27 @@ import React, { useState } from "react";
 import { useForm } from "@inertiajs/react";
 import Dashboard from "../Dashboard";
 import { toast } from "react-hot-toast";
+import Select from "react-select"; // Import react-select
+import ReactQuill from "react-quill"; // Import ReactQuill
+import "react-quill/dist/quill.snow.css"; // Import Quill styles
+
 const ReviewCreate = ({ books }) => {
     const { data, setData, post, reset, errors } = useForm({
         reviewer: "",
         comment: "",
         book_id: "",
     });
+
+    // Format books for react-select
+    const bookOptions = books.map((book) => ({
+        value: book.id,
+        label: book.title,
+    }));
+
+    // Handle book selection
+    const handleBookChange = (selectedOption) => {
+        setData("book_id", selectedOption ? selectedOption.value : "");
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -31,20 +46,15 @@ const ReviewCreate = ({ books }) => {
                         {/* Book Selection */}
                         <div className="mb-4">
                             <label className="block text-gray-700">الكتاب</label>
-                            <select
-                                value={data.book_id}
-                                onChange={(e) =>
-                                    setData("book_id", e.target.value)
-                                }
-                                className="w-full p-2 border border-gray-300 rounded mt-1"
-                            >
-                                <option value="">اختر كتابًا</option>
-                                {books.map((book) => (
-                                    <option key={book.id} value={book.id}>
-                                        {book.title}
-                                    </option>
-                                ))}
-                            </select>
+                            <Select
+                                options={bookOptions}
+                                value={bookOptions.find((option) => option.value === data.book_id)}
+                                onChange={handleBookChange}
+                                placeholder="اختر كتابًا"
+                                isSearchable // Enable search
+                                noOptionsMessage={() => "لا توجد نتائج"} // Custom message when no options are found
+                                className="text-right"
+                            />
                             {errors.book_id && (
                                 <p className="text-red-600 text-sm mt-1">
                                     {errors.book_id}
@@ -60,10 +70,8 @@ const ReviewCreate = ({ books }) => {
                             <input
                                 type="text"
                                 value={data.reviewer}
-                                onChange={(e) =>
-                                    setData("reviewer", e.target.value)
-                                }
-                                className="w-full p-2 border border-gray-300 rounded mt-1"
+                                onChange={(e) => setData("reviewer", e.target.value)}
+                                className="w-full p-2 border border-gray-300 rounded mt-1 text-right"
                                 placeholder="اسمك"
                             />
                             {errors.reviewer && (
@@ -78,14 +86,35 @@ const ReviewCreate = ({ books }) => {
                             <label className="block text-gray-700">
                                 التعليق
                             </label>
-                            <textarea
+                            <ReactQuill
+                                theme="snow"
                                 value={data.comment}
-                                onChange={(e) =>
-                                    setData("comment", e.target.value)
-                                }
-                                className="w-full h-44 p-2 border border-gray-300 rounded mt-1 whitespace-pre-line"
+                                onChange={(value) => setData("comment", value)}
                                 placeholder="اكتب مراجعتك هنا"
-                            ></textarea>
+                                className="text-right"
+                                style={{ height: "200px" }} // Set the height here
+                                dir="rtl" // Set the direction to RTL
+                                modules={{
+                                    toolbar: [
+                                        [{ header: [1, 2, 3, false] }],
+                                        ["bold", "italic", "underline", "strike"],
+                                        [{ list: "ordered" }, { list: "bullet" }],
+                                        ["link", "image"],
+                                        ["clean"],
+                                    ],
+                                }}
+                                formats={[
+                                    "header",
+                                    "bold",
+                                    "italic",
+                                    "underline",
+                                    "strike",
+                                    "list",
+                                    "bullet",
+                                    "link",
+                                    "image",
+                                ]}
+                            />
                             {errors.comment && (
                                 <p className="text-red-600 text-sm mt-1">
                                     {errors.comment}
@@ -96,7 +125,7 @@ const ReviewCreate = ({ books }) => {
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500"
+                            className="bg-blue-600 mt-16 text-white px-4 py-2 rounded hover:bg-blue-500"
                         >
                             إرسال المراجعة
                         </button>

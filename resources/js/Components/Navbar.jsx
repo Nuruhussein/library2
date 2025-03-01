@@ -45,7 +45,7 @@ const Navbar = () => {
                 className={`sm:h-16 text-2xl w-28 ${
                   isScrolled ? "h-7" : "h-10"
                 } transition-all duration-300`}
-                src="/storage/images/logo.png"
+                src="/storage/images/turas.PNG"
                 alt="Logo"
               />
             </Link>

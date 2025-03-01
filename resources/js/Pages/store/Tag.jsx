@@ -22,7 +22,7 @@ export default function Tag({ category, categories, subcategories }) {
                 >
                     <ol className="flex overflow-hidden rounded-lg border border-gray-200 text-gray-600">
                         <li className="flex items-center">
-                            <a
+                           <Link
                                 href="/"
                                 className="flex h-10 items-center gap-1.5 bg-gray-100 px-4 transition hover:text-gray-900"
                             >
@@ -41,18 +41,18 @@ export default function Tag({ category, categories, subcategories }) {
                                     />
                                 </svg>
                                 <span className="ms-1.5 text-xs font-medium">الرئيسية</span>
-                            </a>
+                            </Link>
                         </li>
                         <li className="relative flex items-center">
                             <span
                                 className="absolute inset-y-0 -start-px h-10 w-4 bg-gray-100 [clip-path:_polygon(0_0,_0%_100%,_100%_50%)] rtl:rotate-180"
                             ></span>
-                            <a
+                           <Link
                                 href="#"
                                 className="flex h-10 items-center bg-white pe-4 ps-8 text-xs font-medium transition hover:text-gray-900"
                             >
                                 {category.name}
-                            </a>
+                            </Link>
                         </li>
                     </ol>
                 </nav>

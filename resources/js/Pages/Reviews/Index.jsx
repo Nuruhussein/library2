@@ -1,9 +1,9 @@
-// resources/js/Pages/Reviews/Index.jsx
-
 import { Link, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import Dashboard from "../Dashboard";
 import { router } from "@inertiajs/react";
+import ReactQuill from "react-quill"; // Import ReactQuill
+import "react-quill/dist/quill.snow.css"; // Import Quill styles
 
 const ReviewsIndex = ({ book, reviews }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -96,13 +96,16 @@ const ReviewsIndex = ({ book, reviews }) => {
                                 <div className="text-gray-700 break-words">
                                     {review.comment ? (
                                         <>
-                                            <p>
-                                                {expandedReview === review.id
-                                                    ? review.comment
-                                                    : `${review.comment.slice(0, 40)}${
-                                                          review.comment.length > 40 ? "..." : ""
-                                                      }`}
-                                            </p>
+                                            <div
+                                                dangerouslySetInnerHTML={{
+                                                    __html:
+                                                        expandedReview === review.id
+                                                            ? review.comment
+                                                            : `${review.comment.slice(0, 40)}${
+                                                                  review.comment.length > 40 ? "..." : ""
+                                                              }`,
+                                                }}
+                                            />
                                             {review.comment.length > 40 && (
                                                 <button
                                                     onClick={() => toggleAccordion(review.id)}
@@ -112,13 +115,6 @@ const ReviewsIndex = ({ book, reviews }) => {
                                                         ? "عرض أقل"
                                                         : "عرض المزيد"}
                                                 </button>
-                                            )}
-                                            {expandedReview === review.id && (
-                                                <span
-                                                    dangerouslySetInnerHTML={{
-                                                        __html: review.comment.replace(/\n/g, "<br />"),
-                                                    }}
-                                                />
                                             )}
                                         </>
                                     ) : (
@@ -151,7 +147,7 @@ const ReviewsIndex = ({ book, reviews }) => {
                 {/* Modal for adding/editing review */}
                 {isModalOpen && (
                     <div
-                        className="fixed inset-0 bg-gray-800 p-44 bg-opacity-50 flex justify-center items-center z-50"
+                        className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50"
                         dir="rtl"
                     >
                         <div className="bg-white rounded-lg p-6 w-full max-w-md">
@@ -176,19 +172,42 @@ const ReviewsIndex = ({ book, reviews }) => {
                                 </div>
                                 <div className="mb-4">
                                     <label className="block text-gray-700">التعليق</label>
-                                    <textarea
+                                    <ReactQuill
+                                        theme="snow"
                                         value={data.comment}
-                                        onChange={(e) => setData("comment", e.target.value)}
-                                        className="w-full h-44 p-2 border border-gray-300 rounded mt-1 text-right"
+                                        onChange={(value) => setData("comment", value)}
                                         placeholder="اكتب تقييمك هنا"
-                                    ></textarea>
+                                        className="text-right"
+                                        style={{ height: "200px" }} // Set the height here
+                                        dir="rtl" // Set the direction to RTL
+                                        modules={{
+                                            toolbar: [
+                                                [{ header: [1, 2, 3, false] }],
+                                                ["bold", "italic", "underline", "strike"],
+                                                [{ list: "ordered" }, { list: "bullet" }],
+                                                ["link", "image"],
+                                                ["clean"],
+                                            ],
+                                        }}
+                                        formats={[
+                                            "header",
+                                            "bold",
+                                            "italic",
+                                            "underline",
+                                            "strike",
+                                            "list",
+                                            "bullet",
+                                            "link",
+                                            "image",
+                                        ]}
+                                    />
                                     {errors.comment && (
                                         <p className="text-red-600 text-sm mt-1">
                                             {errors.comment}
                                         </p>
                                     )}
                                 </div>
-                                <div className="flex justify-end">
+                                <div className="flex mt-24 mx-8 justify-end">
                                     <button
                                         type="button"
                                         onClick={() => setIsModalOpen(false)}
