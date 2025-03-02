@@ -52,7 +52,7 @@ export default function Sidebar({ children }) {
                                     className="text-xl font-bold flex items-center lg:ml-2.5"
                                 >
                                     <img
-                                          src="/storage/images/logo.png"
+                                          src="/storage/images/turas.png"
                                         className="h-12 w-16 mr-2"
                                         alt="Windster Logo"
                                     />

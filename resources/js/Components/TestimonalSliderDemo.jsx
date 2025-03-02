@@ -4,23 +4,23 @@ import FancyTestimonialsSlider from "./ui/FancyTestimonialsSlider";
 export function TestimonalSliderDemo() {
   const testimonials = [
     {
-      img: "https://randomuser.me/api/portraits/men/91.jpg",
-      quote: "EldoraUI's components make building UIs effortless great work!",
-      name: "Jessie J",
-      role: "Acme LTD",
+      img: "https://randomuser.me/api/portraits/men/1.jpg", // Example image of a scholar
+      quote: "مكونات المكتبة التراث تجعل بناء الواجهات سهلاً وممتعًا. عمل رائع!",
+      name: "الشيخ أحمد",
+      role: "مدرس علوم شرعية",
     },
     {
-      img: "https://randomuser.me/api/portraits/women/12.jpg",
+      img: "https://randomuser.me/api/portraits/men/34.jpg", // Example image of a student
       quote:
-        "EldoraUI simplifies complex designs with ready-to-use components.",
-      name: "Nick V",
-      role: "Malika Inc.",
+        "المكتبة التراث تبسط التصاميم المعقدة بمكونات جاهزة للاستخدام.",
+      name:"عمر خالد",
+      role: "طالبة علوم إسلامية",
     },
     {
-      img: "https://randomuser.me/api/portraits/men/45.jpg",
-      quote: "With EldoraUI, creating responsive UIs is a breeze.",
-      name: "Amelia W",
-      role: "Panda AI",
+      img: "https://randomuser.me/api/portraits/men/21.jpg", // Example image of an imam
+      quote: "مع المكتبة التراث، أصبح إنشاء واجهات تفاعلية أمرًا في غاية السهولة.",
+      name: "عمر عبد الله",
+      role: "إمام وخطيب",
     },
   ];
   return (

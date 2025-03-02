@@ -40,7 +40,7 @@ const Navbar = () => {
         <div className="lg:flex lg:items-center">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href="#">
+            <Link href="/">
               <img
                 className={`sm:h-16 text-2xl w-28 ${
                   isScrolled ? "h-7" : "h-10"

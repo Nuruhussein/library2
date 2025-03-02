@@ -4,45 +4,57 @@ import {
   AccordionHeader,
   AccordionItem,
   AccordionPanel,
-} from  './ui/accordiontwo';
+} from './ui/accordiontwo';
 
 function AccordiantwoDemo() {
   return (
     <>
       <Accordion multiple>
-  
-
         <AccordionItem value="item-1">
-          <AccordionHeader>What is a UI component?</AccordionHeader>
+          <AccordionHeader>من نحن؟</AccordionHeader>
           <AccordionPanel>
-            A UI (User Interface) component is a modular, reusable element that
-            serves a specific function within a graphical user interface.
-            Examples include buttons, input fields, dropdown menus, sliders, and
-            checkboxes.
+            مرحبًا بكم في المكتبة التراث، منصة متخصصة في تقديم نظرة على الكتب الإسلامية من خلال تحليل مقدماتها وذكر آراء العلماء المعتبرين حولها. هدفنا هو مساعدة القارئ في اختيار الكتب التي تحظى بتقدير العلماء في مختلف مجالات العلوم الإسلامية.
           </AccordionPanel>
         </AccordionItem>
         <AccordionItem value="item-2">
-          <AccordionHeader>Why are UI components important?</AccordionHeader>
+          <AccordionHeader>ماذا نقدم؟</AccordionHeader>
           <AccordionPanel>
-            UI components promote consistency, efficiency, and scalability in
-            software development. They allow developers to reuse code, maintain
-            a consistent look and feel across an application, and easily make
-            updates or modifications without affecting the entire system.
+            نعتمد في مراجعاتنا على: 
+            <br />
+            • تحليل المقدمة: تقديم ملخص لأهداف الكتاب، ومنهجه، وأهم موضوعاته بناءً على ما ذكره المؤلف في المقدمة. 
+            <br />
+            • آراء العلماء: نقل أقوال العلماء حول قيمة الكتاب، وموثوقيته، ومدى اعتماده في الدراسات الشرعية. 
+            <br />
+            • تصنيف الكتب حسب المجال العلمي: بحيث تشمل: 
+            <br />
+            • العقيدة 
+            <br />
+            • التفسير وعلوم القرآن 
+            <br />
+            • الحديث وعلومه 
+            <br />
+            • الفقه وأصوله 
+            <br />
+            • السيرة والتاريخ الإسلامي 
+            <br />
+            • العلوم الإسلامية العامة
           </AccordionPanel>
         </AccordionItem>
         <AccordionItem value="item-3">
-          <AccordionHeader>
-            Key characteristics of UI components?
-          </AccordionHeader>
+          <AccordionHeader>لماذا نحن؟</AccordionHeader>
           <AccordionPanel>
-            Well-designed UI components should be modular, customizable, and
-            accessible. They should have clear and intuitive functionality, be
-            easily styled to match the overall design language of the
-            application.
+            • الاعتماد على النصوص الصحيحة – لا نعرض إلا الكتب الموافقة مع القرآن والسنة. 
+            <br />
+            • توثيق من العلماء – نعتمد على أقوال العلماء المعتبرين في تقييم الكتب. 
+            <br />
+            • وضوح وموضوعية – نقدم مراجعات دقيقة دون تعقيد أو تحيز. 
+            <br />
+            تركيزنا على مقدمات الكتب وآراء العلماء يضمن مراجعات دقيقة وموثوقة تساعد كل باحث عن المعرفة الإسلامية الأصيلة.
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
     </>
   );
 }
+
 export default AccordiantwoDemo;

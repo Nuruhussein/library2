@@ -40,11 +40,11 @@ function Landing() {
 
       {/* Overlay Content */}
       <div className="relative w-full h-full flex flex-col justify-center sm:ml-10 items-center text-center z-10">
-      <h2 className="font-bold  text-gray-100 pb-4 sm:text-[60px] text-[40px] leading-[56.8px] font-poppins">
-المكتبة لطالبين  
+      <h2 className="font-bold  text-gray-100 pb-4 sm:text-[60px] text-[60px] leading-[56.8px] font-poppins">
+المكتبة الــتـراث  
         </h2>
         <MorphingText  texts={texts} />
-        <Link href="/store"> <ShinyButton>بحث في المكتبة</ShinyButton></Link>
+        <Link href="/store" className="sm:mt-1 mt-4"> <ShinyButton>بحث في المكتبة</ShinyButton></Link>
         {/* Optional static text */}
         {/* <h2 className="font-bold text-white sm:text-[48px] text-[40px] leading-[56.8px] font-poppins">
           Al Mehdi Qur'anic and <br /> Terbiya Center

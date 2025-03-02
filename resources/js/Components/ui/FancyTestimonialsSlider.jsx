@@ -47,7 +47,7 @@ const FancyTestimonialsSlider = ({ testimonials }) => {
     <div className="mx-auto w-full max-w-4xl text-center">
       {/* Testimonial image */}
       <div className="relative h-48">
-        <div className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[600px] -translate-x-1/2 before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient-to-b before:from-blue-500/25 before:via-blue-500/10 before:via-25% before:to-blue-500/0 before:to-75%">
+        <div className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[600px] -translate-x-1/2 before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient-to-b before:from-orange-200 before:via-orange-500/10 before:via-25% before:to-orange-500/0 before:to-75%">
           <div className="h-48 [mask-image:_linear-gradient(0deg,transparent,theme(colors.white)_20%,theme(colors.white))]">
             {testimonials.map((testimonial, index) => (
               <Transition
@@ -91,7 +91,7 @@ const FancyTestimonialsSlider = ({ testimonials }) => {
               leaveTo="opacity-0 translate-x-4"
               beforeEnter={adjustHeight}
             >
-              <div className="text-3xl font-bold text-blue-900 before:content-['\201C'] after:content-['\201D']">
+              <div className="text-3xl font-bold text-orange-900 before:content-['\201C'] after:content-['\201D']">
                 {testimonial.quote}
               </div>
             </Transition>
@@ -100,14 +100,14 @@ const FancyTestimonialsSlider = ({ testimonials }) => {
       </div>
 
 {/* Buttons to switch testimonials */}
-      <div className="-m-2 flex flex-wrap justify-center">
+      <div className="-m-2  flex flex-wrap justify-center">
         {testimonials.map((testimonial, index) => (
           <button
             key={index}
             className={`m-2 inline-flex justify-center whitespace-nowrap rounded-full px-4 py-2 text-sm shadow-sm transition-colors duration-150 focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-300 dark:focus-visible:ring-blue-600 ${
               activeIndex === index
-                ? "bg-blue-500 text-white shadow-blue-950/10"
-                : "bg-white text-blue-900 hover:bg-blue-100"
+                ? "bg-orange-500 text-white shadow-blue-950/10"
+                : "bg-white text-orange-900 hover:bg-blue-100"
             }`}
             onClick={() => handleButtonClick(index)}
           >

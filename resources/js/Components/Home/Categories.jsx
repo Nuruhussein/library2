@@ -20,14 +20,15 @@ const Categories = ({ categories }) => {
         <section className="py-12">
             <div className="container max-w-6xl mx-auto">
             <div className="mx-auto flex flex-col items-center gap-6 text-center px-4 md:px-0"> {/* Added responsive padding */}
-    <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold">
+    <div className="inline-flex items-center text-orange-200 rounded-full border px-2.5 py-0.5 text-xs font-semibold">
         الفئات الشهيرة
     </div>
     <h2 className="text-4xl font-medium leading-tight md:leading-normal"> {/* Adjusted line height */}
         كتب اسلامية مجانية
     </h2>
-    <p className="text-lg text-zinc-600 leading-relaxed"> {/* Adjusted line height */}
-        كتب إلكترونية إسلامية مجانية عن القرآن والحديث والعقيدة والتوحيد والصلاح ورمضان والزكاة والحج والملائكة والجن والآخرة وأصحاب النبي وغيرهم الكثير!
+    <p className="text-lg text-orange-400 leading-relaxed"> {/* Adjusted line height */}
+
+مجموعة متميزة من الكتب الإسلامية المجانية تضم التفسير والحديث والعقيدة والفقه والسيرة النبوية والتاريخ الإسلامي والتنمية الروحية، بالإضافة إلى مؤلفات العلماء والمفكرين المسلمين."
     </p>
 </div>
                 {/* Navigation Arrows and Horizontal Scrolling Container */}
@@ -75,7 +76,7 @@ const Categories = ({ categories }) => {
                                                 href={`/store/tag/${category.id}`}
                                                 className="mt-4 text-blue-400 flex items-center gap-2 font-medium"
                                             >
-                                                Learn more
+                                              اعرف المزيد
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     width="24"
