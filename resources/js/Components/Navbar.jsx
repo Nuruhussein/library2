@@ -177,43 +177,42 @@ const Navbar = () => {
             }`}
           >
             <div className="flex items-end flex-col text-gray-600 capitalize dark:text-gray-300 lg:flex lg:-mx-4 lg:flex-row lg:items-center">
-              <Link
-                href="/"
-                className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
-              >
-                الرئيسية
-              </Link>
-              <Link
-                href="/categories"
-                className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
-              >
-                الأقسام
-              </Link>
-              <Link
-                href="#"
-                className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
-              >
-                من نحن
-              </Link>
-              <Link
-                href="#"
-                className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
-              >
-                اتصل بنا
-              </Link>
-              <Link
-                href="/authors"
-                className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
-              >
-                فهرس المؤلفين
-              </Link>
-              <Link
-                href="/book-articles"
-                className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
-              >
-             مَقال
-              </Link>
-            </div>
+  <Link
+    href="/"
+    className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
+  >
+    الرئيسية
+    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+  </Link>
+  <Link
+    href="/categories"
+    className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
+  >
+    الأقسام
+    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+  </Link>
+  <Link
+    href="/#about"
+    className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
+  >
+    من نحن
+    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+  </Link>
+  <Link
+    href="/authors"
+    className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
+  >
+    فهرس المؤلفين
+    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+  </Link>
+  <Link
+    href="/book-articles"
+    className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
+  >
+    مَقال
+    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+  </Link>
+</div>
           </div>
         </div>
       </div>

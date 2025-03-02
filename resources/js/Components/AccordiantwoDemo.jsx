@@ -9,6 +9,7 @@ import {
 function AccordiantwoDemo() {
   return (
     <>
+    <div id='about'>
       <Accordion multiple>
         <AccordionItem value="item-1">
           <AccordionHeader>من نحن؟</AccordionHeader>
@@ -53,6 +54,7 @@ function AccordiantwoDemo() {
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
+      </div>
     </>
   );
 }

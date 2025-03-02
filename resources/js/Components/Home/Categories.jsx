@@ -17,7 +17,7 @@ const Categories = ({ categories }) => {
     };
 
     return (
-        <section className="py-12">
+        <section id='cats' className="py-12">
             <div className="container max-w-6xl mx-auto">
             <div className="mx-auto flex flex-col items-center gap-6 text-center px-4 md:px-0"> {/* Added responsive padding */}
     <div className="inline-flex items-center text-orange-200 rounded-full border px-2.5 py-0.5 text-xs font-semibold">
@@ -26,7 +26,7 @@ const Categories = ({ categories }) => {
     <h2 className="text-4xl font-medium leading-tight md:leading-normal"> {/* Adjusted line height */}
         كتب اسلامية مجانية
     </h2>
-    <p className="text-lg text-orange-400 leading-relaxed"> {/* Adjusted line height */}
+    <p className="text-lg text-zinc-700 leading-relaxed"> {/* Adjusted line height */}
 
 مجموعة متميزة من الكتب الإسلامية المجانية تضم التفسير والحديث والعقيدة والفقه والسيرة النبوية والتاريخ الإسلامي والتنمية الروحية، بالإضافة إلى مؤلفات العلماء والمفكرين المسلمين."
     </p>
