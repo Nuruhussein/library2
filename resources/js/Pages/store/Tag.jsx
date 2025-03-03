@@ -13,7 +13,7 @@ export default function Tag({ auth,category, categories, subcategories }) {
     return (
         <>
             <Navbar />
-            <div className=" bg-gray-50 min-h-screen">
+            <div className=" bg-gray-50 max-w-screen-2xl mx-auto min-h-screen">
                 {/* Breadcrumb */}
                 <nav
                     className="flex items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"

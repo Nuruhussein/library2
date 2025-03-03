@@ -29,11 +29,15 @@ export default function Welcome({ auth, laravelVersion, phpVersion , categories}
 
 <Navbar />
 <Landing/>
+
 <Categories categories={categories}/>
+
 {/* <Samplebooks/> */}
-<div className="my-16 md:ml-12">
+
+<div  className="my-16 md:ml-12">
 <AccordiantwoDemo />
 </div>
+
 <TestimonalSliderDemo/>
 
 <Review/>

@@ -22,7 +22,6 @@ class AdminMiddleware
             return $next($request);
         }
 
-     
         // Redirect to home page for non-admin users, avoiding a loop
         return redirect('/')->with('error', 'Unauthorized access!');
     }
