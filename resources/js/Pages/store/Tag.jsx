@@ -7,13 +7,13 @@ import { useState } from 'react';
 import { FaBook } from 'react-icons/fa'; // Import the book icon
 import { Link } from '@inertiajs/react';
 
-export default function Tag({ category, categories, subcategories }) {
+export default function Tag({ auth,category, categories, subcategories }) {
     const [selectedCategory, setSelectedCategory] = useState(null);
 
     return (
         <>
             <Navbar />
-            <div className="bg-gray-100 min-h-screen">
+            <div className=" bg-gray-50 min-h-screen">
                 {/* Breadcrumb */}
                 <nav
                     className="flex items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
@@ -57,11 +57,31 @@ export default function Tag({ category, categories, subcategories }) {
                     </ol>
                 </nav>
 
+{/* introducetio */}
+                <div className="container mx-auto max-w-screen-2xl bg-white px-16 py-8" dir="rtl">
+    <h2 className="text-xl font-semibold text-orange-300 mb-4 text-right">
+        مقدمة عن {category.name}
+    </h2>
+
+    {/* Description with HTML content */}
+    <div
+        className="text-gray-700 text-right prose prose-sm max-w-full"
+        dangerouslySetInnerHTML={{
+            __html: category.description || "لا يوجد وصف متوفر لهذا التصنيف.",
+        }}
+    />
+
+    {/* Number of Books */}
+    <p className="text-gray-700 text-right mt-4">
+        عدد الكتب في هذا التصنيف:{" "}
+        <span className="font-semibold">{category.books.length}</span>
+    </p>
+</div>
                 {/* Conditionally Render Subcategories Section */}
                 {subcategories.length > 0 && (
-                    <div className="container mx-auto max-w-screen-xl px-4 py-8" dir="rtl">
+                    <div className="container flex flex-col justify-center items-center mx-auto max-w-screen-xl px-4 py-8" dir="rtl">
                         <h2 className="text-xl font-semibold text-orange-300 mb-4 text-right">التصنيفات الفرعية</h2>
-                        <div className="flex overflow-x-auto space-x-4 pb-4">
+                        <div className="flex gap-2 overflow-x-auto space-x-4 pb-4">
                             {subcategories.map((subcategory) => (
                                 <Link
                                     key={subcategory.id}
@@ -85,7 +105,7 @@ export default function Tag({ category, categories, subcategories }) {
                 )}
 
                 {/* Books Section */}
-                <Books categories={categories} books={category.books} />
+                <Books auth={auth} categories={categories} books={category.books} />
                 <Footer />
             </div>
         </>

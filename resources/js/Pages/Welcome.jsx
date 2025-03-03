@@ -10,6 +10,7 @@ import Marquee from "@/Components/ui/marquee";
 import { Head, Link } from "@inertiajs/react";
 
 export default function Welcome({ auth, laravelVersion, phpVersion , categories}) {
+    // console.log(auth);
     const handleImageError = () => {
         document
             .getElementById("screenshot-container")
@@ -26,7 +27,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion , categories}
             <Head title="Welcome" />
             
 
-<Navbar/>
+<Navbar />
 <Landing/>
 <Categories categories={categories}/>
 {/* <Samplebooks/> */}

@@ -60,8 +60,15 @@ const Show = ({ category }) => {
                         </h1>
                         <p className="text-lg text-gray-700 mb-6 whitespace-pre-line">
                             <span className="font-semibold text-gray-900">الوصف:</span>{" "}
-                            {category.description || "لا يوجد وصف متاح."}
+                            <div
+        className="text-gray-700 text-right prose prose-sm max-w-full"
+        dangerouslySetInnerHTML={{
+            __html: category.description || "لا يوجد وصف متوفر لهذا التصنيف.",
+        }}
+    />
                         </p>
+                        
+  
 
                         {/* Buttons for Create Subcategory and Add Book */}
                         <div className="mb-8 flex flex-col justify-center items-center gap-2">

@@ -4,7 +4,7 @@ import Dashboard from "../Dashboard";
 import Select from "react-select";
 import ReactQuill from "react-quill"; // Import ReactQuill
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
-
+import toast from "react-hot-toast";
 const Edit = ({ book, categories, authors }) => {
     const { data, setData, post, errors } = useForm({
         title: book.title || "",
@@ -52,8 +52,14 @@ const Edit = ({ book, categories, authors }) => {
 
         post(`/books/${book.id}`, {
             data: { ...data, _method: "put" },
-            onSuccess: () => alert("تم تحديث الكتاب بنجاح."),
-            onError: () => alert("حدث خطأ أثناء تحديث الكتاب."),
+            // onSuccess: () => alert("تم تحديث الكتاب بنجاح."),
+            // onError: () => alert("حدث خطأ أثناء تحديث الكتاب."),
+            onSuccess: () => {
+                toast.success("تم تحديث الكتاب بنجاح");
+            },
+            onError: () => {
+                toast.error("حدث خطأ أثناء تحديث الكتاب");
+            },
             forceFormData: true,
         });
     };
@@ -178,10 +184,11 @@ const Edit = ({ book, categories, authors }) => {
                             <select
                                 value={data.status}
                                 onChange={handleStatusChange}
-                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-right"
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300  rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-right"
                             >
                                 <option value="draft">مسودة</option>
                                 <option value="post">منشور</option>
+                                <option value="pending">معلق </option>
                             </select>
                             {errors.status && (
                                 <span className="text-sm text-red-500 text-right">{errors.status}</span>

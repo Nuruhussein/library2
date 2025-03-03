@@ -290,6 +290,7 @@ const Create = ({ authors, categories }) => {
                             >
                                 <option value="draft">مسودة</option>
                                 <option value="post">منشور</option>
+                                <option value="pending">معلق </option>
                             </select>
                             {errors.status && (
                                 <span className="text-sm text-red-600 text-right">

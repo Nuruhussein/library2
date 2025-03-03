@@ -95,10 +95,10 @@ export default function Show({ categories, book }) {
                                     <dd className="text-gray-700 sm:col-span-2">{book.category?.name || "غير مصنف"}</dd>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
+                                {/* <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
                                     <dt className="font-medium text-gray-900">الرقم الدولي (ISBN)</dt>
                                     <dd className="text-gray-700 sm:col-span-2">{book.isbn || "غير متوفر"}</dd>
-                                </div>
+                                </div> */}
 
                                 <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">
                                     <dt className="font-medium text-gray-900">تاريخ النشر</dt>

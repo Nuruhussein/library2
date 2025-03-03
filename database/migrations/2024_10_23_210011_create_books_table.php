@@ -21,7 +21,7 @@ class CreateBooksTable extends Migration
             $table->string('researcher')->nullable(); // Researcher
             $table->string('link_to_website')->nullable(); // Link to other website
             $table->integer('page_number')->nullable(); // Page number
-            $table->enum('status', ['post', 'draft'])->default('draft'); // Post or Draft
+            $table->enum('status', ['post', 'draft','pending'])->default('draft'); // Post or Draft
             $table->timestamps();
         });
     }

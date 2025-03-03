@@ -9,7 +9,7 @@ use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -82,7 +82,7 @@ public function store(Request $request)
         'researcher' => 'nullable|string|max:255',
         'link_to_website' => 'nullable|url|max:255',
         'page_number' => 'nullable|integer|min:1',
-        'status' => 'nullable|string|in:post,draft',
+        'status' => 'nullable|string|in:post,draft,pending',
         'comment' => 'nullable|string',
         'reviewer' => 'nullable|string|max:255',
     ]);
@@ -150,47 +150,85 @@ public function index(Request $request)
 public function storage(Request $request)
 {
     $search = $request->input('search'); // Get the search query
+    $user = Auth::user(); // Get the authenticated user
+    
+    // Base query for books sorted by latest
+    $query = Book::with('author', 'category')
+        ->orderBy('created_at', 'desc')
+        ->limit(20);
 
-    // Fetch books sorted by latest (created_at in descending order)
-    $books = Book::with('author', 'category')
-        ->where('status', 'post') // Only fetch books with status = "post"
-        ->when($search, function ($query, $search) {
-            return $query->where('title', 'like', "%{$search}%")
-                         ->orWhereHas('author', function ($query) use ($search) {
-                             $query->where('name', 'like', "%{$search}%");
-                         })
-                         ->orWhereHas('category', function ($query) use ($search) {
-                             $query->where('name', 'like', "%{$search}%");
-                         });
-        })
-        ->orderBy('created_at', 'desc') // Sort by latest
-        ->limit(20) // Limit to 20 books
-        ->get(); 
+    // If user is authenticated and admin, show all books (post and pending)
+    if ($user && $user->role === 'admin') {
+        $query->whereIn('status', ['post', 'pending']);
+    } else {
+        // For non-admins or unauthenticated users, only show posted books
+        $query->where('status', 'post');
+    }
+
+    // Apply search filter if present
+    $books = $query->when($search, function ($query, $search) {
+        return $query->where('title', 'like', "%{$search}%")
+            ->orWhereHas('author', function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->orWhereHas('category', function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%");
+            });
+    })->get();
 
     $authors = Author::all();
-    // Fetch only parent categories with books count
-    $categories = Category::withCount('books')->whereNull('parent_id')->get();
 
-    // Total number of books
-    $totalBooks = Book::where('status', 'post')->count();
+      // Fetch only parent categories with books count (adjusted for user role)
+      $categories = Category::withCount(['books' => function ($query) use ($user) {
+        if ($user && $user->role === 'admin') {
+            $query->whereIn('status', ['post', 'pending']);
+        } else {
+            $query->where('status', 'post');
+        }
+    }])->whereNull('parent_id')->get();
+
+    // Total number of books (adjust based on user role)
+    $totalBooks = ($user && $user->role === 'admin') 
+        ? Book::whereIn('status', ['post', 'pending'])->count()
+        : Book::where('status', 'post')->count();
 
     return Inertia::render('store/Index', [
         'books' => $books,
         'authors' => $authors,
         'categories' => $categories,
         'search' => $search,
-        'totalBooks' => $totalBooks, // Pass total books count to the frontend
+        'totalBooks' => $totalBooks,
     ]);
 }
 
 
 public function tag(Category $category)
 {
-    // Load the category with its books and subcategories
-    $category->load('books', 'children');
+    $user = Auth::user(); // Get the authenticated user
 
-    // Fetch only parent categories with books count
-    $categories = Category::withCount('books')->whereNull('parent_id')->get();
+    // Load the category with its books and subcategories, applying status filter
+    $category->load([
+        'books' => function ($query) use ($user) {
+            if ($user && $user->role === 'admin') {
+                $query->whereIn('status', ['post', 'pending']);
+            } else {
+                $query->where('status', 'post');
+            }
+        },
+        'children'
+    ]);
+
+  
+
+
+      // Fetch only parent categories with books count (adjusted for user role)
+      $categories = Category::withCount(['books' => function ($query) use ($user) {
+        if ($user && $user->role === 'admin') {
+            $query->whereIn('status', ['post', 'pending']);
+        } else {
+            $query->where('status', 'post');
+        }
+    }])->whereNull('parent_id')->get();
 
     // Fetch subcategories of the current category
     $subcategories = $category->children;
@@ -199,6 +237,7 @@ public function tag(Category $category)
         'category' => $category,
         'categories' => $categories,
         'subcategories' => $subcategories, // Pass subcategories to the frontend
+        'books' => $category->books, // Pass books explicitly to match your frontend
     ]);
 }
 
@@ -216,7 +255,22 @@ public function tag(Category $category)
     public function storagedetail($id)
     {
         $book = Book::with(['author', 'category', 'reviews'])->findOrFail($id);
-        $categories = Category::withCount('books')->whereNull('parent_id')->get(); // Fetch categories with the count of books
+        $user = Auth::user(); // Get the authenticated user
+
+        
+      // Fetch only parent categories with books count (adjusted for user role)
+      $categories = Category::withCount(['books' => function ($query) use ($user) {
+        if ($user && $user->role === 'admin') {
+            $query->whereIn('status', ['post', 'pending']);
+        } else {
+            $query->where('status', 'post');
+        }
+    }])->whereNull('parent_id')->get();
+
+        // $categories = Category::withCount(['books' => function ($query) {
+        //     $query->where('status', 'post');
+        // }])->whereNull('parent_id')->get();
+
 
         return inertia('store/Show', [
             'book' => $book,
@@ -253,7 +307,7 @@ public function tag(Category $category)
             'researcher' => 'nullable|string|max:255', // Validate researcher field
             'link_to_website' => 'nullable|url', // Validate link to website field
             'page_number' => 'nullable|integer', // Validate page number field
-            'status' => 'nullable|string|in:post,draft', // Validate status field (post or draft)
+            'status' => 'nullable|string|in:post,draft,pending', // Validate status field (post or draft)
             'cover_image' => 'nullable|image|max:2048', // Validate cover image
         ]);
     

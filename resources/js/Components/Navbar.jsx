@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 import { router } from '@inertiajs/react';
 
 
-const Navbar = () => {
+const Navbar = ({auth}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
-
+// console.log(auth);
   // Handle scroll event
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +42,7 @@ const Navbar = () => {
             {/* Logo */}
             <Link href="/">
               <img
-                className={`sm:h-16 text-2xl w-28 ${
+                className={`sm:h-16 text-2xl  sm:w-28 ${
                   isScrolled ? "h-7" : "h-10"
                 } transition-all duration-300`}
                 src="/storage/images/turas.PNG"
@@ -199,6 +199,13 @@ const Navbar = () => {
     <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
   </Link>
   <Link
+    href="/book-articles"
+    className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
+  >
+مَقال
+    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+  </Link>
+  <Link
     href="/authors"
     className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
   >
@@ -209,7 +216,7 @@ const Navbar = () => {
     href="/book-articles"
     className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
   >
-    مَقال
+
     <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
   </Link>
 </div>

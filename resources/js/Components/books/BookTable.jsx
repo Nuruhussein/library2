@@ -131,7 +131,7 @@ const BookTable = ({ books, search }) => {
                             </th>
                             <th className="py-3 px-6">Author</th>
                             <th className="py-3 px-6">Category</th>
-                            <th className="py-3 px-6">ISBN</th>
+                            <th className="py-3 px-6">status</th>
                             <th className="py-3 px-6">Publication Date</th>
                             <th className="py-3 px-6">Cover Image</th>
                             <th className="py-3 px-6">Reviews</th>
@@ -172,8 +172,19 @@ const BookTable = ({ books, search }) => {
                                     {book.category.name}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    {book.isbn}
-                                </td>
+    <span
+        className={`
+            font-semibold
+            ${book.status === 'draft' ? 'text-red-500' : ''}
+            ${book.status === 'pending' ? 'text-green-500' : ''}
+            ${book.status === 'post' ? 'text-black' : ''}
+        `}
+    >
+        {book.status === 'draft' && 'مسودة'}
+        {book.status === 'pending' && 'معلق'}
+        {book.status === 'post' && 'منشور'}
+    </span>
+</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     {book.publication_date}
                                 </td>

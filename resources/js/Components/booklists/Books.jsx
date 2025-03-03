@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { FaBook } from 'react-icons/fa'; // Import the book icon
+import { FaBook } from 'react-icons/fa';
 import Aside from '../Aside';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react'; // Add usePage to get auth props
 
-export default function Books({ categories, books }) {
+export default function Books({ categories, books,auth }) {
     const [selectedCategory, setSelectedCategory] = useState(null);
+    // const { auth } = usePage().props; // Get auth data from Inertia props
 
     // Filter books based on selected category
     const filteredBooks = selectedCategory
@@ -29,7 +30,7 @@ export default function Books({ categories, books }) {
                                     ) : (
                                         filteredBooks.map((book) => (
                                             <div key={book.id} className="flex flex-col lg:block h-full">
-                                                <div className="rounded-lg border bg-zinc-50 p-3">
+                                                <div className={`rounded-lg border p-3 ${book.status === 'pending' ? 'bg-yellow-50' : 'bg-zinc-50'}`}>
                                                     {book.cover_image ? (
                                                         <img
                                                             src={`/storage/${book.cover_image}`}
@@ -45,7 +46,12 @@ export default function Books({ categories, books }) {
                                                     )}
                                                 </div>
                                                 <div className="p-6">
-                                                    <div className="mb-1 font-semibold">{book.title}</div>
+                                                    <div className="mb-1 font-semibold flex items-center justify-between">
+                                                        {book.title}
+                                                        {auth.user && auth.user.role === 'admin' && book.status === 'pending' && (
+                                                            <span className="text-yellow-600 text-xs font-normal">معلق</span>
+                                                        )}
+                                                    </div>
                                                     <Link
                                                         href={`/store/books/${book.id}`}
                                                         className="mt-4 flex items-center gap-2 font-normal text-blue-400"

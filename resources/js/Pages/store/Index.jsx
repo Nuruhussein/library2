@@ -6,13 +6,15 @@ import { Link } from '@inertiajs/react';
 import React, { useState } from 'react';
 import { FaBook } from 'react-icons/fa'; // Import the book icon
 
-export default function Index({ categories, books, totalBooks }) {
+export default function Index({auth, categories, books, totalBooks }) {
     const [selectedCategory, setSelectedCategory] = useState(null);
 
     // Filter books based on selected category
     const filteredBooks = selectedCategory
         ? books.filter((book) => book.category_id === selectedCategory)
         : books;
+
+        // console.log(auth);
 
     return (
         <>
@@ -73,7 +75,7 @@ export default function Index({ categories, books, totalBooks }) {
             </div>
 
             {/* Books Section */}
-            <Books categories={categories} books={books} />
+            <Books auth={auth} categories={categories} books={books} />
             <Footer />
         </>
     );

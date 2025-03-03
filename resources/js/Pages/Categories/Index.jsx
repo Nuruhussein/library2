@@ -3,6 +3,8 @@ import { Link, router, useForm } from "@inertiajs/react";
 import Dashboard from "../Dashboard";
 import { FaPlus, FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import toast from "react-hot-toast"; // Import toast from react-hot-toast
+import ReactQuill from "react-quill"; // Import ReactQuill
+import "react-quill/dist/quill.snow.css"; // Import Quill styles
 
 const Index = ({ categories }) => {
     const [isModalOpen, setModalOpen] = useState(false);
@@ -14,6 +16,30 @@ const Index = ({ categories }) => {
         description: "",
         image: null,
     });
+
+    // Rich Text Editor Modules
+    const modules = {
+        toolbar: [
+            [{ header: [1, 2, 3, false] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link", "image"],
+            ["clean"],
+        ],
+    };
+
+    // Rich Text Editor Formats
+    const formats = [
+        "header",
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "list",
+        "bullet",
+        "link",
+        "image",
+    ];
 
     // Open modal for adding a new category
     const handleModalOpen = () => setModalOpen(true);
@@ -136,9 +162,12 @@ const Index = ({ categories }) => {
                                         {category.name}
                                     </td>
                                     <td className="px-6 py-4 border-b text-sm text-gray-700">
-                                        {category.description && category.description.length > 30
-                                            ? category.description.substring(0, 30) + "..."
-                                            : category.description || "لا يوجد وصف متاح."}
+                                        <div
+                                            dangerouslySetInnerHTML={{
+                                                __html:
+                                                    category.description || "لا يوجد وصف متاح.",
+                                            }}
+                                        />
                                     </td>
                                     <td className="px-6 py-4 flex text-red-500 border-b text-sm gap-4 space-x-2">
                                         <Link
@@ -194,10 +223,12 @@ const Index = ({ categories }) => {
                             </div>
                             <div className="mb-4">
                                 <label className="block text-gray-700">الوصف</label>
-                                <textarea
+                                <ReactQuill
                                     value={data.description}
-                                    onChange={(e) => setData("description", e.target.value)}
-                                    className="w-full p-2 border rounded mt-1"
+                                    onChange={(value) => setData("description", value)}
+                                    modules={modules}
+                                    formats={formats}
+                                    className="bg-white"
                                 />
                                 {errors.description && (
                                     <p className="text-red-500 text-sm">{errors.description}</p>
@@ -264,10 +295,12 @@ const Index = ({ categories }) => {
                             </div>
                             <div className="mb-4">
                                 <label className="block text-gray-700">الوصف</label>
-                                <textarea
+                                <ReactQuill
                                     value={data.description}
-                                    onChange={(e) => setData("description", e.target.value)}
-                                    className="w-full p-2 border rounded mt-1"
+                                    onChange={(value) => setData("description", value)}
+                                    modules={modules}
+                                    formats={formats}
+                                    className="bg-white"
                                 />
                                 {errors.description && (
                                     <p className="text-red-500 text-sm">{errors.description}</p>
