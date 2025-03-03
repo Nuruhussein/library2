@@ -22,7 +22,7 @@ const Indexclient = ({ authors }) => {
     <>
       <Navbar />
       <nav
-                className="flex  items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
+                className="flex max-w-screen-2xl mx-auto  items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
                 style={{ backgroundImage: "url('https://img.freepik.com/premium-vector/abstract-islamic-background-design-with-geometric-shape-white-background-vector_51543-1098.jpg?semt=ais_hybrid')" }}
                 aria-label="Breadcrumb"
             >
@@ -67,7 +67,7 @@ const Indexclient = ({ authors }) => {
       </h1>
 
       {/* Search Input with Icon */}
-      <div className="flex  justify-center my-6">
+      <div className="flex items-center  justify-center my-6">
         <div className="relative w-1/3">
           <input
             type="text"

@@ -10,7 +10,7 @@ export default function Showclient({ author,categories }) {
         <>
         <Navbar/>
         <nav
-                className="flex items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
+                className="flex max-w-screen-2xl mx-auto items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
                 style={{ backgroundImage: "url('https://img.freepik.com/premium-vector/abstract-islamic-background-design-with-geometric-shape-white-background-vector_51543-1098.jpg?semt=ais_hybrid')" }}
                 aria-label="Breadcrumb"
             >
@@ -58,7 +58,7 @@ export default function Showclient({ author,categories }) {
                 </ol>
             </nav>
      {/* Updated H1 Styling */}
-<div className="bg-gray-50 w-full py-4 px-8 text-right">
+<div className="bg-gray-50 max-w-screen-2xl mx-auto w-full py-4 px-8 text-right">
     <div className="bg-white pt-1 pb-6 px-4">
     <h1 className="text-3xl mt-12 mb-4 font-bold text-gray-800">
         {author.name || "غير متوفر"}

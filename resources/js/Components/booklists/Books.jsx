@@ -3,14 +3,15 @@ import { FaBook } from 'react-icons/fa';
 import Aside from '../Aside';
 import { Link, usePage } from '@inertiajs/react'; // Add usePage to get auth props
 
-export default function Books({ categories, books,auth }) {
+export default function Books({ categories, books }) {
     const [selectedCategory, setSelectedCategory] = useState(null);
-    // const { auth } = usePage().props; // Get auth data from Inertia props
+    const { auth } = usePage().props; // Get auth data from Inertia props
 
     // Filter books based on selected category
     const filteredBooks = selectedCategory
         ? books.filter((book) => book.category_id === selectedCategory)
         : books;
+
 
     return (
         <>

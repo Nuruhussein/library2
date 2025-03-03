@@ -59,7 +59,7 @@ const Show = ({ category }) => {
                             {category.name}
                         </h1>
                         <p className="text-lg text-gray-700 mb-6 whitespace-pre-line">
-                            <span className="font-semibold text-gray-900">الوصف:</span>{" "}
+                            <span className="font-semibold text-right px-6 text-gray-900">الوصف:</span>{" "}
                             <div
         className="text-gray-700 text-right prose prose-sm max-w-full"
         dangerouslySetInnerHTML={{

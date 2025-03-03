@@ -9,7 +9,7 @@ const Show = ({ bookArticle,bookArticles }) => {
         <>
          <Navbar/>
            <nav
-                className="flex items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
+                className="flex  max-w-screen-2xl text-center mx-auto items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
                 style={{ backgroundImage: "url('https://img.freepik.com/premium-vector/abstract-islamic-background-design-with-geometric-shape-white-background-vector_51543-1098.jpg?semt=ais_hybrid')" }}
                 aria-label="Breadcrumb"
             >
@@ -60,7 +60,7 @@ const Show = ({ bookArticle,bookArticles }) => {
                     </li>
                 </ol>
             </nav>
-        <section className="text-gray-600 body-font mb-16 mx-14" dir="rtl">
+        <section className="text-gray-600 container mx-auto body-font mb-16" dir="rtl">
             <div className="container px-5 py-24 mx-auto flex flex-col">
                 <div className="lg:w-4/6 flex flex-col justify-start items-center mx-auto">
                     {bookArticle.image && (
