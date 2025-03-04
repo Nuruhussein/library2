@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -191,10 +192,19 @@ class CategoryController extends Controller
  
     public function clientcategory(Request $request)
     {
+        $user = Auth::user(); // Get the authenticated user
         // Start the query with books count and filter for parent categories
-        $query = Category::withCount('books')
-            ->whereNull('parent_id')
-            ->with('children');
+        $query = Category::withCount(['books' => function ($query) use ($request,$user) {
+            if ($user && $user->role === 'admin') {
+                // For admin: count books with 'pending' or 'post' status
+                $query->whereIn('status', ['pending', 'post']);
+            } else {
+                // For non-admin: count only books with 'post' status
+                $query->where('status', 'post');
+            }
+        }])
+        ->whereNull('parent_id')
+        ->with('children');
     
         // Apply search filter if provided
         if ($request->has('search')) {

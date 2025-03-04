@@ -6,6 +6,8 @@ use App\Models\Author;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
+
 class AuthorController extends Controller
 {
 
@@ -58,10 +60,23 @@ class AuthorController extends Controller
         return Inertia::render('Authors/Show', ['author' => $author]);
     }
       
+
+
     public function indexclient(Request $request)
     {
-        $query = Author::withCount('books');
+        $user = Auth::user(); // Get the authenticated user
     
+        $query = Author::withCount(['books' => function ($query) use ($user) {
+            if ($user && $user->role === 'admin') {
+                // Admin: count books with 'pending' or 'post' status
+                $query->whereIn('status', ['pending', 'post']);
+            } else {
+                // Non-admin: count only books with 'post' status
+                $query->where('status', 'post');
+            }
+        }]);
+    
+        // Apply search filter if provided
         if ($request->has('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
@@ -73,16 +88,36 @@ class AuthorController extends Controller
             'filters' => $request->only(['search']), // Pass search query back to frontend
         ]);
     }
+    
+
 
     public function showclient(Author $author)
     {
-        $author->load('books');
-      
-        $categories = Category::withCount('books')->get();
-
+        $user = Auth::user(); // Get the authenticated user
+    
+        // Load books with status-based filtering
+        $author->load(['books' => function ($query) use ($user) {
+            if ($user && $user->role === 'admin') {
+                $query->whereIn('status', ['pending', 'post']);
+            } else {
+                $query->where('status', 'post');
+            }
+        }]);
+    
+        // Load categories with book count filtering by status
+        $categories = Category::withCount(['books' => function ($query) use ($user) {
+            if ($user && $user->role === 'admin') {
+                $query->whereIn('status', ['pending', 'post']);
+            } else {
+                $query->where('status', 'post');
+            }
+        }])->get();
+    
         return Inertia::render('Authors/Showclient', [
             'author' => $author,
-            'categories' => $categories,]);
+            'categories' => $categories,
+        ]);
     }
+    
    
 }
