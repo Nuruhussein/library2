@@ -1,13 +1,14 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react"; // Add usePage
 import React, { useState, useEffect } from "react";
 import { router } from '@inertiajs/react';
 
-
-const Navbar = ({auth}) => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
-// console.log(auth);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown
+  const { auth } = usePage().props; // Get auth data from Inertia props
+
   // Handle scroll event
   useEffect(() => {
     const handleScroll = () => {
@@ -22,13 +23,11 @@ const Navbar = ({auth}) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
   const handleSearchClick = () => {
-      if (search.trim()) {
-          router.get('/store', { search });
-      }
+    if (search.trim()) {
+      router.get('/store', { search });
+    }
   };
-  
 
   return (
     <nav
@@ -42,7 +41,7 @@ const Navbar = ({auth}) => {
             {/* Logo */}
             <Link href="/">
               <img
-                className={`sm:h-16 text-2xl  sm:w-28 ${
+                className={`sm:h-16 text-2xl sm:w-28 ${
                   isScrolled ? "h-7" : "h-10"
                 } transition-all duration-300`}
                 src="/storage/images/turas.PNG"
@@ -102,7 +101,7 @@ const Navbar = ({auth}) => {
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full py-2 pr-10 pl-4 text-gray-700 placeholder-gray-600 bg-white border-b border-gray-600 dark:placeholder-gray-300 dark:focus:border-gray-300 lg:border-transparent dark:bg-gray-800 dark:text-gray-300 focus:outline-none focus:border-gray-600"
                 placeholder="بحث في محتوى الكتب"
-                dir="rtl" // Set direction to RTL
+                dir="rtl"
               />
               <button
                 type="button"
@@ -143,7 +142,7 @@ const Navbar = ({auth}) => {
                   onChange={(e) => setSearch(e.target.value)}
                   className="w-full py-2 pr-10 pl-3 text-gray-700 placeholder-gray-600 bg-white border-b border-gray-600 dark:placeholder-gray-300 dark:bg-gray-800 dark:text-gray-300 focus:outline-none focus:border-gray-600"
                   placeholder="بحث في محتوى الكتب"
-                  dir="rtl" // Set direction to RTL
+                  dir="rtl"
                 />
                 <button
                   type="submit"
@@ -171,55 +170,90 @@ const Navbar = ({auth}) => {
           {/* Menu items */}
           <div
             className={`absolute inset-x-0 z-20 w-full px-6 py-6 sm:py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center lg:justify-end ${
-              isOpen
-                ? "translate-x-0 opacity-100"
-                : "opacity-0 -translate-x-full"
+              isOpen ? "translate-x-0 opacity-100" : "opacity-0 -translate-x-full"
             }`}
           >
             <div className="flex items-end flex-col text-gray-600 capitalize dark:text-gray-300 lg:flex lg:-mx-4 lg:flex-row lg:items-center">
-  <Link
-    href="/"
-    className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
-  >
-    الرئيسية
-    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-  </Link>
-  <Link
-    href="/categories"
-    className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
-  >
-    الأقسام
-    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-  </Link>
-  <Link
-    href="/#about"
-    className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
-  >
-    من نحن
-    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-  </Link>
-  <Link
-    href="/book-articles"
-    className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
-  >
-مَقال
-    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-  </Link>
-  <Link
-    href="/authors"
-    className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
-  >
-    فهرس المؤلفين
-    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-  </Link>
-  <Link
-    href="/book-articles"
-    className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
-  >
+              <Link
+                href="/"
+                className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
+              >
+                الرئيسية
+                <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </Link>
+              <Link
+                href="/categories"
+                className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
+              >
+                الأقسام
+                <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </Link>
+              <Link
+                href="/#about"
+                className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
+              >
+                من نحن
+                <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </Link>
+              <Link
+                href="/book-articles"
+                className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
+              >
+                مَقال
+                <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </Link>
+              <Link
+                href="/authors"
+                className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 relative group"
+              >
+                فهرس المؤلفين
+                <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </Link>
 
-    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-orange-200 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-  </Link>
-</div>
+              {/* Admin Dropdown */}
+              {auth.user && auth.user.role === 'admin' && (
+                <div className="relative mt-2 lg:mt-0 lg:mx-4">
+                  <button
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="flex items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-200 transition-colors duration-300"
+                  >
+                    Admin
+                    <svg
+                      className="w-4 h-4 ml-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </button>
+                  {isDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50">
+                      <Link
+                        href="/dashboard"
+                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                      >
+                        Dashboard
+                      </Link>
+                      <Link
+                        href="/logout"
+                        method="post"
+                        as="button"
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                      >
+                        Logout
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

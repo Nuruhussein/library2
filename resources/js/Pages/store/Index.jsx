@@ -2,19 +2,38 @@ import Books from '@/Components/booklists/Books';
 import Footer from '@/Components/Footer';
 import Navbar from '@/Components/Navbar';
 import { Link } from '@inertiajs/react';
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaBook } from 'react-icons/fa'; // Import the book icon
 
-export default function Index({auth, categories, books, totalBooks }) {
+export default function Index({ auth, categories, books, totalBooks }) {
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [showButton, setShowButton] = useState(false);
 
     // Filter books based on selected category
     const filteredBooks = selectedCategory
         ? books.filter((book) => book.category_id === selectedCategory)
         : books;
 
-        // console.log(auth);
+    // Scroll to top function
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
+    // Effect to handle scroll detection
+    useEffect(() => {
+        const handleScroll = () => {
+            // Show button when scrolled down more than 100px
+            setShowButton(window.scrollY > 100);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        
+        // Cleanup listener on component unmount
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
         <>
@@ -26,7 +45,7 @@ export default function Index({auth, categories, books, totalBooks }) {
             >
                 <ol className="flex overflow-hidden rounded-lg border border-gray-200 text-gray-600">
                     <li className="flex items-center">
-                       <Link
+                        <Link
                             href="/"
                             className="flex h-10 items-center gap-1.5 bg-gray-100 px-4 transition hover:text-gray-900"
                         >
@@ -51,7 +70,7 @@ export default function Index({auth, categories, books, totalBooks }) {
                         <span
                             className="absolute inset-y-0 -start-px h-10 w-4 bg-gray-100 [clip-path:_polygon(0_0,_0%_100%,_100%_50%)] rtl:rotate-180"
                         ></span>
-                       <Link
+                        <Link
                             href="#"
                             className="flex h-10 items-center bg-white pe-4 ps-8 text-xs font-medium transition hover:text-gray-900"
                         >
@@ -62,8 +81,8 @@ export default function Index({auth, categories, books, totalBooks }) {
             </nav>
 
             {/* Total Books Description */}
-            <div className="container mx-auto  max-w-screen-xl px-4 py-6" dir="rtl">
-                <div className="   p-6">
+            <div className="container mx-auto max-w-screen-xl px-4 py-6" dir="rtl">
+                <div className="p-6">
                     <h2 className="text-2xl text-orange-300 font-semibold mb-4 text-right">
                         مرحبًا بك في متجر الكتب
                     </h2>
@@ -77,6 +96,30 @@ export default function Index({auth, categories, books, totalBooks }) {
             {/* Books Section */}
             <Books auth={auth} categories={categories} books={books} />
             <Footer />
+
+            {/* Scroll to Top Button */}
+            {showButton && (
+                <button
+                    onClick={scrollToTop}
+                    className="fixed bottom-9 right-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full shadow-md transition-all duration-300 z-50 p-2 sm:p-2.5 md:p-3"
+                    title="Scroll to top"
+                >
+                    <svg
+                        className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M5 10l7-7m0 0l7 7m-7-7v18"
+                        />
+                    </svg>
+                </button>
+            )}
         </>
     );
 }

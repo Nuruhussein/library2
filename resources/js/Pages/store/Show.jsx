@@ -60,7 +60,7 @@ export default function Show({ categories, book }) {
                 </div>
 
                 {/* Main Content (Book Details + Image) */}
-                <div className="flex flex-col md:flex-row p-2 m-6 shadow-sm sm:my-16 w-full">
+                <div className="flex flex-col md:flex-row p-2 m-6 shadow-sm sm:mt-16 sm:mb-24 w-full">
                     {/* Book Cover Image */}
                     <div className="md:w-1/4 flex justify-center items-start">
                         {book.cover_image ? (
@@ -75,8 +75,8 @@ export default function Show({ categories, book }) {
                     </div>
 
                     {/* Book Details */}
-                    <div className="flex-1 flow-root">
-                        <dl className="-my-3 divide-y divide-gray-100 text-sm">
+                    <div className="flex-1  flow-root">
+                        <dl className="-my-3 divide-y pl-5  divide-gray-100 text-sm">
                             {book && (
                                 <>
                                     <div className="grid grid-cols-1 gap-y-1 gap-x-32 py-3 sm:grid-cols-3 sm:gap-y-4">

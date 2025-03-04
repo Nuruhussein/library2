@@ -1,63 +1,76 @@
+
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import { Link } from "@inertiajs/react";
 import AuthenticatedLayout from "./AuthenticatedLayout";
 import Dropdown from "@/Components/Dropdown";
 import { usePage } from "@inertiajs/react";
 import { FaHome, FaBook, FaUser, FaTags, FaStar } from "react-icons/fa";
+import { useState } from "react";
 
 export default function Sidebar({ children }) {
     const user = usePage().props.auth.user;
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar hidden by default on small screens
+
+    // Function to toggle sidebar visibility
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
     return (
         <AuthenticatedLayout>
             <div>
+                {/* Navbar */}
                 <nav className="bg-white border-b border-gray-200 fixed z-30 w-full">
                     <div className="px-3 py-3 lg:px-5 lg:pl-3">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center justify-start">
+                                {/* Toggle Button */}
                                 <button
-                                    id="toggleSidebarMobile"
-                                    aria-expanded="true"
-                                    aria-controls="sidebar"
-                                    className="lg:hidden mr-2 text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded"
+                                    onClick={toggleSidebar}
+                                    className="text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded mr-2"
+                                    aria-label="Toggle sidebar"
                                 >
-                                    <svg
-                                        id="toggleSidebarMobileHamburger"
-                                        className="w-6 h-6"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                            clipRule="evenodd"
-                                        ></path>
-                                    </svg>
-                                    <svg
-                                        id="toggleSidebarMobileClose"
-                                        className="w-6 h-6 hidden"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                            clipRule="evenodd"
-                                        ></path>
-                                    </svg>
+                                    {isSidebarOpen ? (
+                                        <svg
+                                            className="w-6 h-6"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                                d="M6 18L18 6M6 6l12 12"
+                                            />
+                                        </svg>
+                                    ) : (
+                                        <svg
+                                            className="w-6 h-6"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                fillRule="evenodd"
+                                                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                                clipRule="evenodd"
+                                            />
+                                        </svg>
+                                    )}
                                 </button>
                                 <Link
                                     href="/"
                                     className="text-xl font-bold flex items-center lg:ml-2.5"
                                 >
                                     <img
-                                          src="/storage/images/turas.png"
+                                        src="/storage/images/turas.png"
                                         className="h-12 w-16 mr-2"
                                         alt="Windster Logo"
                                     />
                                     <span className="self-center whitespace-nowrap">
-                                       Mekteba
+                                        Mekteba
                                     </span>
                                 </Link>
                                 <form
@@ -66,7 +79,7 @@ export default function Sidebar({ children }) {
                                     className="hidden lg:block lg:pl-32"
                                 >
                                     <label
-                                        for="topbar-search"
+                                        htmlFor="topbar-search"
                                         className="sr-only"
                                     >
                                         Search
@@ -158,13 +171,14 @@ export default function Sidebar({ children }) {
                         </div>
                     </div>
                 </nav>
-                {/* end of nav */}
 
-                {/*   sidebar */}
+                {/* Sidebar */}
                 <div className="flex overflow-hidden bg-white pt-16">
                     <aside
                         id="sidebar"
-                        className="fixed  z-20 h-full top-0 left-0 pt-16 flex lg:flex flex-shrink-0 flex-col w-64 transition-width duration-75"
+                        className={`fixed z-20 h-full top-0 left-0 pt-16 flex lg:flex flex-shrink-0 flex-col w-64 transition-all duration-300 ${
+                            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                        } lg:translate-x-0`}
                         aria-label="Sidebar"
                     >
                         <div className="relative flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white pt-0">
@@ -178,7 +192,7 @@ export default function Sidebar({ children }) {
                                                 className="lg:hidden"
                                             >
                                                 <label
-                                                    for="mobile-search"
+                                                    htmlFor="mobile-search"
                                                     className="sr-only"
                                                 >
                                                     Search
@@ -198,7 +212,7 @@ export default function Sidebar({ children }) {
                                                         type="text"
                                                         name="email"
                                                         id="mobile-search"
-                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-600  block w-full pl-10 p-2.5"
+                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-600 block w-full pl-10 p-2.5"
                                                         placeholder="Search"
                                                     />
                                                 </div>
@@ -206,7 +220,7 @@ export default function Sidebar({ children }) {
                                         </li>
                                         <li>
                                             <Link
-                                                href="/dashboard" // Replace with your actual dashboard route
+                                                href="/dashboard"
                                                 className="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group"
                                             >
                                                 <FaHome className="w-6 h-6 text-gray-500 group-hover:text-gray-900 transition duration-75" />
@@ -217,7 +231,7 @@ export default function Sidebar({ children }) {
                                         </li>
                                         <li>
                                             <Link
-                                                href="/books" // Replace with your actual books route
+                                                href="/books"
                                                 className="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group"
                                             >
                                                 <FaBook className="w-6 h-6 text-gray-500 group-hover:text-gray-900 transition duration-75" />
@@ -228,7 +242,7 @@ export default function Sidebar({ children }) {
                                         </li>
                                         <li>
                                             <Link
-                                                href="/admin/authors" // Replace with your actual authors route
+                                                href="/admin/authors"
                                                 className="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group"
                                             >
                                                 <FaUser className="w-6 h-6 text-gray-500 group-hover:text-gray-900 transition duration-75" />
@@ -239,7 +253,7 @@ export default function Sidebar({ children }) {
                                         </li>
                                         <li>
                                             <Link
-                                                href="/admin/categories" // Replace with your actual categories route
+                                                href="/admin/categories"
                                                 className="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group"
                                             >
                                                 <FaTags className="w-6 h-6 text-gray-500 group-hover:text-gray-900 transition duration-75" />
@@ -250,7 +264,7 @@ export default function Sidebar({ children }) {
                                         </li>
                                         <li>
                                             <Link
-                                                href="/reviews/create" // Replace with your actual reviews route
+                                                href="/reviews/create"
                                                 className="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group"
                                             >
                                                 <FaStar className="w-6 h-6 text-gray-500 group-hover:text-gray-900 transition duration-75" />
@@ -261,7 +275,7 @@ export default function Sidebar({ children }) {
                                         </li>
                                     </ul>
                                     <div className="space-y-2 pt-2">
-                                    <Link
+                                        <Link
                                             href="/admin/book-articles"
                                             target="_blank"
                                             className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2"
@@ -275,7 +289,7 @@ export default function Sidebar({ children }) {
                                                 <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>
                                             </svg>
                                             <span className="ml-3">
-                                               Articles
+                                                Articles
                                             </span>
                                         </Link>
                                     </div>
@@ -283,18 +297,25 @@ export default function Sidebar({ children }) {
                             </div>
                         </div>
                     </aside>
-                  
+
+                    {/* Backdrop for Mobile */}
                     <div
-                        className="bg-gray-900 opacity-50 hidden fixed inset-0 z-10"
+                        className={`bg-gray-900 opacity-50 fixed inset-0 z-10 transition-opacity duration-300 ${
+                            isSidebarOpen ? "block lg:hidden" : "hidden"
+                        }`}
                         id="sidebarBackdrop"
+                        onClick={toggleSidebar} // Close sidebar when clicking backdrop on mobile
                     ></div>
+
+                    {/* Main Content */}
+                    <div
+                        className={`flex-1 overflow-x-hidden overflow-y-auto transition-all duration-300 ${
+                            isSidebarOpen ? "lg:ml-64" : "lg:ml-0"
+                        }`}
+                    >
+                        <div className="p-6">{children}</div>
+                    </div>
                 </div>
-                <script
-                    async
-                    defer
-                    src="https://buttons.github.io/buttons.js"
-                ></script>
-                <script src="https://demo.themesberg.com/windster/app.bundle.js"></script>
             </div>
         </AuthenticatedLayout>
     );
