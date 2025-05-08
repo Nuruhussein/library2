@@ -4,7 +4,7 @@ import Footer from '@/Components/Footer';
 import Navbar from '@/Components/Navbar';
 import React, { useState, useEffect } from 'react'; // Added useEffect
 import { FaBook } from 'react-icons/fa'; // Import the book icon
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
 export default function Tag({ auth, category, categories, subcategories }) {
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -34,6 +34,8 @@ export default function Tag({ auth, category, categories, subcategories }) {
     return (
         <>
             <Navbar />
+            <Head title="tags" />
+
             <div className="bg-gray-50 max-w-screen-2xl mx-auto min-h-screen">
                 {/* Breadcrumb */}
                 <nav

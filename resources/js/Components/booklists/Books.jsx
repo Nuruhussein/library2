@@ -54,7 +54,7 @@ export default function Books({ categories, books }) {
                                                 </div>
 
                                                 {/* Book Details */}
-                                                <div className="p-6">
+                                                <div className="py-6">
                                                     <div className="mb-1 font-semibold flex items-center justify-between">
                                                         {book.title}
                                                         {auth.user && auth.user.role === 'admin' && book.status === 'pending' && (

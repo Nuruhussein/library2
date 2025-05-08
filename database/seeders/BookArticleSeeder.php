@@ -21,6 +21,7 @@ class BookArticleSeeder extends Seeder
                 'author' => $faker->name,
                 'image' => $faker->imageUrl(640, 480, 'books', true), // Random book-related image
                 'category' => $faker->randomElement(['Fiction', 'Non-Fiction', 'Science', 'History', 'Biography']),
+                'status' => $faker->randomElement(['pending', 'draft', 'post']),
             ]);
         }
     }

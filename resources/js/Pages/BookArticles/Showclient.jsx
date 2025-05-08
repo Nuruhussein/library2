@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import Articles from '@/Components/Articles';
 import Footer from '@/Components/Footer';
 import Navbar from '@/Components/Navbar';
@@ -8,6 +8,7 @@ const Show = ({ bookArticle,bookArticles }) => {
     return (
         <>
          <Navbar/>
+         <Head title="articles" />
            <nav
                 className="flex  max-w-screen-2xl text-center mx-auto items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
                 style={{ backgroundImage: "url('https://img.freepik.com/premium-vector/abstract-islamic-background-design-with-geometric-shape-white-background-vector_51543-1098.jpg?semt=ais_hybrid')" }}
@@ -130,6 +131,9 @@ const Show = ({ bookArticle,bookArticles }) => {
                                     <path d="M19 12H5M12 19l-7-7 7-7"></path>
                                 </svg>
                             </Link>
+                            {bookArticle.status === 'pending' && (
+                                        <div className='p-3 text-red-500'>Status: Pending</div>
+                                    )}
                         </div>
                     </div>
                 </div>

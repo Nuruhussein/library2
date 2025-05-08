@@ -1,6 +1,6 @@
 import Footer from "@/Components/Footer";
 import Navbar from "@/Components/Navbar";
-import { Link } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi"; // Import search icon
 
@@ -21,6 +21,7 @@ const Indexclient = ({ authors }) => {
   return (
     <>
       <Navbar />
+      <Head title="authors" />
       <nav
                 className="flex max-w-screen-2xl mx-auto  items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
                 style={{ backgroundImage: "url('https://img.freepik.com/premium-vector/abstract-islamic-background-design-with-geometric-shape-white-background-vector_51543-1098.jpg?semt=ais_hybrid')" }}

@@ -96,6 +96,14 @@ const Show = ({ bookArticle }) => {
                                     {bookArticle.category || 'غير مصنف'}
                                 </p>
                             </div>
+
+                        {/* Status */}
+                        <div>
+                            <h2 className="text-lg font-medium text-red-700 dark:text-gray-300">
+                                {bookArticle.status}
+                                </h2></div>
+
+
                         </div>
 
                         {/* Actions */}

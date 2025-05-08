@@ -10,6 +10,7 @@ const Edit = ({ bookArticle }) => {
         author: bookArticle.author || '',
         image: null, // New image file; null initially since we don't prefill file inputs
         category: bookArticle.category || '',
+        status: bookArticle.status || 'draft',
         _method: 'PUT', // Spoof PUT request via POST
     });
 
@@ -150,7 +151,25 @@ const Edit = ({ bookArticle }) => {
                                 <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.category}</p>
                             )}
                         </div>
-
+ {/* Status Field */}
+ <div>
+                            <label htmlFor="status" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                حالة المقال
+                            </label>
+                            <select
+                                id="status"
+                                value={data.status}
+                                onChange={(e) => setData('status', e.target.value)}
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 dark:focus:ring-blue-400 transition-colors duration-200"
+                            >
+                                <option value="draft">مسودة</option>
+                                <option value="pending">في انتظار المراجعة</option>
+                                <option value="post">منشور</option>
+                            </select>
+                            {errors.status && (
+                                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.status}</p>
+                            )}
+                        </div>
                         {/* Submit Button */}
                         <div className="flex justify-end space-x-4 space-x-reverse">
                             <Link

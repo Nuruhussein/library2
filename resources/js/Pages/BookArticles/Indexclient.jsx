@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import Articles from '@/Components/Articles';
 import Navbar from '@/Components/Navbar';
 import Footer from '@/Components/Footer';
@@ -13,6 +13,7 @@ const Index = ({ bookArticles }) => {
     return (
         <>
         <Navbar/>
+        <Head title="articles" />
            <nav
                 className="flex  max-w-screen-2xl text-center mx-auto items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
                 style={{ backgroundImage: "url('https://img.freepik.com/premium-vector/abstract-islamic-background-design-with-geometric-shape-white-background-vector_51543-1098.jpg?semt=ais_hybrid')" }}
@@ -61,16 +62,7 @@ const Index = ({ bookArticles }) => {
                 {latestArticle && (
                     <div className="text-gray-600 mb-12">
                         <div className="lg:w-4/6 mx-auto">
-                            {/* {latestArticle.image && (
-                                <div className="rounded-lg h-64 overflow-hidden">
-                                    <img 
-                                        alt={latestArticle.title} 
-                                        className="object-cover object-center h-full w-full" 
-                                        src={`/storage/${latestArticle.image}`}
-                                    />
-                                </div>
-                            )} */}
-                             {latestArticle.image && (
+                            {latestArticle.image && (
                         <div className='flex flex-col justify-center items-center'>
                         <div className="rounded-lg rotate-45 h-96    overflow-hidden">
                             <img 
@@ -146,7 +138,11 @@ const Index = ({ bookArticles }) => {
                                             <path d="M19 12H5M12 19l-7-7 7-7"></path>
                                         </svg>
                                     </Link>
+                                    {latestArticle.status === 'pending' && (
+                                        <div className='p-3 text-red-500'>Status: Pending</div>
+                                    )}
                                 </div>
+                                
                             </div>
                         </div>
                     </div>

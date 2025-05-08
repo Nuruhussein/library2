@@ -26,6 +26,11 @@ export default function Articles({remainingArticles}) {
                   {bookArticle.subtitle || 'بواسطة ' + bookArticle.author}
                   {bookArticle.category && ` | ${bookArticle.category}`}
               </p>
+              {bookArticle.status === 'pending' && (
+                  <p className="mt-2 text-sm text-yellow-500 dark:text-yellow-300">
+                      {bookArticle.status}
+                  </p>
+              )}
           </div>
       </div>
   ))}

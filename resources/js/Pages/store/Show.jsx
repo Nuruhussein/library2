@@ -2,13 +2,14 @@ import Aside from '@/Components/Aside';
 import Footer from '@/Components/Footer';
 import Navbar from '@/Components/Navbar';
 import React from 'react';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { FaBook } from 'react-icons/fa';
 
 export default function Show({ categories, book }) {
     return (
         <>
             <Navbar />
+            <Head title="detail" />
             <nav
                 className="flex max-w-screen-2xl text-center mx-auto items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
                 style={{ backgroundImage: "url('https://img.freepik.com/premium-vector/abstract-islamic-background-design-with-geometric-shape-white-background-vector_51543-1098.jpg?semt=ais_hybrid')" }}

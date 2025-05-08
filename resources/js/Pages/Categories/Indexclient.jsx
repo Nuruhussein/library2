@@ -2,7 +2,7 @@ import Footer from "@/Components/Footer";
 import Navbar from "@/Components/Navbar";
 import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi"; // Import search icon
-import { Link, router } from "@inertiajs/react"; // Import Inertia router
+import { Head, Link, router } from "@inertiajs/react"; // Import Inertia router
 
 const Indexclient = ({ categories, filters }) => {
   const [searchQuery, setSearchQuery] = useState(filters.search || "");
@@ -15,6 +15,7 @@ const Indexclient = ({ categories, filters }) => {
   return (
     <>
       <Navbar />
+      <Head title="categories" />
       <nav
         className="flex items-center justify-center h-20 py-16 px-8 shadow-md bg-cover bg-center text-white"
         style={{ backgroundImage: "url('https://img.freepik.com/premium-vector/abstract-islamic-background-design-with-geometric-shape-white-background-vector_51543-1098.jpg?semt=ais_hybrid')" }}

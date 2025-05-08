@@ -18,7 +18,21 @@ class BookArticleController extends Controller
     // Display all book articles for clients
     public function indexclient()
     {
-        $bookArticles = BookArticle::latest()->take(10)->get();
+        $user = \Auth::user(); // Get the authenticated user
+
+        // Base query for book articles sorted by latest
+        $query = BookArticle::latest()->take(10);
+
+        // If user is authenticated and admin, show all articles (post and pending)
+        if ($user && $user->role === 'admin') {
+            $query->whereIn('status', ['post', 'pending']);
+        } else {
+            // For non-admins or unauthenticated users, only show posted articles
+            $query->where('status', 'post');
+        }
+
+        $bookArticles = $query->get();
+
         return Inertia::render('BookArticles/Indexclient', ['bookArticles' => $bookArticles]);
     }
 
@@ -38,6 +52,7 @@ class BookArticleController extends Controller
             'author' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'category' => 'required|string|max:255',
+            'status' => 'required|in:draft,pending,post',
         ]);
 
         $imagePath = null;
@@ -52,6 +67,7 @@ class BookArticleController extends Controller
             'author' => $request->author,
             'image' => $imagePath,
             'category' => $request->category,
+            'status' => $request->status,
         ]);
 
         return redirect()->route('book-articles.index')->with('success', 'تم إنشاء المقال بنجاح');
@@ -66,11 +82,34 @@ class BookArticleController extends Controller
         ]);
     }
 
-    // Display a specific book article for clients
+    // Display a specific book article for clients with status and role logic
     public function showclient($id)
     {
-        $bookArticle = BookArticle::findOrFail($id);
-        $bookArticles = BookArticle::latest()->take(6)->get();
+        $user = \Auth::user(); // Get the authenticated user
+
+        // Find the specific book article
+        $bookArticle = BookArticle::where('id', $id);
+
+        // Apply status and role logic
+        if ($user && $user->role === 'admin') {
+            $bookArticle->whereIn('status', ['post', 'pending']);
+        } else {
+            $bookArticle->where('status', 'post');
+        }
+
+        $bookArticle = $bookArticle->firstOrFail();
+
+        // Fetch the latest 6 book articles with the same logic
+        $bookArticles = BookArticle::latest()
+            ->take(6);
+
+        if ($user && $user->role === 'admin') {
+            $bookArticles->whereIn('status', ['post', 'pending']);
+        } else {
+            $bookArticles->where('status', 'post');
+        }
+
+        $bookArticles = $bookArticles->get();
 
         return Inertia::render('BookArticles/Showclient', [
             'bookArticle' => $bookArticle,
@@ -98,6 +137,7 @@ class BookArticleController extends Controller
             'author' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'category' => 'required|string|max:255',
+            'status' => 'required|in:draft,pending,post',
         ]);
     
         $imagePath = $bookArticle->image;
@@ -115,6 +155,7 @@ class BookArticleController extends Controller
             'author' => $request->author,
             'image' => $imagePath,
             'category' => $request->category,
+            'status' => $request->status,
         ]);
     
         return redirect()->route('book-articles.index')->with('success', 'تم تحديث المقال بنجاح');

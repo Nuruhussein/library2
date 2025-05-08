@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('author');
             $table->string('image')->nullable();
             $table->string('category');
+            $table->enum('status', ['post', 'draft','pending'])->default('draft'); // Post or Draft
             $table->timestamps();
         });
     }
