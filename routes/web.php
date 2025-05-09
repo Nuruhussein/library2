@@ -19,11 +19,13 @@ Route::get('/', function () {
     $categories = Category::whereNull('parent_id')->get();
     $books = Book::with('author', 'category')->get();
     $authors = Author::all();
+    $latestBooks = Book::with('author', 'category','reviews')->latest()->take(3)->get();
     
     return Inertia::render('Welcome', [
         'books' => $books,
         'authors' => $authors,
         'categories' => $categories,
+        'latestBooks' => $latestBooks,
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,

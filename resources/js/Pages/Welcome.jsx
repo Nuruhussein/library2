@@ -10,7 +10,7 @@ import Marquee from "@/Components/ui/marquee";
 import { Head, Link } from "@inertiajs/react";
 import { useState, useEffect } from "react";
 
-export default function Welcome({ auth, laravelVersion, phpVersion, categories }) {
+export default function Welcome({ auth, laravelVersion, phpVersion, categories, latestBooks }) {
     const handleImageError = () => {
         document
             .getElementById("screenshot-container")
@@ -62,7 +62,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion, categories }
   </div>
 </div>
             
-            <TestimonalSliderDemo />
+            <TestimonalSliderDemo latestBooks={latestBooks} />
             <Review />
             {/* <Marquee/> */}
             <Footer />
