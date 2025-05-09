@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Transition } from "@headlessui/react";
+import { Link } from "@inertiajs/react";
 
 const FancyTestimonialsSlider = ({ testimonials }) => {
   const testimonialsRef = useRef(null);
@@ -61,13 +62,15 @@ const FancyTestimonialsSlider = ({ testimonials }) => {
                 leaveTo="opacity-0 rotate-[60deg]"
                 beforeEnter={adjustHeight}
               >
-                <img
-                  className="relative left-1/2 top-16 -translate-x-1/2 rounded-full"
-                  src={testimonial.img}
-                  width={96}
-                  height={96}
-                  alt={testimonial.name}
-                />
+                <Link href={testimonial.link} className="block">
+                  <img
+                    className="relative left-1/2 top-6 -translate-x-1/2 rounded-t-3xl rounded-b-3xl cursor-pointer hover:shadow-lg transition-shadow duration-300"
+                    src={testimonial.img}
+                    width={96}
+                    height={96}
+                    alt={testimonial.name}
+                  />
+                </Link>
               </Transition>
             ))}
           </div>
@@ -75,7 +78,7 @@ const FancyTestimonialsSlider = ({ testimonials }) => {
       </div>
 
       {/* Testimonial text */}
-   <div className="mb-12 transition-all delay-300 duration-150 ease-in-out">
+      <div className="mb-12 transition-all delay-300 duration-150 ease-in-out">
         <div className="relative flex flex-col" ref={testimonialsRef}>
           {testimonials.map((testimonial, index) => (
             <Transition
@@ -89,11 +92,11 @@ const FancyTestimonialsSlider = ({ testimonials }) => {
               leaveTo="opacity-0 translate-x-4"
               beforeEnter={adjustHeight}
             >
-            <div 
-  className="text-xl md:text-2xl font-semibold text-orange-900 max-w-3xl mx-auto leading-relaxed line-clamp-3 text-right rtl"
-  dangerouslySetInnerHTML={{ __html: `&ldquo;${testimonial.quote}&rdquo;` }}
-  dir="rtl"
-/>
+              <div 
+                className="text-xl md:text-2xl font-semibold text-orange-900 max-w-3xl mx-auto leading-relaxed line-clamp-3 text-right rtl"
+                dangerouslySetInnerHTML={{ __html: `${testimonial.quote}` }}
+                dir="rtl"
+              />
             </Transition>
           ))}
         </div>
@@ -111,13 +114,15 @@ const FancyTestimonialsSlider = ({ testimonials }) => {
             }`}
             onClick={() => handleButtonClick(index)}
           >
-            <span>{testimonial.name}</span>{" "}
-            <span
-              className={`${activeIndex === index ? "text-orange-200" : "text-orange-300"}`}
-            >
-              -
-            </span>{" "}
-            <span>{testimonial.role}</span>
+            <Link href={testimonial.link} className="hover:underline flex items-center">
+              <span>{testimonial.name}</span>
+              <span
+                className={`mx-1 ${activeIndex === index ? "text-orange-200" : "text-orange-300"}`}
+              >
+                -
+              </span>
+              <span>{testimonial.role}</span>
+            </Link>
           </button>
         ))}
       </div>

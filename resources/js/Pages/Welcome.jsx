@@ -56,7 +56,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion, categories, 
             
             {/* <Samplebooks/> */}
             
-            <div className="my-16 md:mr-16 flex justify-center">
+            <div className="my-16 md:mr-48 flex justify-center">
   <div className="w-full max-w-6xl" style={{ direction: 'rtl' }}>
     <AccordiantwoDemo />
   </div>

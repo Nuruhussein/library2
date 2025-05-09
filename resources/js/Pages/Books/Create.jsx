@@ -22,7 +22,7 @@ const Create = ({ authors, categories }) => {
         cover_image: null,
         publisher: "",
         researcher: "",
-        link_to_website: "",
+        link_to_website: "https://shamela.ws/search",
         page_number: "",
         status: "draft", // Default to "draft"
     });

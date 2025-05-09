@@ -8,7 +8,7 @@ export function TestimonalSliderDemo({ latestBooks }) {
 
   const prepareQuoteText = (book) => {
     if (!book.reviews?.length || !book.reviews[0].reviewer || !book.reviews[0].comment) {
-      return "A valuable addition to our library collection.";
+      return "هذه الإضافة الجديدة تمثل حقاً قيمة فريدة لمجموعة كتب مكتبتنا الغنية";
     }
 
     const reviewer = book.reviews[0].reviewer;
@@ -19,19 +19,20 @@ export function TestimonalSliderDemo({ latestBooks }) {
       : reviewer;
 
     const safeComment = stripPTags(comment.length > 120 
-      ? comment.substring(0, 55) + "..." 
+      ? comment.substring(0, 69) + "..." 
       : comment);
 
-    return `<strong>${safeReviewer}:</strong> ${safeComment}`;
+    return `<strong>${safeReviewer}:</strong> &ldquo;${safeComment}&rdquo;`;
   };
 
   const services = latestBooks.map((book) => ({
     img: book.cover_image 
-      ? `/storage/${book.cover_image }` 
+      ? `/storage/${book.cover_image}` 
       : "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=1000",
     quote: prepareQuoteText(book),
     name: book.title,
     role: book.category?.name || "Book",
+    link: `/store/books/${book.id}` // Added book link
   }));
 
   return (
